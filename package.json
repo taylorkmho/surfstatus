@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    // Ref: https://github.com/remy/nodemon/issues/330#issuecomment-44370399
+    "start": "nodemon start.js"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
