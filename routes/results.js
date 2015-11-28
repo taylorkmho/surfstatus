@@ -53,16 +53,18 @@ router.get('/', function(req, res, next) {
   if (skillQuery > 0) {
     console.log("--- QUERIED SKILL IS " + skillQuery + " ---");
     var removeBreakIfSkillsDontMeet = function() {
-
+          // iterate backward through [breaksBasedOnQueries]
+          //   ref - http://stackoverflow.com/a/16352560/2821119
+          // to remove surfbreaks that the [skillQuery] does not satisfy
           for(var i = breaksBasedOnQueries.length -1; i >= 0 ; i--){
             var thisBreakIndex = breaksBasedOnQueries[i];
             console.log(thisBreakIndex.title + " skill is " + thisBreakIndex.skill);
+
+            // if [skillQuery] is less than a [breaksBasedOnQueries] break's requirement
             if ( skillQuery < thisBreakIndex.skill ) {
-
-              console.log("  skillQuery not met because " + skillQuery + " < " + thisBreakIndex.skill);
-
+              // get this break's index based on it's location in [breaksBasedOnQueries]
               var indexBreakBOQ = breaksBasedOnQueries.indexOf(thisBreakIndex);
-              console.log("  " + thisBreakIndex.title + " is #" + indexBreakBOQ + ' of BOQ');
+              // cut it out
               breaksBasedOnQueries.splice(indexBreakBOQ, 1);
             }
           }
