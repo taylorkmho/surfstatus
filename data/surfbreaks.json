@@ -14,7 +14,7 @@
   {
     "title"  : "Kailua",
     "boards" : ["BB", "SB", "LB", "SUP"],
-    "skill"  : 2,
+    "skill"  : 1,
     "magicSW": 671
   },
   {
