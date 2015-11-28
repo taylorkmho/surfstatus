@@ -45,6 +45,34 @@ router.get('/', function(req, res, next) {
     console.log('quiver does not exist');
   }
 
+  /*
+    Remove surfbreaks from [breaksBasedOnQueries]
+    if [skillQuery] does not meet [surfBreaksList] surfbreaks
+  */
+  var skillQuery = req.query.skill;
+  if (skillQuery > 0) {
+    console.log("--- QUERIED SKILL IS " + skillQuery + " ---");
+    var removeBreakIfSkillsDontMeet = function() {
+
+          for(var i = breaksBasedOnQueries.length -1; i >= 0 ; i--){
+            var thisBreakIndex = breaksBasedOnQueries[i];
+            console.log(thisBreakIndex.title + " skill is " + thisBreakIndex.skill);
+            if ( skillQuery < thisBreakIndex.skill ) {
+
+              console.log("  skillQuery not met because " + skillQuery + " < " + thisBreakIndex.skill);
+
+              var indexBreakBOQ = breaksBasedOnQueries.indexOf(thisBreakIndex);
+              console.log("  " + thisBreakIndex.title + " is #" + indexBreakBOQ + ' of BOQ');
+              breaksBasedOnQueries.splice(indexBreakBOQ, 1);
+            }
+          }
+
+        }();
+
+  } else {
+    // no skill URL parameter
+    console.log('skill is 0 or does not exist');
+  }
 
   res.render('results', { title: 'Results', surfbreaks: breaksBasedOnQueries });
 });
