@@ -6,34 +6,37 @@ var surfbreaksList = require('../data/surfbreaks.json');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 
-  var addedBreaksBasedOnQuiver = [],
-      boardOptions = ['BB','SB','LB','SUP'];
+  var breaksBasedOnQueries = [];
 
-  var quiver = req.query.quiver;
-  if (quiver > 0) {
+  /*
+    Add surfbreaks to [breaksBasedOnQueries]
+    if [quiverQuery] meets [surfBreaksList] surfbreaks
+  */
+  var quiverQuery = req.query.quiver;
+  if (quiverQuery > 0) {
     var addBreakWith = function(boardType) {
           surfbreaksList.forEach( function(surfbreak) {
             if (
                 // [boardType] is in [surfbreak.boards]
                 surfbreak.boards.indexOf(boardType) > -1
-                &&
-                // [surfbreak] is NOT in [addedBreaksBasedOnQuiver]
-                addedBreaksBasedOnQuiver.indexOf(surfbreak) == -1
+                // && [surfbreak] is NOT in [breaksBasedOnQueries]
+                && breaksBasedOnQueries.indexOf(surfbreak) == -1
             ) {
-              // push [surfbreak] to [addedBreaksBasedOnQuiver]
-              addedBreaksBasedOnQuiver.push(surfbreak);
+              // push [surfbreak] to [breaksBasedOnQueries]
+              breaksBasedOnQueries.push(surfbreak);
             }
           });
         };
 
-    var quiverParamValues = quiver.split('');
+    var quiverParamValues = quiverQuery.split(''),
+        boardOptions = ['BB','SB','LB','SUP'];;
     for (var i=0; i < boardOptions.length; i++) {
       if (quiverParamValues[i] > 0) {
         addBreakWith(boardOptions[i]);
       }
     }
 
-  } else if (quiver < 1) {
+  } else if (quiverQuery < 1) {
     // ?quiver=0000
     console.log('YOU NEED A BOARD');
   }
@@ -42,7 +45,8 @@ router.get('/', function(req, res, next) {
     console.log('quiver does not exist');
   }
 
-  res.render('results', { title: 'Results', surfbreaks: addedBreaksBasedOnQuiver });
+
+  res.render('results', { title: 'Results', surfbreaks: breaksBasedOnQueries });
 });
 
 module.exports = router;
