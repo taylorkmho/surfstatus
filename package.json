@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    // Ref: https://github.com/remy/nodemon/issues/330#issuecomment-44370399
     "start": "nodemon start.js"
   },
   "dependencies": {
