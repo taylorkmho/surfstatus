@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
   var quiver = req.query.quiver;
 
   if (quiver > 0) {
-    var quiverValues = quiver.split(''),
+    var quiverParamValues = quiver.split(''),
         breaksBasedOnQuiver = [],
         addBreakWith = function(boardType) {
           surfbreaksList.forEach( function(surfbreak) {
@@ -26,16 +26,16 @@ router.get('/', function(req, res, next) {
           });
         };
 
-    if (quiverValues[0] > 0) {
+    if (quiverParamValues[0] > 0) {
       addBreakWith('BB');
     }
-    if (quiverValues[1] > 0) {
+    if (quiverParamValues[1] > 0) {
       addBreakWith('SB');
     }
-    if (quiverValues[2] > 0) {
+    if (quiverParamValues[2] > 0) {
       addBreakWith('LB');
     }
-    if (quiverValues[3] > 0) {
+    if (quiverParamValues[3] > 0) {
       addBreakWith('SUP');
     }
 
