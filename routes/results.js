@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var surfbreaksList = require('../data/surfbreaks.json');
+var secrets = require('../data/secrets.json');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -74,7 +75,7 @@ router.get('/', function(req, res, next) {
     console.log('skill is 0 or does not exist');
   }
 
-  res.render('results', { title: 'Results', surfbreaks: breaksBasedOnQueries });
+  res.render('results', { title: 'Results', surfbreaks: breaksBasedOnQueries, magicSWKey: secrets[0].apiKeys.magicSW });
 });
 
 module.exports = router;
