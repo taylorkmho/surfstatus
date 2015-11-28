@@ -6,47 +6,43 @@ var surfbreaksList = require('../data/surfbreaks.json');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 
-  var quiver = req.query.quiver;
+  var addedBreaksBasedOnQuiver = [],
+      boardOptions = ['BB','SB','LB','SUP'];
 
+  var quiver = req.query.quiver;
   if (quiver > 0) {
-    var quiverParamValues = quiver.split(''),
-        breaksBasedOnQuiver = [],
-        addBreakWith = function(boardType) {
+    var addBreakWith = function(boardType) {
           surfbreaksList.forEach( function(surfbreak) {
             if (
                 // [boardType] is in [surfbreak.boards]
                 surfbreak.boards.indexOf(boardType) > -1
                 &&
-                // [surfbreak] is NOT in [breaksBasedOnQuiver]
-                breaksBasedOnQuiver.indexOf(surfbreak) == -1
+                // [surfbreak] is NOT in [addedBreaksBasedOnQuiver]
+                addedBreaksBasedOnQuiver.indexOf(surfbreak) == -1
             ) {
-              // push [surfbreak] to [breaksBasedOnQuiver]
-              breaksBasedOnQuiver.push(surfbreak);
+              // push [surfbreak] to [addedBreaksBasedOnQuiver]
+              addedBreaksBasedOnQuiver.push(surfbreak);
             }
           });
         };
 
-    if (quiverParamValues[0] > 0) {
-      addBreakWith('BB');
-    }
-    if (quiverParamValues[1] > 0) {
-      addBreakWith('SB');
-    }
-    if (quiverParamValues[2] > 0) {
-      addBreakWith('LB');
-    }
-    if (quiverParamValues[3] > 0) {
-      addBreakWith('SUP');
+    var quiverParamValues = quiver.split('');
+    for (var i=0; i < boardOptions.length; i++) {
+      if (quiverParamValues[i] > 0) {
+        addBreakWith(boardOptions[i]);
+      }
     }
 
   } else if (quiver < 1) {
+    // ?quiver=0000
     console.log('YOU NEED A BOARD');
   }
   else {
+    // no quiver URL parameter
     console.log('quiver does not exist');
   }
 
-  res.render('results', { title: 'Results', surfbreaks: breaksBasedOnQuiver });
+  res.render('results', { title: 'Results', surfbreaks: addedBreaksBasedOnQuiver });
 });
 
 module.exports = router;
