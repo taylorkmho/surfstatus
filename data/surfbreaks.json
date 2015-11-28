@@ -1,0 +1,57 @@
+[
+  {
+    "title"  : "Ala Moana",
+    "boards" : ["BB", "SB", "LB", "SUP"],
+    "skill"  : 2,
+    "magicSW": 661
+  },
+  {
+    "title"  : "Queens/Canoes (Waikiki)",
+    "boards" : ["LB", "SUP"],
+    "skill"  : 1,
+    "magicSW": 662
+  },
+  {
+    "title"  : "Kailua",
+    "boards" : ["BB", "SB", "LB", "SUP"],
+    "skill"  : 2,
+    "magicSW": 671
+  },
+  {
+    "title"  : "Makaha Point",
+    "boards" : ["SB", "LB", "SUP"],
+    "skill"  : 3,
+    "magicSW": 983
+  },
+  {
+    "title"  : "Makapuu Point",
+    "boards" : ["BB"],
+    "skill"  : 2,
+    "magicSW": 984
+  },
+  {
+    "title"  : "Sandy Beach",
+    "boards" : ["BB"],
+    "skill"  : 3,
+    "magicSW": 1099
+  },
+  {
+    "title"  : "Barbers Point",
+    "boards" : ["LB", "SUP"],
+    "skill"  : 1,
+    "magicSW": 3082
+  },
+  {
+    "title"  : "Maili Point",
+    "boards" : ["SB", "LB"],
+    "skill"  : 2,
+    "magicSW": 3084
+  },
+  {
+    "title"  : "Tracks",
+    "boards" : ["SB", "LB"],
+    "skill"  : 2,
+    "magicSW": 3085
+  }
+
+]
