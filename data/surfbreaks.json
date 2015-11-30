@@ -12,8 +12,8 @@
     "magicSW": 662
   },
   {
-    "title"  : "Kailua",
-    "boards" : ["BB", "SB", "LB", "SUP"],
+    "title"  : "Kailua Outer Reefs",
+    "boards" : ["SB", "LB", "SUP"],
     "skill"  : 1,
     "magicSW": 671
   },
