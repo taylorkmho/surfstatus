@@ -15,6 +15,7 @@
     "gulp": "^3.9.0",
     "gulp-filter": "^3.0.1",
     "gulp-notify": "^2.2.0",
+    "gulp-rsync": "0.0.5",
     "gulp-uglify": "^1.5.1",
     "jade": "~1.11.0",
     "main-bower-files": "^2.9.0",

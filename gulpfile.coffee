@@ -6,6 +6,9 @@ bower                  = require 'main-bower-files'
 filter                 = require 'gulp-filter'
 uglify                 = require 'gulp-uglify'
 notify                 = require 'gulp-notify'
+rsync                  = require 'gulp-rsync'
+
+secrets                = require './data/secrets.json'
 
 ####################
 # Paths
@@ -68,3 +71,15 @@ gulp.task 'bower', ->
     .on('error', onError)
 
 gulp.task 'default', ['bower']
+
+gulp.task 'deploy', ->
+  gulp.src(['./**/*', '!bower_components/**/*', '!node_modules/**/*'])
+    .pipe rsync
+      destination: '../home/deploy/'
+      hostname: secrets[0].serverInfo.hostname
+      username: secrets[0].serverInfo.username
+      progress: true
+      recursive: true
+      time: true
+      update: true
+      compress: true
