@@ -4,4 +4,30 @@ block content
   h1= title
   h3 What’s in your quiver?
   p quiver (<em>kwi-ver</em>) n. - a collection of surfboards in different shapes, lengths and thicknesses
-  a(href="/skill") Next
+  form#boards
+    .fieldset
+      input#bb(type="checkbox" data-boardType="bb")
+      label(for="bb") Boogie board
+    .fieldset
+      input#sb(type="checkbox" data-boardType="sb")
+      label(for="sb") Shortboard
+    .fieldset
+      input#lb(type="checkbox" data-boardType="lb")
+      label(for="lb") Longboard
+    .fieldset
+      input#sup(type="checkbox" data-boardType="sup")
+      label(for="sup") Stand-up Paddle board
+  a#submit(href="/skill") Next
+
+  script.
+    var boardSubmit = document.querySelector('#submit');
+    var boardInputs = document.querySelectorAll('[data-boardType]');
+    boardSubmit.addEventListener('click', function(e) {
+      e.preventDefault();
+      for (var i = 0; i < boardInputs.length; i++) {
+        var thisInput = boardInputs[i];
+        if (thisInput.checked) {
+          console.log('input['+ thisInput.getAttribute('data-boardType') + '] is checked');
+        }
+      };
+    })
