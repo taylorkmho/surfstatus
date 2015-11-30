@@ -41,4 +41,6 @@ block content
       var cookieResult = cookies.get('skillSelected');
       console.log('skillSelected cookie exists: [' + cookieResult + ']');
       document.querySelector('[data-skillLevel="' + cookieResult + '"]').checked = true;
+    } else {
+      document.querySelector('[data-skillLevel="1"]').checked = true;
     }

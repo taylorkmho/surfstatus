@@ -5,6 +5,7 @@ block content
   h3 What’s in your quiver?
   p quiver (<em>kwiv-er</em>) n. - a collection of surfboards in different shapes, lengths and thicknesses
   form#board-check
+    span.error
     .fieldset
       input#bb(type="checkbox" data-boardType="BB")
       label(for="bb") Boogie board
@@ -26,23 +27,26 @@ block content
     formSubmit.addEventListener('click', function(e) {
       var boardsSelected       = [],
           boardsSelectedBinary = [];
-      for (var i = 0; i < boardInputs.length; i++) {
-        var thisInput = boardInputs[i];
-        if (thisInput.checked) {
-          boardsSelected.push(thisInput.getAttribute('data-boardType'));
-          boardsSelectedBinary.push("1");
-        } else {
-          boardsSelectedBinary.push("0");
+        for (var i = 0; i < boardInputs.length; i++) {
+          var thisInput = boardInputs[i];
+          if (thisInput.checked) {
+            boardsSelected.push(thisInput.getAttribute('data-boardType'));
+            boardsSelectedBinary.push("1");
+          } else {
+            boardsSelectedBinary.push("0");
+          }
+        };
+
+        boardsSelectedBinary = boardsSelectedBinary.join("");
+        if ( boardsSelectedBinary === "0000" ) {
+          e.preventDefault();
+          document.querySelector('span.error').innerHTML = "Whoops, you need to have a board to surf. No board? No dice."
         }
-      };
+        if (cookies.test()) {
+          cookies.set('boardsSelected', boardsSelected);
 
-      boardsSelectedBinary = boardsSelectedBinary.join("");
-
-      if (cookies.test()) {
-        cookies.set('boardsSelected', boardsSelected);
-
-        cookies.set('boardsSelectedBinary', boardsSelectedBinary);
-      }
+          cookies.set('boardsSelectedBinary', boardsSelectedBinary);
+        }
     })
 
     // GET COOKIE
