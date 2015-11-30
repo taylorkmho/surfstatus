@@ -10,7 +10,7 @@ var secrets        = require('../data/secrets.json');
 router.get('/', function(req, res, next) {
 
   var cookieBoardsSelected = req.cookies["boardsSelected"];
-  var cookieSkillSelected = req.cookies["skillSelected"];
+  var cookieSkillSelected  = req.cookies["skillSelected"];
   var boardsSelectedBinary = req.cookies["boardsSelectedBinary"];
 
   var breaksBasedOnQueries = [];
@@ -20,9 +20,13 @@ router.get('/', function(req, res, next) {
     if [quiverQuery] meets [surfBreaksList] surfbreaks
   */
   if (boardsSelectedBinary) {
+    console.log('boardsSelectedBinary exists');
     var quiverQuery = boardsSelectedBinary;
-  } else {
+  } else if (req.query.quiver) {
+    console.log('req.query.quiver exists');
     var quiverQuery = req.query.quiver;
+  } else {
+    console.log('go home, cook rice');
   }
   if (quiverQuery > 0) {
     var addBreakWith = function(boardType) {
