@@ -1,12 +1,35 @@
 ######################
 # Requires
 ######################
-gulp                   = require 'gulp'
-bower                  = require 'main-bower-files'
-filter                 = require 'gulp-filter'
-uglify                 = require 'gulp-uglify'
-notify                 = require 'gulp-notify'
-rsync                  = require 'gulp-rsync'
+
+# utilities
+del                      = require 'del'
+fs                       = require 'fs'
+
+# gulp utilities
+gulp                     = require 'gulp'
+filter                   = require 'gulp-filter'
+uglify                   = require 'gulp-uglify'
+notify                   = require 'gulp-notify'
+rsync                    = require 'gulp-rsync'
+gzip                     = require 'gulp-gzip'
+gutil                    = require 'gulp-util'
+
+bower                    = require 'main-bower-files'
+
+# task 'CSS'
+cssnano                  = require 'gulp-cssnano'
+concat                   = require 'gulp-concat'
+sourcemaps               = require 'gulp-sourcemaps'
+lost                     = require 'lost'
+cssnext                  = require 'cssnext'
+postcss                  = require 'gulp-postcss'
+postcssimport            = require 'postcss-import'
+postcssnested            = require 'postcss-nested'
+postcssfocus             = require 'postcss-focus'
+postcsspxtorem           = require 'postcss-pxtorem'
+postcsscolorfunction     = require 'postcss-center'
+postcsssimplevars        = require 'postcss-simple-vars'
 
 secrets                = require './data/secrets.json'
 
@@ -20,15 +43,20 @@ paths =
     src  : './src/'
     dist : './public/'
 
+paths.src =
+  css    : paths.base.src + '/css'
+
 paths.dist =
   css    : paths.base.dist + '/css'
   js     : paths.base.dist + '/js'
   images : paths.base.dist + '/images'
 
 ####################
-# Error Handling (ref. https://gist.github.com/noahmiller/61699ad1b0a7cc65ae2d)
+# Functions
 ####################
 
+#### Error Handling
+# (ref. https://gist.github.com/noahmiller/61699ad1b0a7cc65ae2d)
 watching = false
 
 # Command line option:
@@ -59,9 +87,27 @@ onError = (error) -> handleError.call(this, 'error', error)
 # Convenience handler for warning-level errors.
 onWarning = (error) -> handleError.call(this, 'warning', error)
 
+#### Deleting old files
+deleteFolderRecursive = (path) ->
+  if fs.existsSync(path)
+    fs.readdirSync(path).forEach (file,index) ->
+      curPath = path + "/" + file
+      if fs.lstatSync(curPath).isDirectory()
+        deleteFolderRecursive(curPath)
+      else
+        fs.unlinkSync(curPath)
+    fs.rmdirSync(path)
+
 ####################
 # Tasks
 ####################
+
+gulp.task 'clean', ->
+  deleteFolderRecursive(paths.base.dist)
+
+gulp.task 'build',   ['css']
+gulp.task 'refresh', ['clean', 'build']
+gulp.task 'default', ['bower', 'refresh']
 
 gulp.task 'bower', ->
   gulp.src bower()
@@ -70,7 +116,28 @@ gulp.task 'bower', ->
     .pipe gulp.dest(paths.dist.js)
     .on('error', onError)
 
-gulp.task 'default', ['bower']
+gulp.task 'css', ->
+  postCSSProcessors = [
+    postcssimport from: "#{paths.src.css}/app.css"
+    postcssnested
+    postcssfocus
+    postcsscolorfunction
+    postcsspxtorem
+    postcsssimplevars
+    lost
+    cssnext       compress: false, autoprefixer: { browsers: ['last 1 version'] }
+  ]
+
+  gulp.src "#{paths.src.css}/**/[^_]*.{css,scss}"
+    .pipe concat('app.css')
+    .pipe sourcemaps.init()
+      .pipe postcss(postCSSProcessors).on('error', onError)
+      .pipe cssnano(browsers: ['last 1 version'])
+    .pipe sourcemaps.write('maps')
+    .pipe gulp.dest(paths.dist.css)
+    # .pipe gzip({ append: true })
+    # .pipe gulp.dest(paths.dist.css)
+    .on('error', onError)
 
 gulp.task 'deploy', ->
   gulp.src(['./**/*', '!bower_components/**/*', '!node_modules/**/*'])
