@@ -8,3 +8,10 @@ block content
         p surf height is <span class="surf-height">#{swellInfo[index].heightRange[0] + " - " + swellInfo[index].heightRange[1]}</span>
       - if ( !swellInfo[index].swellDirection === false )
         p swell is coming from <span class="swell-direction">#{swellInfo[index].swellDirection}</span>
+
+  script.
+    if (cookies.get('boardsSelected') && cookies.get('skillSelected') && cookies.get('boardsSelectedBinary')) {
+      console.log('boardsSelected cookie exists: [' + cookies.get('boardsSelected') + ']');
+      console.log('boardsSelectedBinary cookie exists: [' + cookies.get('boardsSelectedBinary') + ']');
+      console.log('skillSelected cookie exists: [' + cookies.get('skillSelected') + ']');
+    }

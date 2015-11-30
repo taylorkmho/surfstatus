@@ -6,16 +6,16 @@ block content
   p quiver (<em>kwiv-er</em>) n. - a collection of surfboards in different shapes, lengths and thicknesses
   form#board-check
     .fieldset
-      input#bb(type="checkbox" data-boardType="bb")
+      input#bb(type="checkbox" data-boardType="BB")
       label(for="bb") Boogie board
     .fieldset
-      input#sb(type="checkbox" data-boardType="sb")
+      input#sb(type="checkbox" data-boardType="SB")
       label(for="sb") Shortboard
     .fieldset
-      input#lb(type="checkbox" data-boardType="lb")
+      input#lb(type="checkbox" data-boardType="LB")
       label(for="lb") Longboard
     .fieldset
-      input#sup(type="checkbox" data-boardType="sup")
+      input#sup(type="checkbox" data-boardType="SUP")
       label(for="sup") Stand-up Paddle board
   a#submit(href="/skill") Next
 
@@ -24,15 +24,24 @@ block content
     var formSubmit = document.querySelector('#submit');
     var boardInputs = document.querySelectorAll('[data-boardType]');
     formSubmit.addEventListener('click', function(e) {
-      var boardsSelected = [];
+      var boardsSelected       = [],
+          boardsSelectedBinary = [];
       for (var i = 0; i < boardInputs.length; i++) {
         var thisInput = boardInputs[i];
         if (thisInput.checked) {
           boardsSelected.push(thisInput.getAttribute('data-boardType'));
+          boardsSelectedBinary.push("1");
+        } else {
+          boardsSelectedBinary.push("0");
         }
       };
+
+      boardsSelectedBinary = boardsSelectedBinary.join("");
+
       if (cookies.test()) {
         cookies.set('boardsSelected', boardsSelected);
+
+        cookies.set('boardsSelectedBinary', boardsSelectedBinary);
       }
     })
 
