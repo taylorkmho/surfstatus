@@ -1,0 +1,23 @@
+{
+  "name": "surfstatus",
+  "description": "A web app to help you decide where to surf.",
+  "main": "",
+  "authors": [
+    "Taylor Ho <taylorkmho@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/taylorkmho/surfstatus",
+  "moduleType": [
+    "globals"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jaaulde-cookies": "~3.0.6"
+  }
+}
