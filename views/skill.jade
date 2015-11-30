@@ -20,13 +20,7 @@ block content
   a#submit(href="/results") Next
 
   script.
-    if (cookies.get('boardsSelected')) {
-      console.log('boardsSelected cookie exists: [' + cookies.get('boardsSelected') + ']');
-    }
-    if (cookies.get('skillSelected')) {
-      console.log('skillSelected cookie exists: [' + cookies.get('skillSelected') + ']');
-    }
-
+    // SET COOKIE
     var formSubmit = document.querySelector('#submit');
     var skillInputs = document.querySelectorAll('[data-skillLevel]');
     formSubmit.addEventListener('click', function(e) {
@@ -41,3 +35,10 @@ block content
         cookies.set('skillSelected', skillSelected);
       }
     })
+
+    // GET COOKIE
+    if (cookies.get('skillSelected')) {
+      var cookieResult = cookies.get('skillSelected');
+      console.log('skillSelected cookie exists: [' + cookieResult + ']');
+      document.querySelector('[data-skillLevel="' + cookieResult + '"]').checked = true;
+    }

@@ -20,6 +20,7 @@ block content
   a#submit(href="/skill") Next
 
   script.
+    // SET COOKIE
     var formSubmit = document.querySelector('#submit');
     var boardInputs = document.querySelectorAll('[data-boardType]');
     formSubmit.addEventListener('click', function(e) {
@@ -34,3 +35,12 @@ block content
         cookies.set('boardsSelected', boardsSelected);
       }
     })
+
+    // GET COOKIE
+    if (cookies.get('boardsSelected')) {
+      var cookieResult = cookies.get('boardsSelected');
+      console.log('boardsSelected cookie exists: [' + cookieResult + ']');
+      for (var i = 0; i < cookieResult.length; i++) {
+        document.querySelector('[data-boardType="' + cookieResult[i] + '"]').checked = true;
+      }
+    }
