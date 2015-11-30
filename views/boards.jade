@@ -3,8 +3,8 @@ extends ./layouts/_layout.jade
 block content
   h1= title
   h3 What’s in your quiver?
-  p quiver (<em>kwi-ver</em>) n. - a collection of surfboards in different shapes, lengths and thicknesses
-  form#boards
+  p quiver (<em>kwiv-er</em>) n. - a collection of surfboards in different shapes, lengths and thicknesses
+  form#board-check
     .fieldset
       input#bb(type="checkbox" data-boardType="bb")
       label(for="bb") Boogie board
@@ -20,14 +20,17 @@ block content
   a#submit(href="/skill") Next
 
   script.
-    var boardSubmit = document.querySelector('#submit');
+    var formSubmit = document.querySelector('#submit');
     var boardInputs = document.querySelectorAll('[data-boardType]');
-    boardSubmit.addEventListener('click', function(e) {
-      e.preventDefault();
+    formSubmit.addEventListener('click', function(e) {
+      var boardsSelected = [];
       for (var i = 0; i < boardInputs.length; i++) {
         var thisInput = boardInputs[i];
         if (thisInput.checked) {
-          console.log('input['+ thisInput.getAttribute('data-boardType') + '] is checked');
+          boardsSelected.push(thisInput.getAttribute('data-boardType'));
         }
       };
+      if (cookies.test()) {
+        cookies.set('boardsSelected', boardsSelected);
+      }
     })

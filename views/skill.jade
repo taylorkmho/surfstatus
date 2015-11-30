@@ -4,6 +4,40 @@ block content
   h1= title
   h3 Tell us how good you <em>think</em> you are.
   p No training wheels where and when it’s firing.
-  form
+  form#skill-check
+    .fieldset
+      input#skill-1(name="skill-level" type="radio" data-skillLevel="1")
+      label(for="skill-1") 1
+    .fieldset
+      input#skill-2(name="skill-level" type="radio" data-skillLevel="2")
+      label(for="skill-2") 2
+    .fieldset
+      input#skill-3(name="skill-level" type="radio" data-skillLevel="3")
+      label(for="skill-3") 3
+    .fieldset
+      input#skill-4(name="skill-level" type="radio" data-skillLevel="4")
+      label(for="skill-4") 4
+  a#submit(href="/results") Next
 
-  a(href="/results") Next
+  script.
+    if (cookies.get('boardsSelected')) {
+      console.log('boardsSelected cookie exists: [' + cookies.get('boardsSelected') + ']');
+    }
+    if (cookies.get('skillSelected')) {
+      console.log('skillSelected cookie exists: [' + cookies.get('skillSelected') + ']');
+    }
+
+    var formSubmit = document.querySelector('#submit');
+    var skillInputs = document.querySelectorAll('[data-skillLevel]');
+    formSubmit.addEventListener('click', function(e) {
+      var skillSelected;
+      for (var i = 0; i < skillInputs.length; i++) {
+        var thisInput = skillInputs[i];
+        if (thisInput.checked) {
+          skillSelected = thisInput.getAttribute('data-skillLevel');
+        }
+      };
+      if (cookies.test()) {
+        cookies.set('skillSelected', skillSelected);
+      }
+    })
