@@ -1,5 +1,7 @@
 extends ./layouts/_layout.jade
 
 block content
-  each surfbreak in surfbreaks
-    h1= surfbreak.title
+  each surfbreak, index in surfbreaks
+    .surfbreak(data-magicSW=surfbreak.magicSW)
+      h1= surfbreak.title
+      p surf height is <span class="surf-height">#{surfbreakHeights[index].heightRange[0] + " - " + surfbreakHeights[index].heightRange[1]}</span>
