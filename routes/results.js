@@ -82,7 +82,7 @@ router.get('/', function(req, res, next) {
   */
   var magicSWKey = secrets[0].apiKeys.magicSW;
   // // console.log(magicSWKey);
-  var surfbreakHeights = new Array();
+  var swellInfo = new Array();
   // console.log(breaksBasedOnQueries);
   async.each(
     breaksBasedOnQueries,
@@ -95,8 +95,9 @@ router.get('/', function(req, res, next) {
 
           var breakArray = JSON.parse(body);
           var heightRange = [ breakArray[1].swell.minBreakingHeight, breakArray[1].swell.maxBreakingHeight ];
+          var swellDirection = breakArray[1].swell.components.combined.compassDirection;
 
-          surfbreakHeights.push( { title: resultSurfbreak.title, heightRange : heightRange} );
+          swellInfo.push( { title: resultSurfbreak.title, heightRange : heightRange, swellDirection: swellDirection } );
 
           callback();
         }
@@ -110,10 +111,13 @@ router.get('/', function(req, res, next) {
           return 0;
         })
       }
-      sortByTitle(surfbreakHeights);
+      sortByTitle(swellInfo);
       sortByTitle(breaksBasedOnQueries);
 
-      res.render('results', { title: 'Results', surfbreaks: breaksBasedOnQueries, surfbreakHeights: surfbreakHeights });
+      // console.log(swellInfo);
+      // console.log(breaksBasedOnQueries);
+
+      res.render('results', { title: 'Results', surfbreaks: breaksBasedOnQueries, swellInfo: swellInfo });
     }
   );
 

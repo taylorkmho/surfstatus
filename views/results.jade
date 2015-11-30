@@ -4,4 +4,7 @@ block content
   each surfbreak, index in surfbreaks
     .surfbreak(data-magicSW=surfbreak.magicSW)
       h1= surfbreak.title
-      p surf height is <span class="surf-height">#{surfbreakHeights[index].heightRange[0] + " - " + surfbreakHeights[index].heightRange[1]}</span>
+      - if ( !swellInfo[index].heightRange[0] === false &&  !swellInfo[index].heightRange[1] === false)
+        p surf height is <span class="surf-height">#{swellInfo[index].heightRange[0] + " - " + swellInfo[index].heightRange[1]}</span>
+      - if ( !swellInfo[index].swellDirection === false )
+        p swell is coming from <span class="swell-direction">#{swellInfo[index].swellDirection}</span>
