@@ -1,4 +1,26 @@
 .btn {
   display: inline-block;
-  padding: $column-gutter;
+  padding: $column-gutter calc($column-gutter*4);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: .1rem;
+  border-radius: 4px;
+
+  box-shadow: 2px 2px 5px -2px color(#000 a(80%));
+  transition: all $easeOutExpo 125ms;
+
+  &:hover {
+    background-color: #eee;
+    background-blend-mode: multiply;
+  }
+
+  &:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 5px -2px color(#000 a(80%));
+  }
+
+  &--blue {
+    color: #fff;
+    background-image: url('../../images/wash-blue.jpg');
+  }
 }
