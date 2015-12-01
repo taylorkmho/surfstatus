@@ -10,7 +10,12 @@ html, body {
 
 body {
   background: $c-body-bg;
-  color: #222;
+  font-family: $body-font-family;
+  color: #aaa;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 img {
