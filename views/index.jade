@@ -4,8 +4,11 @@ block vars
   - var bodyTemplate = "home"
 
 block content
-  header.title
-    img(src="./images/logo-surfornah.png")
-    h1= title
-  h3 Figure out what surf breaks <em>you</em> should check out <em>today</em> using this free little service.
-  a.btn(href="/location") Let&rsquo;s Go
+  section.splash
+    .splash__container
+      img(src="./images/logo-surfornah.png")
+  section.tagline
+    .tagline__container
+      h1= title
+      h3 Figure out what surf breaks <em>you</em> should check out <em>today</em> using this free little service.
+      a.btn(href="/location") Let&rsquo;s Go

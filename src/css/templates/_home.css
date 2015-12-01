@@ -1,4 +1,21 @@
-header.title {
+body[data-template="home"] {
+  height: 100%;
+  width: 100%;
+}
+
+.splash {
+  height: 100%;
+  width: 100%;
+  &__container {
+    lost-center: 500px;
+  }
+}
+
+.tagline {
+  text-align: center;
+  &__container {
+    lost-center: $row-width;
+  }
   h1 {
     display: none;
   }
