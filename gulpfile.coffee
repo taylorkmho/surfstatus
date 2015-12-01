@@ -14,6 +14,10 @@ notify                   = require 'gulp-notify'
 rsync                    = require 'gulp-rsync'
 gzip                     = require 'gulp-gzip'
 gutil                    = require 'gulp-util'
+changed                  = require 'gulp-changed'
+
+svgSprites               = require 'gulp-svg-sprite'
+imagemin                 = require 'gulp-imagemin'
 
 bower                    = require 'main-bower-files'
 
@@ -40,11 +44,13 @@ secrets                = require './data/secrets.json'
 paths =
   base:
     root : ''
-    src  : './src/'
-    dist : './public/'
+    src  : './src'
+    dist : './public'
+    tmp  : './tmp'
 
 paths.src =
   css    : paths.base.src + '/css'
+  images : paths.base.src + '/images'
 
 paths.dist =
   css    : paths.base.dist + '/css'
@@ -105,10 +111,6 @@ deleteFolderRecursive = (path) ->
 gulp.task 'clean', ->
   deleteFolderRecursive(paths.base.dist)
 
-gulp.task 'build',   ['css']
-gulp.task 'refresh', ['clean', 'build']
-gulp.task 'default', ['bower', 'refresh']
-
 gulp.task 'bower', ->
   gulp.src bower()
     .pipe filter('*.js')
@@ -139,6 +141,27 @@ gulp.task 'css', ->
     # .pipe gulp.dest(paths.dist.css)
     .on('error', onError)
 
+gulp.task 'images', ->
+  gulp.src("#{paths.src.images}/**/*.{gif,jpg,png}")
+    .pipe changed(paths.dist.images)
+    .pipe imagemin
+    #   progressive: true,
+    #   svgoPlugins: [removeViewBox: false],
+      optimizationLevel: 3 # png
+    .pipe gulp.dest(paths.dist.images)
+
+svgSpriteConfig =
+  mode:
+    stack:
+      bust: false
+      dest: '.'
+      sprite: "sprite.svg"
+
+gulp.task 'svgSprites', ->
+  gulp.src("#{paths.src.images}/sprites/*.svg")
+  .pipe svgSprites(svgSpriteConfig)
+  .pipe gulp.dest(paths.base.tmp)
+
 gulp.task 'deploy', ->
   gulp.src(['./**/*', '!bower_components/**/*', '!node_modules/**/*'])
     .pipe rsync
@@ -150,3 +173,9 @@ gulp.task 'deploy', ->
       time: true
       update: true
       compress: true
+
+
+
+gulp.task 'refresh', ['clean', 'build']
+gulp.task 'build',   ['css', 'images', 'svgSprites']
+gulp.task 'default', ['bower', 'refresh']

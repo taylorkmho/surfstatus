@@ -1,1 +1,8 @@
 @import '../../bower_components/normalize-css/normalize.css';
+
+@import './_settings';
+@import './_structure';
+
+@import './components/_buttons';
+
+@import './templates/_home';

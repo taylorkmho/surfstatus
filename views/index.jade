@@ -1,6 +1,11 @@
 extends ./layouts/_layout.jade
 
+block vars
+  - var bodyTemplate = "home"
+
 block content
-  h1= title
+  header.title
+    img(src="./images/logo-surfornah.png")
+    h1= title
   h3 Figure out what surf breaks <em>you</em> should check out <em>today</em> using this free little service.
   a.btn(href="/location") Let&rsquo;s Go

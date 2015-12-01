@@ -1,0 +1,22 @@
+html, body {
+  font-size: 90%;
+}
+
+@media screen and (min-width: 1200px) {
+  html, body {
+    font-size: 100%;
+  }
+}
+
+body {
+  background: $c-body-bg;
+  color: #222;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  -ms-interpolation-mode: bicubic;
+  display: inline-block;
+  vertical-align: middle;
+}
