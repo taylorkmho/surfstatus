@@ -1,4 +1,4 @@
-body[data-template="home"] {
+html, body[data-template="home"] {
   height: 100%;
   width: 100%;
 }
@@ -7,15 +7,19 @@ body[data-template="home"] {
   height: 100%;
   width: 100%;
   &__container {
+    position: relative;
     lost-center: 500px;
+    top: 50%;
+    transform: translateY(-50%);
+    img {
+      padding: 0 calc($column-gutter*6);
+      margin-bottom: $column-gutter;
+    }
   }
 }
 
 .tagline {
   text-align: center;
-  &__container {
-    lost-center: $row-width;
-  }
   h1 {
     display: none;
   }
