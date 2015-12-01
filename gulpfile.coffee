@@ -5,6 +5,7 @@
 # utilities
 del                      = require 'del'
 fs                       = require 'fs'
+browsersync              = require 'browser-sync'
 
 # gulp utilities
 gulp                     = require 'gulp'
@@ -174,8 +175,25 @@ gulp.task 'deploy', ->
       update: true
       compress: true
 
+gulp.task 'browsersync', ->
+  browsersync.use
+    plugin: ->,
+    hooks:
+      'client:js': fs.readFileSync("./lib/closer.js", "utf-8")
+  browsersync.init [paths.dist.css, paths.dist.js]
 
+gulp.task 'watch', ['browsersync'], ->
+  watching = true
+  gulp.watch ["#{paths.base.src}/*.*", "#{paths.base.src}/data/**/*"], ['static-files']
+  gulp.watch ["#{paths.src.html}/**/*.jade"], ['html']
+  gulp.watch "#{paths.src.images}/**/*.svg", ['html']
+  gulp.watch "#{paths.src.data}/**/*.json", ['html']
+  gulp.watch "#{paths.src.css}/**/*", ['css']
+  gulp.watch "#{paths.src.fonts}/**/*", ['fonts']
+  gulp.watch "#{paths.src.js}/**/*.{js,coffee}", ['js']
+  gulp.watch "#{paths.src.images}/**/*.{gif,jpg,png}", ['images']
+  gulp.watch "#{paths.src.images}/sprites/*.svg", ['svgSprites']
 
 gulp.task 'refresh', ['clean', 'build']
 gulp.task 'build',   ['css', 'images', 'svgSprites']
-gulp.task 'default', ['bower', 'refresh']
+gulp.task 'default', ['bower', 'refresh', 'watch']
