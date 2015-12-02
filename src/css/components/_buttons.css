@@ -7,12 +7,10 @@
   border-radius: 4px;
 
   box-shadow: 2px 2px 5px -2px color(#000 a(80%));
-  transition: all $easeOutExpo 125ms;
+  background-size: 100% 100%;
+  background-position: center center;
 
-  &:hover {
-    background-color: #eee;
-    background-blend-mode: multiply;
-  }
+  transition: all $easeOutExpo 250ms;
 
   &:active {
     transform: translate(2px, 2px);
@@ -21,6 +19,6 @@
 
   &--blue {
     color: #fff;
-    background-image: url('../../images/wash-blue.jpg');
+    background-image: url('../../images/wash-turq.jpg');
   }
 }
