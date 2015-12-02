@@ -1,12 +1,12 @@
 {
-  "name": "surfstatus",
+  "name": "surfornah",
   "description": "A web app to help you decide where to surf.",
   "main": "",
   "authors": [
     "Taylor Ho <taylorkmho@gmail.com>"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/taylorkmho/surfstatus",
+  "homepage": "https://github.com/taylorkmho/surfornah",
   "moduleType": [
     "globals"
   ],
