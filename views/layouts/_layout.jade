@@ -1,3 +1,5 @@
+include ../_modules/_Modules.jade
+
 block vars
   - var bodyTemplate = "default"
 
@@ -8,6 +10,10 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     title #{title}
     link(rel='stylesheet' href='../css/app.css')
-    script(src="../js/jaaulde-cookies.js")
   body(data-template="#{bodyTemplate}")
+    .spritesheet
+      include ../../tmp/sprite.svg
     block content
+    script(src="../js/jaaulde-cookies.js")
+    //- script(src="../js/sine-waves.js")
+    script(src="../js/app.js")

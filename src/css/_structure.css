@@ -11,11 +11,15 @@ html, body {
 body {
   background: $c-body-bg;
   font-family: $body-font-family;
-  color: #aaa;
+  color: $c-body-font;
 }
 
 * {
   box-sizing: border-box;
+}
+
+.spritesheet {
+  display: none;
 }
 
 img {

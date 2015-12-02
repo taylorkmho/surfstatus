@@ -1,0 +1,3 @@
+mixin sprite(name, classes, viewbox)
+  //- .sprite(data-sprite-label=name)
+  svg.sprite(viewBox=viewbox data-sprite-label=name data-sprite=name class=classes): use(xlink:href="\##{name}")
