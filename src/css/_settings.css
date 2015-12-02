@@ -9,8 +9,8 @@ $c-creme:           #FFFEF1;
 $c-green:           #70B85D;
 $c-green--dark:     #2C5E2E;
 
-$c-body-bg:         #222;
-$c-body-font:       #000;
+$c-body-bg:         $c-navy;
+$c-body-font:       $c-creme;
 
 $body-font-family:  'Montserrat', 'Helvetica Neue', Helvetica, sans-serif;
 
