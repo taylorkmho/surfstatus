@@ -22,10 +22,25 @@ html, body[data-template="home"] {
     lost-center: $row-width;
     top: 50%;
     transform: translateY(-50%);
+
+    pointer-events: none;
+
     img {
       padding: 0 calc($column-gutter*2);
       margin-bottom: $column-gutter;
     }
+    .btn {
+      pointer-events: initial;
+    }
+  }
+}
+
+.logo-surfornah {
+  padding: 0 $column-gutter;
+  &__surf, &__nugget {
+    fill: #fff;
+  }
+  &__or-nah {
   }
 }
 
@@ -36,6 +51,15 @@ html, body[data-template="home"] {
   }
   h2 {
     margin: calc($column-gutter*2) 0 calc($column-gutter*2);
-    font-size: 2rem;
+    padding: 0 $column-gutter;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .tagline {
+    h2 {
+      padding: 0;
+      font-size: 2rem;
+    }
   }
 }

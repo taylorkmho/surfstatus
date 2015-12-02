@@ -18,14 +18,17 @@ body {
   box-sizing: border-box;
 }
 
-.spritesheet {
+/* .spritesheet {
   display: none;
+} */
+
+svg, img {
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 img {
-  max-width: 100%;
-  height: auto;
   -ms-interpolation-mode: bicubic;
-  display: inline-block;
-  vertical-align: middle;
 }
