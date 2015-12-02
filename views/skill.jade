@@ -1,23 +1,25 @@
 extends ./layouts/_layout.jade
 
 block content
-  h1= title
-  h3 Tell us how good you <em>think</em> you are.
-  p No training wheels where and when it’s firing.
-  form#skill-check
-    .fieldset
-      input#skill-1(name="skill-level" type="radio" data-skillLevel="1")
-      label(for="skill-1") 1
-    .fieldset
-      input#skill-2(name="skill-level" type="radio" data-skillLevel="2")
-      label(for="skill-2") 2
-    .fieldset
-      input#skill-3(name="skill-level" type="radio" data-skillLevel="3")
-      label(for="skill-3") 3
-    .fieldset
-      input#skill-4(name="skill-level" type="radio" data-skillLevel="4")
-      label(for="skill-4") 4
-  a.btn#submit(href="/results") Next
+  section.skill
+    .skill__container
+      h1= title
+      h3 Tell us how good you <em>think</em> you are.
+      p No training wheels where and when it’s firing.
+      form#skill-check
+        .fieldset
+          input#skill-1(name="skill-level" type="radio" data-skillLevel="1")
+          label(for="skill-1") 1
+        .fieldset
+          input#skill-2(name="skill-level" type="radio" data-skillLevel="2")
+          label(for="skill-2") 2
+        .fieldset
+          input#skill-3(name="skill-level" type="radio" data-skillLevel="3")
+          label(for="skill-3") 3
+        .fieldset
+          input#skill-4(name="skill-level" type="radio" data-skillLevel="4")
+          label(for="skill-4") 4
+      a.btn#submit(href="/results") Next
 
   script.
     // SET COOKIE

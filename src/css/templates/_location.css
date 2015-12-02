@@ -5,10 +5,10 @@ body[data-template="location"] {
 .location {
   height: 100%;
   width: 100%;
+  text-align: center;
   color: #fff;
   &__container {
     @extend container--center;
-    text-align: center;
   }
 }
 

@@ -1,24 +1,26 @@
 extends ./layouts/_layout.jade
 
 block content
-  h1= title
-  h3 What’s in your quiver?
-  p quiver (<em>kwiv-er</em>) n. - a collection of surfboards in different shapes, lengths and thicknesses
-  form#board-check
-    span.error
-    .fieldset
-      input#bb(type="checkbox" data-boardType="BB")
-      label(for="bb") Boogie board
-    .fieldset
-      input#sb(type="checkbox" data-boardType="SB")
-      label(for="sb") Shortboard
-    .fieldset
-      input#lb(type="checkbox" data-boardType="LB")
-      label(for="lb") Longboard
-    .fieldset
-      input#sup(type="checkbox" data-boardType="SUP")
-      label(for="sup") Stand-up Paddle board
-  a.btn#submit(href="/skill") Next
+  section.boards
+    .boards__container
+      h1= title
+      h3 What’s in your quiver?
+      p quiver (<em>kwiv-er</em>) n. - a collection of surfboards in different shapes, lengths and thicknesses
+      form#board-check
+        span.error
+        .fieldset
+          input#bb(type="checkbox" data-boardType="BB")
+          label(for="bb") Boogie board
+        .fieldset
+          input#sb(type="checkbox" data-boardType="SB")
+          label(for="sb") Shortboard
+        .fieldset
+          input#lb(type="checkbox" data-boardType="LB")
+          label(for="lb") Longboard
+        .fieldset
+          input#sup(type="checkbox" data-boardType="SUP")
+          label(for="sup") Stand-up Paddle board
+      a.btn#submit(href="/skill") Next
 
   script.
     // SET COOKIE

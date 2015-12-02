@@ -7,4 +7,6 @@
 @import './components/_buttons';
 
 @import './templates/_home';
-@import './templates/_location'
+@import './templates/_location';
+@import './templates/_boards';
+@import './templates/_skill';

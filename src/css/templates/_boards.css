@@ -1,0 +1,9 @@
+.boards {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  &__container {
+    @extend container--center;
+  }
+}
