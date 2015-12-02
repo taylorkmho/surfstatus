@@ -22,6 +22,10 @@ imagemin                 = require 'gulp-imagemin'
 
 bower                    = require 'main-bower-files'
 
+# task 'JS'
+order                    = require 'gulp-order'
+include                  = require 'gulp-include'
+
 # task 'CSS'
 cssnano                  = require 'gulp-cssnano'
 concat                   = require 'gulp-concat'
@@ -51,6 +55,7 @@ paths =
 
 paths.src =
   css    : paths.base.src + '/css'
+  js     : paths.base.src + '/js'
   images : paths.base.src + '/images'
 
 paths.dist =
@@ -117,6 +122,26 @@ gulp.task 'bower', ->
     .pipe filter('*.js')
     .pipe uglify()
     .pipe gulp.dest(paths.dist.js)
+    .on('error', onError)
+
+gulp.task 'js', ->
+
+  gulp.src "#{paths.src.js}/**/[^_]*.{js,coffee}"
+    .pipe order([
+      "utils.js"
+      "lib/jello/jello.js"
+      "lib/jello/modules/**/*.js"
+      "app.js"
+    ])
+    # .pipe changed(paths.dist.js)
+    .pipe include().on('error', onError)
+    .pipe concat('app.js')
+    .pipe sourcemaps.init()
+      .pipe uglify().on('error', onError)
+    .pipe sourcemaps.write('maps')
+    .pipe gulp.dest(paths.dist.js)
+    # .pipe gzip({ append: true })
+    # .pipe gulp.dest(paths.dist.js)
     .on('error', onError)
 
 gulp.task 'css', ->
@@ -186,7 +211,7 @@ gulp.task 'watch', ['browsersync'], ->
   watching = true
   gulp.watch ["#{paths.base.src}/*.*", "#{paths.base.src}/data/**/*"], ['static-files']
   gulp.watch ["#{paths.src.html}/**/*.jade"], ['html']
-  gulp.watch "#{paths.src.images}/**/*.svg", ['html']
+  gulp.watch "#{paths.src.images}/**/*.svg", ['svgSprites']
   gulp.watch "#{paths.src.data}/**/*.json", ['html']
   gulp.watch "#{paths.src.css}/**/*", ['css']
   gulp.watch "#{paths.src.fonts}/**/*", ['fonts']
@@ -195,5 +220,5 @@ gulp.task 'watch', ['browsersync'], ->
   gulp.watch "#{paths.src.images}/sprites/*.svg", ['svgSprites']
 
 gulp.task 'refresh', ['clean', 'build']
-gulp.task 'build',   ['css', 'images', 'svgSprites']
+gulp.task 'build',   ['js', 'css', 'images', 'svgSprites']
 gulp.task 'default', ['bower', 'refresh', 'watch']
