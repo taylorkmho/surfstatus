@@ -1,0 +1,23 @@
+body[data-template="location"] {
+  background: $c-green--dark;
+}
+
+.location {
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  &__container {
+    @extend container--center;
+    text-align: center;
+  }
+}
+
+.islands {
+  width: 640px;
+  &__oahu {
+    fill: $c-creme;
+  }
+  &__niihau,&__kauai,&__molokai,&__lanai,&__kahoolawe,&__maui,&__hawaii {
+    fill: $c-green;
+  }
+}

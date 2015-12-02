@@ -1,8 +1,13 @@
 extends ./layouts/_layout.jade
 
+block vars
+  - var bodyTemplate = "location"
+
 block content
-  h1= title
-  include ../src/images/svg/hawaiian-islands.svg
-  h3 Aaactually, we are currently in beta.
-  p For now, we’ll only be featuring the world-class surf breaks on the beaches of O&lsquo;ahu.
-  a.btn(href="/boards") Next
+  section.location
+    .location__container
+      h1= title
+      include ../src/images/svg/hawaiian-islands.svg
+      h3 Aaactually, we are currently in beta.
+      p For now, we’ll only be featuring the world-class surf breaks on the beaches of O&lsquo;ahu.
+      a.btn.btn--green(href="/boards") Next
