@@ -3,16 +3,27 @@ html, body[data-template="home"] {
   width: 100%;
 }
 
+.waves {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  &__canvas {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+}
+
 .splash {
   height: 100%;
   width: 100%;
   &__container {
     position: relative;
-    lost-center: 500px;
+    lost-center: $row-width;
     top: 50%;
     transform: translateY(-50%);
     img {
-      padding: 0 calc($column-gutter*6);
+      padding: 0 calc($column-gutter*2);
       margin-bottom: $column-gutter;
     }
   }
