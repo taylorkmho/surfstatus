@@ -17,8 +17,12 @@
     box-shadow: 0px 0px 5px -2px color(#000 a(80%));
   }
 
+  &--green {
+    color: #fff;
+    background-image: url('../../images/wash-green.jpg');
+  }
   &--blue {
     color: #fff;
-    background-image: url('../../images/wash-turq.jpg');
+    background-image: url('../../images/wash-blue.jpg');
   }
 }
