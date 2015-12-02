@@ -1,0 +1,6 @@
+@define-placeholder container--center {
+  position: relative;
+  lost-center: $row-width;
+  top: 50%;
+  transform: translateY(-50%);
+}

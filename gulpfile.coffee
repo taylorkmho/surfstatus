@@ -38,6 +38,7 @@ postcssfocus             = require 'postcss-focus'
 postcsspxtorem           = require 'postcss-pxtorem'
 postcsscolorfunction     = require 'postcss-center'
 postcsssimplevars        = require 'postcss-simple-vars'
+postcsssimpleextend      = require 'postcss-simple-extend'
 
 secrets                = require './data/secrets.json'
 
@@ -151,6 +152,7 @@ gulp.task 'css', ->
     postcsscolorfunction
     postcsspxtorem
     postcsssimplevars
+    postcsssimpleextend
     lost
     cssnext       compress: false, autoprefixer: { browsers: ['last 1 version'] }
   ]

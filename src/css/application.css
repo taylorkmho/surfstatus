@@ -3,6 +3,8 @@
 @import './_settings';
 @import './_structure';
 
+@import './components/_extends';
 @import './components/_buttons';
 
 @import './templates/_home';
+@import './templates/_location'
