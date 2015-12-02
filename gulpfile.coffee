@@ -17,7 +17,6 @@ gzip                     = require 'gulp-gzip'
 gutil                    = require 'gulp-util'
 changed                  = require 'gulp-changed'
 
-# svgSprites               = require 'gulp-svg-sprite'
 imagemin                 = require 'gulp-imagemin'
 
 bower                    = require 'main-bower-files'
@@ -176,17 +175,6 @@ gulp.task 'images', ->
       optimizationLevel: 3 # png
     .pipe gulp.dest(paths.dist.images)
 
-# svgSpriteConfig =
-#   mode:
-#     stack:
-#       bust: false
-#       dest: '.'
-#       sprite: "sprite.svg"
-
-# gulp.task 'svgSprites', ->
-#   gulp.src("#{paths.src.images}/sprites/*.svg")
-#   .pipe svgSprites(svgSpriteConfig)
-#   .pipe gulp.dest(paths.base.tmp)
 
 gulp.task 'deploy', ->
   gulp.src(['./**/*', '!bower_components/**/*', '!node_modules/**/*'])
@@ -210,14 +198,9 @@ gulp.task 'browsersync', ->
 gulp.task 'watch', ['browsersync'], ->
   watching = true
   gulp.watch ["#{paths.base.src}/*.*", "#{paths.base.src}/data/**/*"], ['static-files']
-  gulp.watch ["#{paths.src.html}/**/*.jade"], ['html']
-  # gulp.watch "#{paths.src.images}/**/*.svg", ['svgSprites']
-  gulp.watch "#{paths.src.data}/**/*.json", ['html']
   gulp.watch "#{paths.src.css}/**/*", ['css']
-  gulp.watch "#{paths.src.fonts}/**/*", ['fonts']
   gulp.watch "#{paths.src.js}/**/*.{js,coffee}", ['js']
   gulp.watch "#{paths.src.images}/**/*.{gif,jpg,png}", ['images']
-  # gulp.watch "#{paths.src.images}/sprites/*.svg", ['svgSprites']
 
 gulp.task 'refresh', ['clean', 'build']
 gulp.task 'build',   ['js', 'css', 'images']
