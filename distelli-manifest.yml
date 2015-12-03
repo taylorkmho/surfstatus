@@ -47,7 +47,7 @@ tellaho/surfornah:
     - bower install
 
   Env:
-    - PORT: 3000
+    - PORT: 80
 
   Exec:
     - pm2 start start.js
