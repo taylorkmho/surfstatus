@@ -3,17 +3,17 @@ tellaho/surfornah:
   # Ref - distelli-manifest.yml
   # https://www.distelli.com/docs/reference/distelli-manifest
 
-  # PreRelease:
-  #   - echo "--- BEGIN PreRelease ---"
-  #   - echo "--Installing build dependencies--"
-  #   - echo "-Updating apt-get-"
-  #   - sudo apt-get -y update
-  #   - echo "- Installing nodejs -"
-  #   - sudo apt-get -y install nodejs
-  #   - echo "-Installing npm-"
-  #   - sudo apt-get -y install npm
-  #   - echo "--Building--"
-  #   - sudo npm install
+  PreRelease:
+    - echo "--- BEGIN PreRelease ---"
+    - echo "--Installing build dependencies--"
+    - echo "-Updating apt-get-"
+    - sudo apt-get -y update
+    - echo "- Installing nodejs -"
+    - sudo apt-get -y install nodejs
+    - echo "-Installing npm-"
+    - sudo apt-get -y install npm
+    - echo "--Building--"
+    - sudo npm install
     # - echo "--Testing--"
     # - npm test
 
@@ -44,6 +44,7 @@ tellaho/surfornah:
   PostInstall:
     - echo "--- BEGIN PostInstall ---"
     - npm install
+    - bower install
 
   Env:
     - PORT: 3000
