@@ -1,9 +1,40 @@
+body[data-template="boards"] {
+  background: $c-navy;
+}
+
 .boards {
   height: 100%;
   width: 100%;
   text-align: center;
-  color: #fff;
   &__container {
     @extend container--center;
+  }
+}
+
+.board-form {
+  &__option {
+    lost-column:1/2;
+    lost-utility: clearfix;
+    margin-top: $column-gutter;
+    margin-bottom: $column-gutter;
+    input[type='checkbox'] {
+      display: none;
+      &:checked + label {
+        color: red;
+      }
+    }
+    label {
+      lost-utility: clearfix;
+      display: block;
+      padding: calc($column-gutter*4) $column-gutter;
+    }
+  }
+}
+
+@media screen and (min-width: 620px) {
+  .board-form {
+    &__option {
+      lost-column:1/4;
+    }
   }
 }

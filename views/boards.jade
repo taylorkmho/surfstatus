@@ -1,26 +1,29 @@
 extends ./layouts/_layout.jade
 
+block vars
+  - var bodyTemplate = "boards"
+
 block content
   section.boards
     .boards__container
       h1= title
       h3 What’s in your quiver?
       p quiver (<em>kwiv-er</em>) n. - a collection of surfboards in different shapes, lengths and thicknesses
-      form#board-check
-        span.error
-        .fieldset
+      span.error
+      form#board-check.board-form
+        .fieldset.board-form__option
           input#bb(type="checkbox" data-boardType="BB")
           label(for="bb") Boogie board
-        .fieldset
+        .fieldset.board-form__option
           input#sb(type="checkbox" data-boardType="SB")
           label(for="sb") Shortboard
-        .fieldset
+        .fieldset.board-form__option
           input#lb(type="checkbox" data-boardType="LB")
           label(for="lb") Longboard
-        .fieldset
+        .fieldset.board-form__option
           input#sup(type="checkbox" data-boardType="SUP")
           label(for="sup") Stand-up Paddle board
-      a.btn#submit(href="/skill") Next
+      a.btn.btn--blue#submit(href="/skill") Next
 
   script.
     // SET COOKIE
