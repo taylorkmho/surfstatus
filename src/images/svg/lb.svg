@@ -1,4 +1,4 @@
-<svg class="board--lb" viewBox="0 0 62 274">
+<svg class="board board--lb" viewBox="0 0 62 274">
   <path class="board--lb__base" d="M28.9862741,0 C23.9862741,0 0.319274073,0.875 0.319274073,117.542 C-0.0137259273,117.542 -4.01372593,271.875 28.9862741,271.875 C61.9862741,271.875 59.6532741,117.875 59.6532741,117.875 C59.6532741,0.875 33.9862741,0 28.9862741,0" transform="translate(1, 1)"></path>
   <rect class="board--lb__stringer" x="28" y="0" width="2" height="272" transform="translate(1, 1)"></rect>
 </svg>

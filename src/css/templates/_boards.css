@@ -1,5 +1,6 @@
 body[data-template="boards"] {
-  background: $c-creme;
+  background: $c-green;
+  color: $c-creme;
 }
 
 .boards {
@@ -13,108 +14,121 @@ body[data-template="boards"] {
 
 .board-form {
   &__option {
-    lost-column:1/2;
+    text-align: left;
     lost-utility: clearfix;
     margin-top: $column-gutter;
     margin-bottom: $column-gutter;
     input[type='checkbox'] {
       display: none;
       &:checked + label {
-        color: red;
         svg {
-          transform: translateY(0);
+          transform: rotate(45deg) translate(-50%, -50%);
           opacity: 1;
         }
       }
     }
     label {
+      position: relative;
+
       lost-utility: clearfix;
       display: block;
-      padding: $column-gutter;
       margin-top: calc($column-gutter);
       cursor: pointer;
 
+      .box {
+        display: inline-block;
+        width: 4rem;
+        height: 4rem;
+
+        background: #fff;
+        /* border: #333 .5rem solid; */
+      }
+
       svg {
-        opacity: .5;
-        transform: translateY(-$column-gutter);
-        transform-origin: 50% 100%;
-        transition: transform 125ms ease-out;
-        &:hover {
-          transform: scaleY(1.025) translateY(-$column-gutter);
-        }
+        position: relative;
+        left: 50%;
+        top: 50%;
+
+        opacity: 0;
+        transform: translate(-50%, -50%);
+        transform-origin: 0 0;
+        transition: all 125ms ease-out;
+
       }
 
       span {
-        display: block;
-        margin-top: $column-gutter;
+        display: inline-block;
+        font-size: 1.5rem;
+        line-height: 1;
+        margin-left: $column-gutter;
       }
 
     }
   }
 }
 
-@media screen and (min-width: 620px) {
+/* @media screen and (min-width: 620px) {
   .board-form {
     &__option {
-      lost-column:1/4;
+      lost-column: 1/4;
     }
   }
-}
+} */
 
 .board {
-
+  height: 4rem;
   &--bb {
-    height: 10rem;
     &__base {
       fill: $c-board-fill;
       stroke: $c-aqua;
+      stroke: transparent;
       stroke-width: 2;
     }
     &__detail {
-      fill: color($c-board-detail a(.4));
+      display: none;
     }
   }
 
   &--sb {
-    height: 15rem;
     &__base {
        /* stroke="#65AF53" stroke-width="2" fill="#F5F5F5" */
        fill: $c-board-fill;
        stroke: $c-green;
+       stroke: transparent;
        stroke-width: 2px;
     }
     &__detail {
-      fill: color($c-board-detail a(.4));
+      display: none;
     }
     &__stringer {
-      fill: color($c-board-detail a(.3));
+      display: none;
     }
   }
 
   &--lb {
-    height: 20rem;
     &__base {
       stroke: $c-navy;
+      stroke: transparent;
       stroke-width: 2px;
       fill: $c-board-fill;
     }
     &__stringer {
-      fill: color($c-board-detail a(.3));
+      display: none;
     }
   }
 
   &--sup {
-    height: 22rem;
     &__base {
       stroke: $c-green--dark;
+      stroke: transparent;
       stroke-width: 2px;
       fill: $c-board-fill;
     }
     &__detail {
-      fill: color($c-board-detail a(.4));
+      display: none;
     }
     &__paddle {
-      fill: #000000;
+      fill: color($c-board-fill shade(30%));
     }
   }
 

@@ -11,26 +11,14 @@ block content
       p quiver (<em>kwiv-er</em>) n. - a collection of surfboards in different shapes, lengths and thicknesses
       span.error
       form#board-check.board-form
-        .fieldset.board-form__option
-          input#bb(type="checkbox" data-boardType="BB")
-          label(for="bb")
-            include ../src/images/svg/bb.svg
-            span Boogie board
-        .fieldset.board-form__option
-          input#sb(type="checkbox" data-boardType="SB")
-          label(for="sb")
-            include ../src/images/svg/sb.svg
-            span Shortboard
-        .fieldset.board-form__option
-          input#lb(type="checkbox" data-boardType="LB")
-          label(for="lb")
-            include ../src/images/svg/lb.svg
-            span Longboard
-        .fieldset.board-form__option
-          input#sup(type="checkbox" data-boardType="SUP")
-          label(for="sup")
-            include ../src/images/svg/sup.svg
-            span Stand-up Paddle board
+        +board-field("bb", "Bodyboard")
+          include ../src/images/svg/bb.svg
+        +board-field("sb", "Shortboard")
+          include ../src/images/svg/sb.svg
+        +board-field("lb", "Longboard")
+          include ../src/images/svg/lb.svg
+        +board-field("sup", "Stand-up Paddle board")
+          include ../src/images/svg/sup.svg
       a.btn.btn--blue#submit(href="/skill") Next
 
 block footerScripts
