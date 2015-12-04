@@ -13,18 +13,27 @@ block content
       form#board-check.board-form
         .fieldset.board-form__option
           input#bb(type="checkbox" data-boardType="BB")
-          label(for="bb") Boogie board
+          label(for="bb")
+            img(src="//placehold.it/200x300/ccc/bbb/&text=BOARD")
+            span Boogie board
         .fieldset.board-form__option
           input#sb(type="checkbox" data-boardType="SB")
-          label(for="sb") Shortboard
+          label(for="sb")
+            img(src="//placehold.it/200x300/ccc/bbb/&text=BOARD")
+            span Shortboard
         .fieldset.board-form__option
           input#lb(type="checkbox" data-boardType="LB")
-          label(for="lb") Longboard
+          label(for="lb")
+            img(src="//placehold.it/200x300/ccc/bbb/&text=BOARD")
+            span Longboard
         .fieldset.board-form__option
           input#sup(type="checkbox" data-boardType="SUP")
-          label(for="sup") Stand-up Paddle board
+          label(for="sup")
+            img(src="//placehold.it/200x300/ccc/bbb/&text=BOARD")
+            span Stand-up Paddle board
       a.btn.btn--blue#submit(href="/skill") Next
 
+block footerScripts
   script.
     // SET COOKIE
     var formSubmit = document.querySelector('#submit');

@@ -21,12 +21,34 @@ body[data-template="boards"] {
       display: none;
       &:checked + label {
         color: red;
+        img {
+          transform: translateY(0);
+          opacity: 1;
+        }
       }
     }
     label {
       lost-utility: clearfix;
       display: block;
-      padding: calc($column-gutter*4) $column-gutter;
+      padding: $column-gutter;
+      margin-top: calc($column-gutter);
+      cursor: pointer;
+
+      img {
+        opacity: .5;
+        transform: translateY(-$column-gutter);
+        transform-origin: 50% 100%;
+        transition: transform 125ms ease-out;
+        &:hover {
+          transform: scaleY(1.025) translateY(-$column-gutter);
+        }
+      }
+
+      span {
+        display: block;
+        margin-top: $column-gutter;
+      }
+
     }
   }
 }
