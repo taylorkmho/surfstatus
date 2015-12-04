@@ -1,5 +1,5 @@
 body[data-template="boards"] {
-  background: $c-navy;
+  background: $c-creme;
 }
 
 .boards {
@@ -21,7 +21,7 @@ body[data-template="boards"] {
       display: none;
       &:checked + label {
         color: red;
-        img {
+        svg {
           transform: translateY(0);
           opacity: 1;
         }
@@ -34,7 +34,7 @@ body[data-template="boards"] {
       margin-top: calc($column-gutter);
       cursor: pointer;
 
-      img {
+      svg {
         opacity: .5;
         transform: translateY(-$column-gutter);
         transform-origin: 50% 100%;
@@ -59,4 +59,63 @@ body[data-template="boards"] {
       lost-column:1/4;
     }
   }
+}
+
+.board {
+
+  &--bb {
+    height: 10rem;
+    &__base {
+      fill: $c-board-fill;
+      stroke: $c-aqua;
+      stroke-width: 2;
+    }
+    &__detail {
+      fill: color($c-board-detail a(.4));
+    }
+  }
+
+  &--sb {
+    height: 15rem;
+    &__base {
+       /* stroke="#65AF53" stroke-width="2" fill="#F5F5F5" */
+       fill: $c-board-fill;
+       stroke: $c-green;
+       stroke-width: 2px;
+    }
+    &__detail {
+      fill: color($c-board-detail a(.4));
+    }
+    &__stringer {
+      fill: color($c-board-detail a(.3));
+    }
+  }
+
+  &--lb {
+    height: 20rem;
+    &__base {
+      stroke: $c-navy;
+      stroke-width: 2px;
+      fill: $c-board-fill;
+    }
+    &__stringer {
+      fill: color($c-board-detail a(.3));
+    }
+  }
+
+  &--sup {
+    height: 22rem;
+    &__base {
+      stroke: $c-green--dark;
+      stroke-width: 2px;
+      fill: $c-board-fill;
+    }
+    &__detail {
+      fill: color($c-board-detail a(.4));
+    }
+    &__paddle {
+      fill: #000000;
+    }
+  }
+
 }
