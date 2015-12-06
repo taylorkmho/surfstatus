@@ -1,16 +1,53 @@
 extends ./layouts/_layout.jade
 
 block content
-  each surfbreak,index in swellInfo
-    .surfbreak
-      h1= surfbreak.title
-      p surf height is <span class="surf-height">#{swellInfo[index].heightRange[0] + " - " + swellInfo[index].heightRange[1]}</span>
-      //- - if ( !swellInfo[index].swellDirection === false )
-      //-   p swell is coming from <span class="swell-direction">#{swellInfo[index].swellDirection}</span>
+  .direction(data-shore="south")
+    h1 SOUTH <span class="direction__height"></span>
+    each surfbreak,index in swellInfo
+      if (swellInfo[index].shoreDirection === "South")
+        +surfbreakMixin(surfbreak.title, swellInfo[index].heightRange[0], swellInfo[index].heightRange[1], swellInfo[index].heightMean, swellInfo[index].swellDirection)
+  .direction(data-shore="east")
+    h1 EAST <span class="direction__height"></span>
+    each surfbreak,index in swellInfo
+      if (swellInfo[index].shoreDirection === "East")
+        +surfbreakMixin(surfbreak.title, swellInfo[index].heightRange[0], swellInfo[index].heightRange[1], swellInfo[index].heightMean, swellInfo[index].swellDirection)
+  .direction(data-shore="west")
+    h1 WEST <span class="direction__height"></span>
+    each surfbreak,index in swellInfo
+      if (swellInfo[index].shoreDirection === "West")
+        +surfbreakMixin(surfbreak.title, swellInfo[index].heightRange[0], swellInfo[index].heightRange[1], swellInfo[index].heightMean, swellInfo[index].swellDirection)
+  .direction(data-shore="north")
+    h1 NORTH <span class="direction__height"></span>
+    each surfbreak,index in swellInfo
+      if (swellInfo[index].shoreDirection === "North")
+        +surfbreakMixin(surfbreak.title, swellInfo[index].heightRange[0], swellInfo[index].heightRange[1], swellInfo[index].heightMean, swellInfo[index].swellDirection)
 
+block footerScripts
   script.
-    if (cookies.get('boardsSelected') && cookies.get('skillSelected') && cookies.get('boardsSelectedBinary')) {
-      console.log('boardsSelected cookie exists: [' + cookies.get('boardsSelected') + ']');
-      console.log('boardsSelectedBinary cookie exists: [' + cookies.get('boardsSelectedBinary') + ']');
-      console.log('skillSelected cookie exists: [' + cookies.get('skillSelected') + ']');
+    var directions = document.querySelectorAll('.direction');
+
+    for (var i = 0; i < directions.length; i ++) {
+      var thisBreaks = directions[i].querySelectorAll('.surfbreak');
+      var sumHeightMeans = 0;
+
+      for (var breakIndex = 0; breakIndex < thisBreaks.length; breakIndex++) {
+        sumHeightMeans = sumHeightMeans + parseFloat(thisBreaks[breakIndex].getAttribute('data-height-mean'));
+        var thisAverage = sumHeightMeans / thisBreaks.length;
+      }
+
+      var setSurfConditions = function(surfConditions) {
+        directions[i].querySelector('.direction__height').innerHTML = surfConditions;
+      };
+      if (thisAverage < .5) {
+        setSurfConditions('flat');
+      } else if (thisAverage >= .5 && thisAverage < 2) {
+        setSurfConditions('small bump');
+      } else if (thisAverage >= 2 && thisAverage < 4) {
+        setSurfConditions('waves');
+      } else if (thisAverage >= 4 && thisAverage < 8) {
+        setSurfConditions('firing');
+      } else if (thisAverage >= 8) {
+        setSurfConditions('massive');
+      }
+
     }

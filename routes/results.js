@@ -47,10 +47,16 @@ router.get('/', function(req, res, next) {
           if ( surfbreakInfoSuccess ) {
 
             var heightRange = [minArray[largestMinHeightIndex], maxArray[largestMinHeightIndex]];
-
             var swellDirection = breakArray[0].swell.components.combined.compassDirection;
+            var shoreDirection = resultSurfbreak.shore;
 
-            swellInfo.push( { title: resultSurfbreak.title, heightRange : heightRange, swellDirection: swellDirection } );
+            swellInfo.push({
+              title          : resultSurfbreak.title,
+              heightRange    : heightRange,
+              heightMean     : ( (heightRange[0] + heightRange[1]) / 2),
+              shoreDirection : shoreDirection,
+              swellDirection : swellDirection
+            });
           }
 
           callback();

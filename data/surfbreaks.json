@@ -1,86 +1,107 @@
 [
   {
     "title"  : "Ala Moana",
+    "shore"  : "South",
     "magicSW": 661
   },
   {
     "title"  : "Queens/Canoes (Waikiki)",
+    "shore"  : "South",
     "magicSW": 662
   },
   {
     "title"  : "Kailua Outer Reefs",
+    "shore"  : "East",
     "magicSW": 671
   },
   {
     "title"  : "Makaha Point",
+    "shore"  : "West",
     "magicSW": 983
   },
   {
     "title"  : "Makapuu Point",
+    "shore"  : "East",
     "magicSW": 984
   },
   {
     "title"  : "Sandy Beach",
+    "shore"  : "South",
     "magicSW": 1099
   },
   {
     "title"  : "Barbers Point",
+    "shore"  : "South",
     "magicSW": 3082
   },
   {
     "title"  : "Maili Point",
+    "shore"  : "West",
     "magicSW": 3084
   },
   {
     "title"  : "Tracks",
+    "shore"  : "North",
     "magicSW": 3085
   },
   {
     "title"  : "Waimea Bay",
+    "shore"  : "North",
     "magicSW": 549
   },
   {
     "title"  : "Pipeline & Backdoor",
+    "shore"  : "North",
     "magicSW": 616
   },
   {
     "title"  : "Sunset",
+    "shore"  : "North",
     "magicSW": 657
   },
   {
     "title"  : "Rocky Point",
+    "shore"  : "North",
     "magicSW": 658
   },
   {
     "title"  : "Velzyland",
+    "shore"  : "North",
     "magicSW": 659
   },
   {
     "title"  : "Haleʻiwa",
+    "shore"  : "North",
     "magicSW": 660
   },
   {
     "title"  : "Log Cabins",
+    "shore"  : "North",
     "magicSW": 2226
   },
   {
     "title"  : "Backyards",
+    "shore"  : "North",
     "magicSW": 2232
   },
   {
     "title"  : "Off-the-Wall",
+    "shore"  : "North",
     "magicSW": 2233
   },
   {
     "title"  : "Rockpile/Heisler Park",
+    "shore"  : "North",
     "magicSW": 2234
   },
   {
     "title"  : "Laniakea",
+    "shore"  : "North",
     "magicSW": 3672
   },
   {
     "title"  : "Waimea Offshore",
+    "shore"  : "North",
     "magicSW": 4283
   }
 
