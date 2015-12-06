@@ -27,24 +27,26 @@ router.get('/', function(req, res, next) {
 
           var breakArray = JSON.parse(body);
 
+          var surfbreakInfoSuccess = true;
           var minArray = [breakArray[0].swell.minBreakingHeight, breakArray[1].swell.minBreakingHeight, breakArray[2].swell.minBreakingHeight, breakArray[3].swell.minBreakingHeight, breakArray[4].swell.minBreakingHeight, breakArray[5].swell.minBreakingHeight];
           var maxArray = [breakArray[0].swell.maxBreakingHeight, breakArray[1].swell.maxBreakingHeight, breakArray[2].swell.maxBreakingHeight, breakArray[3].swell.maxBreakingHeight, breakArray[4].swell.maxBreakingHeight, breakArray[5].swell.maxBreakingHeight];
-          var surfbreakInfoSuccess = true;
-
-          for (var i = 0; i < 5; i ++) {
+          var largestMinHeight = 0,
+              largestMinHeightIndex = 0;
+          for (var i = 0; i < minArray.length; i ++) {
             if ( minArray[i] === false || maxArray[i] === false ) {
               surfbreakInfoSuccess = false;
-              console.log(resultSurfbreak.title, ' returned false min/max Height');
               break;
+            } else {
+              if (minArray[i] > largestMinHeight) {
+                largestMinHeight = minArray[i];
+                largestMinHeightIndex = i;
+              }
             }
           }
 
           if ( surfbreakInfoSuccess ) {
-            var minMinHeight = Math.min.apply(Math, minArray);
-            var maxMaxHeight = Math.max.apply(Math, maxArray);
-            console.log(resultSurfbreak.title + ' -- minMin = ' + minMinHeight);
-            console.log(resultSurfbreak.title + ' -- maxMax = ' + maxMaxHeight);
-            var heightRange = [minMinHeight, maxMaxHeight];
+
+            var heightRange = [minArray[largestMinHeightIndex], maxArray[largestMinHeightIndex]];
 
             var swellDirection = breakArray[0].swell.components.combined.compassDirection;
 
