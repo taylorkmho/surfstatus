@@ -128,10 +128,10 @@ gulp.task 'js', ->
 
   gulp.src "#{paths.src.js}/**/[^_]*.{js,coffee}"
     .pipe order([
-      "utils.js"
-      "lib/jello/jello.js"
-      "lib/jello/modules/**/*.js"
-      "app.js"
+      "helpers.js",
+      "surf-directions.js",
+      "wave-canvas.js",
+      "application.js"
     ])
     # .pipe changed(paths.dist.js)
     .pipe include().on('error', onError)
