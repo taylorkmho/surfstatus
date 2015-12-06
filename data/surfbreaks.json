@@ -10,6 +10,11 @@
     "magicSW": 662
   },
   {
+    "title"  : "Sandy Beach",
+    "shore"  : "S",
+    "magicSW": 1099
+  },
+  {
     "title"  : "Kailua Outer Reefs",
     "shore"  : "E",
     "magicSW": 671
@@ -25,11 +30,6 @@
     "magicSW": 984
   },
   {
-    "title"  : "Sandy Beach",
-    "shore"  : "S",
-    "magicSW": 1099
-  },
-  {
     "title"  : "Barbers Point",
     "shore"  : "S",
     "magicSW": 3082
@@ -40,17 +40,12 @@
     "magicSW": 3084
   },
   {
-    "title"  : "Tracks",
-    "shore"  : "N",
-    "magicSW": 3085
-  },
-  {
     "title"  : "Waimea Bay",
     "shore"  : "N",
     "magicSW": 549
   },
   {
-    "title"  : "Pipeline & Backdoor",
+    "title"  : "Pipeline",
     "shore"  : "N",
     "magicSW": 616
   },
@@ -65,44 +60,14 @@
     "magicSW": 658
   },
   {
-    "title"  : "Velzyland",
-    "shore"  : "N",
-    "magicSW": 659
-  },
-  {
     "title"  : "Haleʻiwa",
     "shore"  : "N",
     "magicSW": 660
   },
   {
-    "title"  : "Log Cabins",
-    "shore"  : "N",
-    "magicSW": 2226
-  },
-  {
-    "title"  : "Backyards",
-    "shore"  : "N",
-    "magicSW": 2232
-  },
-  {
-    "title"  : "Off-the-Wall",
-    "shore"  : "N",
-    "magicSW": 2233
-  },
-  {
-    "title"  : "Rockpile/Heisler Park",
-    "shore"  : "N",
-    "magicSW": 2234
-  },
-  {
     "title"  : "Laniakea",
     "shore"  : "N",
     "magicSW": 3672
-  },
-  {
-    "title"  : "Waimea Offshore",
-    "shore"  : "N",
-    "magicSW": 4283
   }
 
 ]
