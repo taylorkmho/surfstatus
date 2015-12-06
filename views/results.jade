@@ -21,8 +21,7 @@ block content
                 - var min = swellInfo[index].heightRange[0]
                 - var max = swellInfo[index].heightRange[1]
                 - var mean = swellInfo[index].heightMean
-                - var isWrap = swellInfo[index].isWrap
-                +surfbreakMixin(title, min, max, mean, isWrap)
+                +surfbreakMixin(title, min, max, mean)
     .directions__direction(data-shore="west")
       h1.directions__direction__title WEST <span class="direction__height"></span>
       .directions__direction__container
@@ -34,8 +33,7 @@ block content
                 - var min = swellInfo[index].heightRange[0]
                 - var max = swellInfo[index].heightRange[1]
                 - var mean = swellInfo[index].heightMean
-                - var isWrap = swellInfo[index].isWrap
-                +surfbreakMixin(title, min, max, mean, isWrap)
+                +surfbreakMixin(title, min, max, mean)
     .directions__direction(data-shore="east")
       h1.directions__direction__title EAST <span class="direction__height"></span>
       .directions__direction__container
@@ -47,8 +45,7 @@ block content
                 - var min = swellInfo[index].heightRange[0]
                 - var max = swellInfo[index].heightRange[1]
                 - var mean = swellInfo[index].heightMean
-                - var isWrap = swellInfo[index].isWrap
-                +surfbreakMixin(title, min, max, mean, isWrap)
+                +surfbreakMixin(title, min, max, mean)
     .directions__direction(data-shore="south")
       h1.directions__direction__title SOUTH <span class="direction__height"></span>
       .directions__direction__container
@@ -60,8 +57,7 @@ block content
                 - var min = swellInfo[index].heightRange[0]
                 - var max = swellInfo[index].heightRange[1]
                 - var mean = swellInfo[index].heightMean
-                - var isWrap = swellInfo[index].isWrap
-                +surfbreakMixin(title, min, max, mean, isWrap)
+                +surfbreakMixin(title, min, max, mean)
 
 block footerScripts
   script(src="../js/vendor/Wallop.js")

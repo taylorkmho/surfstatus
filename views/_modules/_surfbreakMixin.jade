@@ -1,7 +1,5 @@
-mixin surfbreakMixin(title, min, max, mean, isWrap)
+mixin surfbreakMixin(title, min, max, mean)
   .surfbreak.Wallop-item.carousel__row__item(data-height-mean=mean)
     h3.surfbreak__height
       | #{min}-#{max}&rsquo;
-      //- - if (isWrap)
-      //-   span wrap
     p.surfbreak__title= title
