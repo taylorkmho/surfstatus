@@ -1,30 +1,33 @@
 extends ./layouts/_layout.jade
 
 block content
-  .map
-    include ../src/images/svg/oahu.svg
-  //- .message-overlay.message-overlay--inactive(data-surf-conditions)
-  //-   .message-overlay__container
-  //-     h1 You should <span class="message-overlay__suggestion"></span>.
-  //- .directions
-  //-   .direction(data-shore="south")
-  //-     h1 SOUTH
-  //-     each surfbreak,index in swellInfo
-  //-       if (swellInfo[index].shoreDirection === "South")
-  //-         +surfbreakMixin(surfbreak.title, swellInfo[index].heightRange[0], swellInfo[index].heightRange[1], swellInfo[index].heightMean, swellInfo[index].swellDirection)
-  //-   .direction(data-shore="east")
-  //-     h1 EAST
-  //-     each surfbreak,index in swellInfo
-  //-       if (swellInfo[index].shoreDirection === "East")
-  //-         +surfbreakMixin(surfbreak.title, swellInfo[index].heightRange[0], swellInfo[index].heightRange[1], swellInfo[index].heightMean, swellInfo[index].swellDirection)
-  //-   .direction(data-shore="west")
-  //-     h1 WEST
-  //-     each surfbreak,index in swellInfo
-  //-       if (swellInfo[index].shoreDirection === "West")
-  //-         +surfbreakMixin(surfbreak.title, swellInfo[index].heightRange[0], swellInfo[index].heightRange[1], swellInfo[index].heightMean, swellInfo[index].swellDirection)
-  //-   .direction(data-shore="north")
-  //-     h1 NORTH
-  //-     each surfbreak,index in swellInfo
-  //-       if (swellInfo[index].shoreDirection === "North")
-  //-         +surfbreakMixin(surfbreak.title, swellInfo[index].heightRange[0], swellInfo[index].heightRange[1], swellInfo[index].heightMean, swellInfo[index].swellDirection)
+  .message-overlay.message-overlay--inactive(data-surf-conditions)
+    .container
+      h1.message-overlay__suggestion You should <span>call in sick</span>
+      h2.message-overlay__locations
+        span because the <b>north shore</b> is firing,
+        span the <b>westside</b> is big,
+        span the <b>south shore</b> is not bad,
+        span and the <b>eastside</b> is flat.
+  .directions
+    .direction(data-shore="south")
+      h1 SOUTH <span class="direction__height"></span>
+      each surfbreak,index in swellInfo
+        if (swellInfo[index].shoreDirection === "South")
+          +surfbreakMixin(surfbreak.title, swellInfo[index].heightRange[0], swellInfo[index].heightRange[1], swellInfo[index].heightMean, swellInfo[index].swellDirection)
+    .direction(data-shore="east")
+      h1 EAST <span class="direction__height"></span>
+      each surfbreak,index in swellInfo
+        if (swellInfo[index].shoreDirection === "East")
+          +surfbreakMixin(surfbreak.title, swellInfo[index].heightRange[0], swellInfo[index].heightRange[1], swellInfo[index].heightMean, swellInfo[index].swellDirection)
+    .direction(data-shore="west")
+      h1 WEST <span class="direction__height"></span>
+      each surfbreak,index in swellInfo
+        if (swellInfo[index].shoreDirection === "West")
+          +surfbreakMixin(surfbreak.title, swellInfo[index].heightRange[0], swellInfo[index].heightRange[1], swellInfo[index].heightMean, swellInfo[index].swellDirection)
+    .direction(data-shore="north")
+      h1 NORTH <span class="direction__height"></span>
+      each surfbreak,index in swellInfo
+        if (swellInfo[index].shoreDirection === "North")
+          +surfbreakMixin(surfbreak.title, swellInfo[index].heightRange[0], swellInfo[index].heightRange[1], swellInfo[index].heightMean, swellInfo[index].swellDirection)
 //- block footerScripts

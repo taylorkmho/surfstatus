@@ -28,15 +28,38 @@
   z-index: 100;
   opacity: 0;
   transition: opacity 2s $easeOutExpo;
-  &__container {
+  .container {
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 100%;
+    transform: translateY(-50%);
     padding: $column-gutter;
+    text-align: center;
   }
-  h1 {
+
+  &__suggestion {
     margin: 0;
+    font-size: 4rem;
+    line-height: 1;
+    color: #fff;
+    span {
+      font-family: $title-font-family;
+      font-size: 200%;
+      vertical-align: sub;
+    }
+  }
+
+  &__locations {
+    margin: $column-gutter 0 0;
+    line-height: 1;
+    span {
+      display: block;
+    }
+    b {
+      font-family: $title-font-family;
+      font-size: 125%;
+      vertical-align: sub;
+    }
   }
 
   &--active {

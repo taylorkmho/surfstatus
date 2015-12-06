@@ -34,9 +34,9 @@ if (directions) {
     if (thisAverage < .5) {
       setSurfConditions('flat');
     } else if (thisAverage >= .5 && thisAverage < 2) {
-      setSurfConditions('small bump');
+      setSurfConditions('not bad');
     } else if (thisAverage >= 2 && thisAverage < 4) {
-      setSurfConditions('waves');
+      setSurfConditions('big');
     } else if (thisAverage >= 4 && thisAverage < 8) {
       setSurfConditions('firing');
     } else if (thisAverage >= 8) {

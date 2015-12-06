@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
+@import url(https://fonts.googleapis.com/css?family=Rock+Salt);
 
 $column-gutter:     1rem;
 $row-width:         920px;
@@ -15,6 +16,7 @@ $c-board-detail:    #C9CCCF;
 $c-body-bg:         $c-navy;
 $c-body-font:       #aaa;
 
-$body-font-family:  'Montserrat', 'Helvetica Neue', Helvetica, sans-serif;
+$body-font-family:   'Montserrat', 'Helvetica Neue', Helvetica, sans-serif;
+$title-font-family:  'Rock Salt', 'Helvetica Neue', Helvetica, sans-serif;
 
 $easeOutExpo:       cubic-bezier(0.19, 1, 0.22, 1);
