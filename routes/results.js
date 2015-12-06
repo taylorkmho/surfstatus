@@ -29,7 +29,7 @@ router.get('/', function(req, res, next) {
 
           var surfbreakInfoSuccess = true;
           var minArray = [breakArray[0].swell.minBreakingHeight, breakArray[1].swell.minBreakingHeight, breakArray[2].swell.minBreakingHeight, breakArray[3].swell.minBreakingHeight, breakArray[4].swell.minBreakingHeight, breakArray[5].swell.minBreakingHeight];
-          var maxArray = [breakArray[0].swell.maxBreakingHeight, breakArray[1].swell.maxBreakingHeight, breakArray[2].swell.maxBreakingHeight, breakArray[3].swell.maxBreakingHeight, breakArray[4].swell.maxBreakingHeight, breakArray[5].swell.maxBreakingHeight];
+          var maxArray = [breakArray[0].swell.absMaxBreakingHeight, breakArray[1].swell.absMaxBreakingHeight, breakArray[2].swell.absMaxBreakingHeight, breakArray[3].swell.absMaxBreakingHeight, breakArray[4].swell.absMaxBreakingHeight, breakArray[5].swell.absMaxBreakingHeight];
           var largestMinHeight = 0,
               largestMinHeightIndex = 0;
           for (var i = 0; i < minArray.length; i ++) {
@@ -45,20 +45,29 @@ router.get('/', function(req, res, next) {
           }
 
           if ( surfbreakInfoSuccess ) {
-
-            var heightRange = [minArray[largestMinHeightIndex], maxArray[largestMinHeightIndex]];
+            var min = minArray[largestMinHeightIndex];
+            var max = ( Math.round( maxArray[largestMinHeightIndex] * 2 ) / 2);
+            var heightRange = [min, max];
             var swellDirection = breakArray[0].swell.components.combined.compassDirection;
             var shoreDirection = resultSurfbreak.shore;
+            var isWrap = false;
+            if ( swellDirection.indexOf(shoreDirection) > -1 ) {
+              // console.log(resultSurfbreak, ' is not wrap');
+              isWrap = false;
+            } else {
+              isWrap = true;
+            }
 
             swellInfo.push({
               title          : resultSurfbreak.title,
               heightRange    : heightRange,
               heightMean     : ( (heightRange[0] + heightRange[1]) / 2),
               shoreDirection : shoreDirection,
-              swellDirection : swellDirection
+              swellDirection : swellDirection,
+              isWrap         : isWrap
             });
           }
-
+          console.log(swellInfo);
           callback();
         }
       )

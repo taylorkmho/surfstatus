@@ -1,5 +1,6 @@
 body[data-template="results"] {
   background: #fff;
+  color: #222;
 }
 
 .suggestion {
@@ -8,10 +9,13 @@ body[data-template="results"] {
   text-align: center;
   &__message {
     font-size: 3rem;
+    line-height: 1;
+    margin: 0;
     span {
       font-family: $title-font-family;
       font-size: 200%;
       vertical-align: sub;
+      color: $c-red;
     }
   }
 }
@@ -21,6 +25,10 @@ body[data-template="results"] {
   text-align: center;
   border: 1px solid #222;
   &__direction {
+    position: relative;
+    height: 0;
+    padding-bottom: 50%;
+
     lost-column: 1/2 2 0;
     &:nth-child(odd) {
       border-right: 1px solid #222;
@@ -28,83 +36,45 @@ body[data-template="results"] {
     &:nth-last-child(-n+2) {
       border-top: 1px solid #222;
     }
+
+
+    &__title {
+      position: relative;
+      margin: $column-gutter 0 0;
+      display: inline-block;
+      font-size: 4rem;
+      color: $c-red;
+      span {
+        position: absolute;
+        bottom: -.5rem;
+        right: -.5rem;
+
+        font-family: $title-font-family;
+        font-size: 1.5rem;
+        color: #222;
+      }
+    }
+
+    &__container {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+    }
+
   }
 }
 
-/* .map {
-  position: relative;
-  z-index: 100;
-  lost-center: $row-width;
-  .oahu {
-    width: 100%;
-    height: auto;
-    &__base {
-      use {
-        fill: $c-green--dark;
-      }
-    }
-    &__clips {
-      &__clip {
-        opacity: 0;
-        &--active {
-          animation: clipPulse 1s linear infinite normal;
-        }
-      }
-    }
-  }
-} */
-
-/* .message-overlay {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 100;
-  opacity: 0;
-  transition: opacity 2s $easeOutExpo;
-  .container {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    transform: translateY(-50%);
-    padding: $column-gutter;
-    text-align: center;
-  }
-
-  &__suggestion {
+.surfbreak {
+  &__title, &__height {
     margin: 0;
+  }
+  &__height {
     font-size: 4rem;
-    line-height: 1;
-    color: #fff;
-    span {
-      font-family: $title-font-family;
-      font-size: 200%;
-      vertical-align: sub;
-    }
+    color: #aaa;
+  }
+  &__title {
+    font-size: 1rem;
   }
 
-  &__locations {
-    margin: $column-gutter 0 0;
-    line-height: 1;
-    span {
-      display: block;
-    }
-    b {
-      font-family: $title-font-family;
-      font-size: 125%;
-      vertical-align: sub;
-    }
-  }
-
-  &--active {
-    background-color: color(#000 a(.5));
-    opacity: 1;
-  }
-} */
-
-/* [class*="--inactive"] {
-  opacity: 0;
 }
-
-[class*="--active"] {
-  opacity: 1;
-} */

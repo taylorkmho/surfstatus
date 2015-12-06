@@ -2,13 +2,10 @@
 @import url(https://fonts.googleapis.com/css?family=Rock+Salt);
 
 $column-gutter:     1rem;
-$row-width:         920px;
+$row-width:         640px;
 
 $c-navy:            #0D273D;
-$c-aqua:            #54D0ED;
-$c-creme:           #FFFEF1;
-$c-green:           #70B85D;
-$c-green--dark:     #2C5E2E;
+$c-red:             #FB5F42;
 
 $c-board-fill:      #444;
 $c-board-detail:    #C9CCCF;

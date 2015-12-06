@@ -1,5 +1,7 @@
-mixin surfbreakMixin(title, min, max, mean, direction)
-  .surfbreak.Wallop-item(data-height-mean=mean)
-    h3= title
-    p surf height is <span class="surf-height">#{min} - #{max}</span>
-    p swell is coming from <span class="swell-direction">#{direction}</span>
+mixin surfbreakMixin(title, min, max, mean, isWrap)
+  .surfbreak.Wallop-item.carousel__row__item(data-height-mean=mean)
+    h3.surfbreak__height
+      | #{min}-#{max}&rsquo;
+      //- - if (isWrap)
+      //-   span wrap
+    p.surfbreak__title= title

@@ -1,107 +1,107 @@
 [
   {
     "title"  : "Ala Moana",
-    "shore"  : "South",
+    "shore"  : "S",
     "magicSW": 661
   },
   {
     "title"  : "Waikiki",
-    "shore"  : "South",
+    "shore"  : "S",
     "magicSW": 662
   },
   {
     "title"  : "Kailua Outer Reefs",
-    "shore"  : "East",
+    "shore"  : "E",
     "magicSW": 671
   },
   {
     "title"  : "Makaha Point",
-    "shore"  : "West",
+    "shore"  : "W",
     "magicSW": 983
   },
   {
     "title"  : "Makapuu Point",
-    "shore"  : "East",
+    "shore"  : "E",
     "magicSW": 984
   },
   {
     "title"  : "Sandy Beach",
-    "shore"  : "South",
+    "shore"  : "S",
     "magicSW": 1099
   },
   {
     "title"  : "Barbers Point",
-    "shore"  : "South",
+    "shore"  : "S",
     "magicSW": 3082
   },
   {
     "title"  : "Maili Point",
-    "shore"  : "West",
+    "shore"  : "W",
     "magicSW": 3084
   },
   {
     "title"  : "Tracks",
-    "shore"  : "North",
+    "shore"  : "N",
     "magicSW": 3085
   },
   {
     "title"  : "Waimea Bay",
-    "shore"  : "North",
+    "shore"  : "N",
     "magicSW": 549
   },
   {
     "title"  : "Pipeline & Backdoor",
-    "shore"  : "North",
+    "shore"  : "N",
     "magicSW": 616
   },
   {
     "title"  : "Sunset",
-    "shore"  : "North",
+    "shore"  : "N",
     "magicSW": 657
   },
   {
     "title"  : "Rocky Point",
-    "shore"  : "North",
+    "shore"  : "N",
     "magicSW": 658
   },
   {
     "title"  : "Velzyland",
-    "shore"  : "North",
+    "shore"  : "N",
     "magicSW": 659
   },
   {
     "title"  : "Haleʻiwa",
-    "shore"  : "North",
+    "shore"  : "N",
     "magicSW": 660
   },
   {
     "title"  : "Log Cabins",
-    "shore"  : "North",
+    "shore"  : "N",
     "magicSW": 2226
   },
   {
     "title"  : "Backyards",
-    "shore"  : "North",
+    "shore"  : "N",
     "magicSW": 2232
   },
   {
     "title"  : "Off-the-Wall",
-    "shore"  : "North",
+    "shore"  : "N",
     "magicSW": 2233
   },
   {
     "title"  : "Rockpile/Heisler Park",
-    "shore"  : "North",
+    "shore"  : "N",
     "magicSW": 2234
   },
   {
     "title"  : "Laniakea",
-    "shore"  : "North",
+    "shore"  : "N",
     "magicSW": 3672
   },
   {
     "title"  : "Waimea Offshore",
-    "shore"  : "North",
+    "shore"  : "N",
     "magicSW": 4283
   }
 

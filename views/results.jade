@@ -11,33 +11,57 @@ block content
     h1.suggestion__message You should <span>call in sick</span>.
   .directions
     .directions__direction(data-shore="north")
-      h1 NORTH <span class="direction__height"></span>
-      .Wallop
-        .Wallop-list
-          each surfbreak,index in swellInfo
-            if (swellInfo[index].shoreDirection === "North")
-              +surfbreakMixin(surfbreak.title, swellInfo[index].heightRange[0], swellInfo[index].heightRange[1], swellInfo[index].heightMean, swellInfo[index].swellDirection)
+      h1.directions__direction__title NORTH <span class="direction__height"></span>
+      .directions__direction__container
+        .Wallop
+          .Wallop-list
+            each surfbreak,index in swellInfo
+              if (swellInfo[index].shoreDirection === "N")
+                - var title = surfbreak.title
+                - var min = swellInfo[index].heightRange[0]
+                - var max = swellInfo[index].heightRange[1]
+                - var mean = swellInfo[index].heightMean
+                - var isWrap = swellInfo[index].isWrap
+                +surfbreakMixin(title, min, max, mean, isWrap)
     .directions__direction(data-shore="west")
-      h1 WEST <span class="direction__height"></span>
-      .Wallop
-        .Wallop-list
-          each surfbreak,index in swellInfo
-            if (swellInfo[index].shoreDirection === "West")
-              +surfbreakMixin(surfbreak.title, swellInfo[index].heightRange[0], swellInfo[index].heightRange[1], swellInfo[index].heightMean, swellInfo[index].swellDirection)
-    .directions__direction(data-shore="south")
-      h1 SOUTH <span class="direction__height"></span>
-      .Wallop
-        .Wallop-list
-          each surfbreak,index in swellInfo
-            if (swellInfo[index].shoreDirection === "South")
-              +surfbreakMixin(surfbreak.title, swellInfo[index].heightRange[0], swellInfo[index].heightRange[1], swellInfo[index].heightMean, swellInfo[index].swellDirection)
+      h1.directions__direction__title WEST <span class="direction__height"></span>
+      .directions__direction__container
+        .Wallop
+          .Wallop-list
+            each surfbreak,index in swellInfo
+              if (swellInfo[index].shoreDirection === "W")
+                - var title = surfbreak.title
+                - var min = swellInfo[index].heightRange[0]
+                - var max = swellInfo[index].heightRange[1]
+                - var mean = swellInfo[index].heightMean
+                - var isWrap = swellInfo[index].isWrap
+                +surfbreakMixin(title, min, max, mean, isWrap)
     .directions__direction(data-shore="east")
-      h1 EAST <span class="direction__height"></span>
-      .Wallop
-        .Wallop-list
-          each surfbreak,index in swellInfo
-            if (swellInfo[index].shoreDirection === "East")
-              +surfbreakMixin(surfbreak.title, swellInfo[index].heightRange[0], swellInfo[index].heightRange[1], swellInfo[index].heightMean, swellInfo[index].swellDirection)
+      h1.directions__direction__title EAST <span class="direction__height"></span>
+      .directions__direction__container
+        .Wallop
+          .Wallop-list
+            each surfbreak,index in swellInfo
+              if (swellInfo[index].shoreDirection === "E")
+                - var title = surfbreak.title
+                - var min = swellInfo[index].heightRange[0]
+                - var max = swellInfo[index].heightRange[1]
+                - var mean = swellInfo[index].heightMean
+                - var isWrap = swellInfo[index].isWrap
+                +surfbreakMixin(title, min, max, mean, isWrap)
+    .directions__direction(data-shore="south")
+      h1.directions__direction__title SOUTH <span class="direction__height"></span>
+      .directions__direction__container
+        .Wallop
+          .Wallop-list
+            each surfbreak,index in swellInfo
+              if (swellInfo[index].shoreDirection === "S")
+                - var title = surfbreak.title
+                - var min = swellInfo[index].heightRange[0]
+                - var max = swellInfo[index].heightRange[1]
+                - var mean = swellInfo[index].heightMean
+                - var isWrap = swellInfo[index].isWrap
+                +surfbreakMixin(title, min, max, mean, isWrap)
 
 block footerScripts
   script(src="../js/vendor/Wallop.js")
