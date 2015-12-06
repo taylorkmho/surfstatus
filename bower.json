@@ -19,6 +19,7 @@
   ],
   "dependencies": {
     "jaaulde-cookies": "~3.0.6",
-    "normalize-css": "normalize.css#~3.0.3"
+    "normalize-css": "normalize.css#~3.0.3",
+    "wallop": "~2.2.3"
   }
 }

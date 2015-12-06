@@ -7,22 +7,18 @@
 // addClass(document.querySelector('[data-shore="north"]'), 'oahu__clips__clip--active');
 
 
-var directions = document.querySelectorAll('.direction');
-
-var messageOverlay = document.querySelector('.message-overlay');
-
-if (messageOverlay) {
-  setTimeout(function(){
-    addClass(messageOverlay, 'message-overlay--active');
-    removeClass(messageOverlay, 'message-overlay--inactive');
-  }, 250);
-}
+var directions = document.querySelectorAll('.directions__direction');
 
 if (directions) {
   for (var i = 0; i < directions.length; i ++) {
     var thisBreaks = directions[i].querySelectorAll('.surfbreak');
-    var sumHeightMeans = 0;
 
+    // CREATE CAROUSELS
+    var wallopEl = directions[i].querySelector('.Wallop');
+    var slider = new Wallop(wallopEl);
+
+    // SET DESCRIPTIVE SURF CONDITIONS
+    var sumHeightMeans = 0;
     for (var breakIndex = 0; breakIndex < thisBreaks.length; breakIndex++) {
       sumHeightMeans = sumHeightMeans + parseFloat(thisBreaks[breakIndex].getAttribute('data-height-mean'));
       var thisAverage = sumHeightMeans / thisBreaks.length;
@@ -43,4 +39,5 @@ if (directions) {
       setSurfConditions('massive');
     }
   }
+
 }
