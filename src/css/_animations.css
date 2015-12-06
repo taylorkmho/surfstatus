@@ -1,8 +1,54 @@
-@keyframes clipPulse {
- 0%, 100% {
-  opacity: 0;
- }
- 50% {
-  opacity: .5;
- }
+.Wallop-item--showPrevious {
+  animation: slideFromLeft 500ms 10ms $easeOutExpo both;
+}
+
+.Wallop-item--showNext {
+  animation: slideFromRight 500ms 10ms $easeOutExpo both;
+}
+
+.Wallop-item--hidePrevious,
+.Wallop-item--hideNext {
+  visibility: visible;
+}
+
+.Wallop-item--hidePrevious {
+  animation: slideToLeft 500ms 10ms $easeOutExpo both;
+}
+
+.Wallop-item--hideNext {
+  animation: slideToRight 500ms 10ms $easeOutExpo both;
+}
+
+@keyframes slideFromLeft {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@keyframes slideFromRight {
+  0% {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+@keyframes slideToLeft {
+  99% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@keyframes slideToRight {
+  99% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
 }
