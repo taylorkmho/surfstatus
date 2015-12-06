@@ -9,90 +9,6 @@ var secrets        = require('../data/secrets.json');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 
-  var cookieBoardsSelected = req.cookies["boardsSelected"];
-  var cookieSkillSelected  = req.cookies["skillSelected"];
-  var boardsSelectedBinary = req.cookies["boardsSelectedBinary"];
-
-  var breaksBasedOnQueries = [];
-
-  /*
-    Add surfbreaks to [breaksBasedOnQueries]
-    if [quiverQuery] meets [surfBreaksList] surfbreaks
-  */
-  if (boardsSelectedBinary) {
-    console.log('boardsSelectedBinary exists');
-    var quiverQuery = boardsSelectedBinary;
-  } else if (req.query.quiver) {
-    console.log('req.query.quiver exists');
-    var quiverQuery = req.query.quiver;
-  } else {
-    console.log('go home, cook rice');
-  }
-  if (quiverQuery > 0) {
-    var addBreakWith = function(boardType) {
-          surfbreaksList.forEach( function(surfbreak) {
-            if (
-                // [boardType] is in [surfbreak.boards]
-                surfbreak.boards.indexOf(boardType) > -1
-                // && [surfbreak] is NOT in [breaksBasedOnQueries]
-                && breaksBasedOnQueries.indexOf(surfbreak) == -1
-            ) {
-              // push [surfbreak] to [breaksBasedOnQueries]
-              breaksBasedOnQueries.push(surfbreak);
-            }
-          });
-        };
-
-    var quiverParamValues = quiverQuery.split(''),
-        boardOptions = ['BB','SB','LB','SUP'];;
-    for (var i=0; i < boardOptions.length; i++) {
-      if (quiverParamValues[i] > 0) {
-        addBreakWith(boardOptions[i]);
-      }
-    }
-
-  } else if (quiverQuery < 1) {
-    // ?quiver=0000
-    console.log('YOU NEED A BOARD');
-  }
-  else {
-    // no quiver URL parameter
-    console.log('quiver does not exist');
-  }
-
-  /*
-    Remove surfbreaks from [breaksBasedOnQueries]
-    if [skillQuery] does not meet [surfBreaksList] surfbreaks
-  */
-  if (cookieSkillSelected) {
-    var skillQuery = cookieSkillSelected;
-  } else {
-    var skillQuery = req.query.skill;
-  }
-  if (skillQuery > 0) {
-    var removeBreakIfSkillsDontMeet = function() {
-          // iterate backward through [breaksBasedOnQueries]
-          //   ref - http://stackoverflow.com/a/16352560/2821119
-          // to remove surfbreaks that the [skillQuery] does not satisfy
-          for(var i = breaksBasedOnQueries.length -1; i >= 0 ; i--){
-            var thisBreakIndex = breaksBasedOnQueries[i];
-
-            // if [skillQuery] is less than a [breaksBasedOnQueries] break's requirement
-            if ( skillQuery < thisBreakIndex.skill ) {
-              // get this break's index based on it's location in [breaksBasedOnQueries]
-              var indexBreakBOQ = breaksBasedOnQueries.indexOf(thisBreakIndex);
-              // cut it out
-              breaksBasedOnQueries.splice(indexBreakBOQ, 1);
-            }
-          }
-
-        }();
-
-  } else {
-    // no skill URL parameter
-    console.log('skill is 0 or does not exist');
-  }
-
   /*
     MAGIC SEAWEED ACTION
   */
@@ -101,7 +17,7 @@ router.get('/', function(req, res, next) {
   var swellInfo = new Array();
   // console.log(breaksBasedOnQueries);
   async.each(
-    breaksBasedOnQueries,
+    surfbreaksList,
     function(resultSurfbreak, callback) {
 
       request(
@@ -110,16 +26,37 @@ router.get('/', function(req, res, next) {
           // needs error handler
 
           var breakArray = JSON.parse(body);
-          var heightRange = [ breakArray[1].swell.minBreakingHeight, breakArray[1].swell.maxBreakingHeight ];
-          var swellDirection = breakArray[1].swell.components.combined.compassDirection;
 
-          swellInfo.push( { title: resultSurfbreak.title, heightRange : heightRange, swellDirection: swellDirection } );
+          var minArray = [breakArray[0].swell.minBreakingHeight, breakArray[1].swell.minBreakingHeight, breakArray[2].swell.minBreakingHeight, breakArray[3].swell.minBreakingHeight, breakArray[4].swell.minBreakingHeight, breakArray[5].swell.minBreakingHeight];
+          var maxArray = [breakArray[0].swell.maxBreakingHeight, breakArray[1].swell.maxBreakingHeight, breakArray[2].swell.maxBreakingHeight, breakArray[3].swell.maxBreakingHeight, breakArray[4].swell.maxBreakingHeight, breakArray[5].swell.maxBreakingHeight];
+          var surfbreakInfoSuccess = true;
+
+          for (var i = 0; i < 5; i ++) {
+            if ( minArray[i] === false || maxArray[i] === false ) {
+              surfbreakInfoSuccess = false;
+              console.log(resultSurfbreak.title, ' returned false min/max Height');
+              break;
+            }
+          }
+
+          if ( surfbreakInfoSuccess ) {
+            var minMinHeight = Math.min.apply(Math, minArray);
+            var maxMaxHeight = Math.max.apply(Math, maxArray);
+            console.log(resultSurfbreak.title + ' -- minMin = ' + minMinHeight);
+            console.log(resultSurfbreak.title + ' -- maxMax = ' + maxMaxHeight);
+            var heightRange = [minMinHeight, maxMaxHeight];
+
+            var swellDirection = breakArray[0].swell.components.combined.compassDirection;
+
+            swellInfo.push( { title: resultSurfbreak.title, heightRange : heightRange, swellDirection: swellDirection } );
+          }
 
           callback();
         }
       )
     },
     function (err) {
+
       var sortByTitle = function(arrayName) {
         arrayName.sort(function(a, b){
           if(a.title.toLowerCase() < b.title.toLowerCase()) return -1;
@@ -127,13 +64,10 @@ router.get('/', function(req, res, next) {
           return 0;
         })
       }
+
       sortByTitle(swellInfo);
-      sortByTitle(breaksBasedOnQueries);
 
-      // console.log(swellInfo);
-      // console.log(breaksBasedOnQueries);
-
-      res.render('results', { title: 'Results', surfbreaks: breaksBasedOnQueries, swellInfo: swellInfo });
+      res.render('results', { title: 'Results', swellInfo: swellInfo });
     }
   );
 

@@ -1,13 +1,12 @@
 extends ./layouts/_layout.jade
 
 block content
-  each surfbreak, index in surfbreaks
-    .surfbreak(data-magicSW=surfbreak.magicSW)
+  each surfbreak,index in swellInfo
+    .surfbreak
       h1= surfbreak.title
-      - if ( !swellInfo[index].heightRange[0] === false &&  !swellInfo[index].heightRange[1] === false)
-        p surf height is <span class="surf-height">#{swellInfo[index].heightRange[0] + " - " + swellInfo[index].heightRange[1]}</span>
-      - if ( !swellInfo[index].swellDirection === false )
-        p swell is coming from <span class="swell-direction">#{swellInfo[index].swellDirection}</span>
+      p surf height is <span class="surf-height">#{swellInfo[index].heightRange[0] + " - " + swellInfo[index].heightRange[1]}</span>
+      //- - if ( !swellInfo[index].swellDirection === false )
+      //-   p swell is coming from <span class="swell-direction">#{swellInfo[index].swellDirection}</span>
 
   script.
     if (cookies.get('boardsSelected') && cookies.get('skillSelected') && cookies.get('boardsSelectedBinary')) {
