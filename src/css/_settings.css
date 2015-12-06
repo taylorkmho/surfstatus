@@ -4,14 +4,17 @@
 $column-gutter:     1rem;
 $row-width:         640px;
 
-$c-navy:            #0D273D;
-$c-red:             #FB5F42;
+$grid-border:       8px solid #ddd;
+
+$c-slate:           #1A1D2D;
+$c-blue:            #014E6E;
+$c-red:             #EB4329;
 
 $c-board-fill:      #444;
 $c-board-detail:    #C9CCCF;
 
-$c-body-bg:         $c-navy;
-$c-body-font:       #aaa;
+$c-body-bg:         $c-blue;
+$c-body-font:       $c-slate;
 
 $body-font-family:   'Montserrat', 'Helvetica Neue', Helvetica, sans-serif;
 $title-font-family:  'Rock Salt', 'Helvetica Neue', Helvetica, sans-serif;

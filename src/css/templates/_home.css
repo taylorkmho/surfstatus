@@ -1,3 +1,8 @@
+body[data-template="home"] {
+  background: $c-blue;
+  color: #eee;
+}
+
 .waves {
   position: absolute;
   height: 100%;

@@ -1,6 +1,5 @@
 body[data-template="results"] {
-  background: #fff;
-  color: #222;
+  background: #eee;
 }
 
 .suggestion {
@@ -23,7 +22,10 @@ body[data-template="results"] {
 .directions {
   lost-center: $row-width;
   text-align: center;
-  border: 1px solid #222;
+  border: $grid-border;
+  *::selection {
+    background: transparent;
+  }
   &__direction {
     position: relative;
     height: 0;
@@ -31,16 +33,17 @@ body[data-template="results"] {
 
     lost-column: 1/2 2 0;
     &:nth-child(odd) {
-      border-right: 1px solid #222;
+      border-right: $grid-border;
     }
     &:nth-last-child(-n+2) {
-      border-top: 1px solid #222;
+      border-top: $grid-border;
     }
 
 
     &__title {
       position: relative;
-      margin: $column-gutter 0 0;
+      margin: 0;
+      transform: translateY(-50%);
       display: inline-block;
       font-size: 4rem;
       color: $c-red;
@@ -70,11 +73,14 @@ body[data-template="results"] {
     margin: 0;
   }
   &__height {
-    font-size: 4rem;
-    color: #aaa;
+    font-size: 5rem;
+    color: $c-slate;
   }
   &__title {
     font-size: 1rem;
   }
+}
 
+.Wallop {
+  cursor: pointer;
 }
