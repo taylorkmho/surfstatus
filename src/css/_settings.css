@@ -15,6 +15,7 @@ $c-board-detail:    #C9CCCF;
 
 $c-body-bg:         $c-blue;
 $c-body-font:       $c-slate;
+$c-body-border:     #fff;
 
 $body-font-family:   'Montserrat', 'Helvetica Neue', Helvetica, sans-serif;
 $title-font-family:  'Rock Salt', 'Helvetica Neue', Helvetica, sans-serif;

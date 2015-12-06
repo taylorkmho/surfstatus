@@ -1,0 +1,11 @@
+.branding {
+  position: relative;
+  z-index: 200;
+  background: $c-body-border;
+  padding: $column-gutter calc($column-gutter*2);
+  text-align: left;
+  svg {
+    height: 4rem;
+    width: auto;
+  }
+}

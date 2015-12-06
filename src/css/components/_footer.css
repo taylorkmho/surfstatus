@@ -1,0 +1,23 @@
+.suggestion {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  padding: calc($column-gutter * .5) $column-gutter;
+  background-color: $c-body-border;
+  text-align: center;
+  z-index: 200;
+  &__message {
+    font-size: 0.5rem;
+    line-height: 1;
+    margin: 0;
+    text-transform: uppercase;
+    span {
+      font-family: $title-font-family;
+      font-size: 200%;
+      vertical-align: sub;
+      text-transform: lowercase;
+      color: $c-red;
+    }
+  }
+}

@@ -12,7 +12,12 @@ html
     link(rel='stylesheet' href='../css/app.css')
     block addToHead
   body(data-template="#{bodyTemplate}")
+
     block content
+
+    footer.suggestion
+      h1.suggestion__message It's Monday, you should <span>call in sick</span>.
+
     block footerScripts
     script(src="../js/vendor/jaaulde-cookies.js")
     script(src="../js/app.js")

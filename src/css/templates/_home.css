@@ -30,14 +30,14 @@ body[data-template="home"] {
       pointer-events: initial;
     }
   }
-}
 
-.logo-surfornah {
-  padding: 0 $column-gutter;
-  &__surf, &__nugget {
-    fill: #fff;
-  }
-  &__or-nah {
+  .logo-surfornah {
+    padding: 0 $column-gutter;
+    &__surf, &__nugget {
+      fill: #fff;
+    }
+    &__or-nah {
+    }
   }
 }
 

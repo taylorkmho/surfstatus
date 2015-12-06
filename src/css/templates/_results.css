@@ -2,27 +2,11 @@ body[data-template="results"] {
   background: #eee;
 }
 
-.suggestion {
-  margin: calc($column-gutter * 2) auto;
-  padding: 0 $column-gutter;
-  text-align: center;
-  &__message {
-    font-size: 3rem;
-    line-height: 1;
-    margin: 0;
-    span {
-      font-family: $title-font-family;
-      font-size: 200%;
-      vertical-align: sub;
-      color: $c-red;
-    }
-  }
-}
-
 .directions {
   lost-center: $row-width;
   text-align: center;
   border: $grid-border;
+  margin-top: 6rem;
   *::selection {
     background: transparent;
   }

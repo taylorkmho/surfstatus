@@ -7,9 +7,10 @@ block addToHead
 
 block content
 
-  .suggestion
-    h1.suggestion__message You should <span>take a break</span>.
-  .directions
+  header.branding
+    include ../src/images/svg/logo-surfornah.svg
+
+  section.directions
     .directions__direction(data-shore="north")
       h1.directions__direction__title NORTH <span class="direction__height"></span>
       .directions__direction__container

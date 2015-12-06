@@ -6,6 +6,8 @@
 @import './_structure';
 @import './_animations';
 
+@import './components/_header';
+@import './components/_footer';
 @import './components/_buttons';
 @import './components/_loaders';
 
