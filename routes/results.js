@@ -45,8 +45,9 @@ router.get('/', function(req, res, next) {
           }
 
           if ( surfbreakInfoSuccess ) {
-            var min = minArray[largestMinHeightIndex];
-            var max = Math.round( maxArray[largestMinHeightIndex] * 2 ) / 2;
+            var hawaiianScale = 2;
+            var min = Math.round( minArray[largestMinHeightIndex] / hawaiianScale );
+            var max = Math.round( maxArray[largestMinHeightIndex] / hawaiianScale );
             var heightRange = [min, max];
             var swellDirection = breakArray[0].swell.components.combined.compassDirection;
             var shoreDirection = resultSurfbreak.shore;
@@ -59,7 +60,7 @@ router.get('/', function(req, res, next) {
               swellDirection : swellDirection
             });
           }
-          console.log(swellInfo);
+          // console.log(swellInfo);
           callback();
         }
       )
