@@ -1,31 +1,36 @@
 var express        = require('express');
 var request        = require('request');
 var async          = require('async');
-var apicache       = require('apicache').options({ debug: true }).middleware;
 var router         = express.Router();
 
 var surfbreaksList = require('../data/surfbreaks.json');
 var secrets        = require('../data/secrets.json');
 
 /* GET users listing. */
-router.get('/', apicache('12 hours'), function(req, res, next) {
+router.get('/', function(req, res, next) {
 
   /*
     MAGIC SEAWEED ACTION
   */
   var magicSWKey = secrets[0].apiKeys.magicSW;
-  // // console.log(magicSWKey);
+  // console.log(magicSWKey);
   var swellInfo = new Array();
   // console.log(breaksBasedOnQueries);
   async.each(
     surfbreaksList,
     function(resultSurfbreak, callback) {
-
       request(
-        { url: "http://magicseaweed.com/api/" + magicSWKey+ "/forecast/?spot_id=" + resultSurfbreak.magicSW, method: "GET", timeout: 10000 },
-        function(error, response, body) {
-          // needs error handler
-
+        { url: "http://magicseaweed.com/api/" + magicSWKey + "/forecast/?spot_id=" + resultSurfbreak.magicSW, method: "GET", timeout: 20000 },
+        function(err, response, body) {
+          if (err) {
+            if (err.message === 'read ECONNRESET') {
+              err.message = 'Looks like the server we get our surf report from is down :(';
+            }
+            res.render('error', {
+              message: err.message,
+              error: err
+            });
+          }
           var breakArray = JSON.parse(body);
 
           var surfbreakInfoSuccess = true;

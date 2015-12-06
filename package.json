@@ -6,7 +6,6 @@
     "start": "nodemon start.js"
   },
   "dependencies": {
-    "apicache": "0.0.12",
     "async": "^1.5.0",
     "body-parser": "~1.13.2",
     "browser-sync": "^2.10.0",
