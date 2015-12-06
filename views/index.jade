@@ -4,6 +4,8 @@ block vars
   - var bodyTemplate = "home"
 
 block content
+  section.waves
+    canvas.waves__canvas
   section.splash
     .splash__container
       include ../src/images/svg/logo-surfornah.svg
@@ -12,3 +14,5 @@ block content
           h1= title
           h2 Figure out what surf breaks <em>you</em> should check out <em>today</em>.
           a.btn.btn--blue(href="/results") Let&rsquo;s Go
+block footerScripts
+  script(src="../js/vendor/wave-canvas.js")

@@ -11,9 +11,7 @@ html
     title #{title}
     link(rel='stylesheet' href='../css/app.css')
   body(data-template="#{bodyTemplate}")
-    section.waves
-      canvas.waves__canvas
     block content
-    script(src="../js/jaaulde-cookies.js")
-    script(src="../js/app.js")
     block footerScripts
+    script(src="../js/vendor/jaaulde-cookies.js")
+    script(src="../js/app.js")
