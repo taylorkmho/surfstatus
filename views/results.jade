@@ -8,7 +8,10 @@ block addToHead
 block content
 
   header.branding
-    include ../src/images/svg/logo-surfornah.svg
+    .branding__logo
+      include ../src/images/svg/logo-surfornah.svg
+    //- .branding__tagline
+    //-   p Because your surf report<br> should look good, too.
 
   section.directions
     .directions__direction(data-shore="north")

@@ -1,11 +1,40 @@
 .branding {
   position: relative;
-  z-index: 200;
-  background: $c-body-border;
-  padding: $column-gutter calc($column-gutter*2);
-  text-align: left;
-  svg {
-    height: 4rem;
-    width: auto;
+  z-index: 100;
+  padding: calc($column-gutter*2);
+  lost-utility: clearfix;
+
+  height: 100%;
+
+  &:before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 200;
+    height: calc(2*$column-gutter);
+    background-color: $c-body-border;
+  }
+  &__logo {
+    position: relative;
+    lost-center: $row-width;
+    height: 100%;
+
+    background: #ddd;
+    text-align: center;
+  }
+  .logo-surfornah {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: auto;
+
+    padding: calc(4*$column-gutter);
+    &__surf, &__nugget {
+      fill: $c-red;
+    }
   }
 }
