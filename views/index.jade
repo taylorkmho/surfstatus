@@ -28,9 +28,9 @@ block content
                 .surfbreak.Wallop-item.Wallop-item--current
                   h3.surfbreak__height
                     = surfHeightRanges[i].min
-                    | -
+                    span -
                     = surfHeightRanges[i].max
-                    | &rsquo;
+                    span &rsquo;
     .sunrise-sunset(data-weather-sunset=weather.sunset data-weather-sunrise=weather.sunrise)
       include ../src/images/svg/mokes.svg
 
