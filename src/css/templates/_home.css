@@ -1,62 +1,78 @@
-body[data-template="home"] {
-  background: $c-blue;
-  color: #eee;
+
+.wave-report {
+  border-top: calc($column-gutter*2) solid $c-body-border;
+  padding-top: $padding-section;
+  padding-bottom: $padding-section;
 }
 
-.waves {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  &__canvas {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-  }
-}
+.directions {
 
-.splash {
-  height: 100%;
-  width: 100%;
-  &__container {
-    @extend container--center;
-
-    pointer-events: none;
-
-    img {
-      padding: 0 calc($column-gutter*2);
-      margin-bottom: $column-gutter;
-    }
-    .btn {
-      pointer-events: initial;
-    }
-  }
-
-  .logo-surfornah {
-    padding: 0 $column-gutter;
-    &__surf, &__nugget {
-      fill: #fff;
-    }
-    &__or-nah {
-    }
-  }
-}
-
-.tagline {
+  lost-center: $row-width;
   text-align: center;
-  h1 {
-    display: none;
+  border: $grid-border;
+  cursor: default;
+
+  *::selection {
+    background: transparent;
   }
-  h2 {
-    margin: calc($column-gutter*2) 0 calc($column-gutter*2);
-    padding: 0 $column-gutter;
+
+  &__direction {
+    position: relative;
+    height: 0;
+    padding-bottom: 50%;
+
+    lost-column: 1/2 2 0;
+    &:nth-child(odd) {
+      border-right: $grid-border;
+    }
+    &:nth-last-child(-n+2) {
+      border-top: $grid-border;
+    }
+
+
+    &__title {
+      position: relative;
+      margin: 0;
+      transform: translate3d(0, -50%, 0);
+      display: inline-block;
+      font-size: 4rem;
+      color: $c-red;
+      text-transform: uppercase;
+      span {
+        position: absolute;
+        bottom: -.5rem;
+        right: -.5rem;
+
+        font-family: $title-font-family;
+        font-size: 1.5rem;
+        text-transform: lowercase;
+        color: #222;
+      }
+    }
+
+    &__container {
+      position: absolute;
+      top: 50%;
+      transform: translate3d(0, -50%, 0);
+      width: 100%;
+    }
+
   }
 }
 
-@media screen and (min-width: 640px) {
-  .tagline {
-    h2 {
-      padding: 0;
-      font-size: 2rem;
-    }
+.surfbreak {
+  &__title, &__height {
+    margin: 0;
+  }
+  &__height {
+    font-size: 5rem;
+    color: $c-slate;
+  }
+  &__title {
+    font-size: 1rem;
   }
 }
+
+/* .Wallop {
+  cursor: default;
+} */
