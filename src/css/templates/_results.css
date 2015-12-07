@@ -10,9 +10,12 @@
   lost-center: $row-width;
   text-align: center;
   border: $grid-border;
+  cursor: default;
+
   *::selection {
     background: transparent;
   }
+
   &__direction {
     position: relative;
     height: 0;
@@ -68,6 +71,6 @@
   }
 }
 
-.Wallop {
-  cursor: pointer;
-}
+/* .Wallop {
+  cursor: default;
+} */
