@@ -30,7 +30,7 @@
     &__title {
       position: relative;
       margin: 0;
-      transform: translateY(-50%);
+      transform: translate3d(0, -50%, 0);
       display: inline-block;
       font-size: 4rem;
       color: $c-red;
@@ -48,7 +48,7 @@
     &__container {
       position: absolute;
       top: 50%;
-      transform: translateY(-50%);
+      transform: translate3d(0, -50%, 0);
       width: 100%;
     }
 
