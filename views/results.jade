@@ -7,6 +7,9 @@ block addToHead
 
 block content
 
+  section.waves
+    canvas.waves__canvas
+
   header.branding
     .branding__logo
       include ../src/images/svg/logo-surfornah.svg
@@ -64,4 +67,5 @@ block content
                 +surfbreakMixin(title, min, max, mean)
 
 block footerScripts
+  script(src="../js/vendor/wave-canvas.js")
   script(src="../js/vendor/Wallop.js")

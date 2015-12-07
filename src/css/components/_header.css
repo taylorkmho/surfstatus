@@ -1,6 +1,15 @@
+.waves {
+  &, &__canvas {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+  }
+}
+
 .branding {
   position: relative;
-  z-index: 100;
+  /* z-index: 100; */
   padding: calc($column-gutter*2);
   lost-utility: clearfix;
 
@@ -20,8 +29,9 @@
     position: relative;
     lost-center: $row-width;
     height: 100%;
+    z-index: 300;
 
-    background: #ddd;
+    /* background: #ddd; */
     text-align: center;
   }
   .logo-surfornah {
@@ -35,6 +45,9 @@
     padding: calc(4*$column-gutter);
     &__surf, &__nugget {
       fill: $c-red;
+    }
+    &__nah {
+      fill: #fff;
     }
   }
 }

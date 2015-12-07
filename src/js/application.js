@@ -1,4 +1,33 @@
 'use strict';
+/*
+ * START
+ */
+
+var canvas = document.querySelector( ".waves__canvas" );
+if (canvas) {
+
+  var options = {
+    color: "rgba(0,0,0,.025)",
+    waveAmplitude: 30,
+    waveRadius: 200,
+    waveElasticity: 0.75,
+    waveStrength: 0.01,
+    waveMouse: 40,
+    waveMax: 100,
+    waveComeUp: function() {},
+    waveRiseSpeed: 15,
+    lineWidth: 5,
+    waveLength: 100,
+    distance: 20
+  };
+
+  var app = new Canvas( canvas, size );
+
+  window.addEventListener( "resize", function() {
+    app.setSize( window.innerWidth, window.innerHeight );
+  }, false );
+
+}
 
 /*
   Directions messages
