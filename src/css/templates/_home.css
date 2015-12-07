@@ -1,4 +1,3 @@
-
 .wave-report {
   border-top: calc($column-gutter*2) solid $c-body-border;
   padding: calc($column-gutter*3);
@@ -157,7 +156,7 @@
 .mokes {
   max-width: 360px;
   &__island {
-    fill: $c-slate;
+    fill: $c-grid-border;
   }
   &__sun {
     fill: $c-red;

@@ -1,13 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
 @import url(https://fonts.googleapis.com/css?family=Rock+Salt);
 
-$column-gutter:     1rem;
-$row-width:         640px;
-
-$grid-border:       8px solid #ddd;
-
-$padding-section:   calc($column-gutter*10);
-
 $c-slate:           #1A1D2D;
 $c-blue:            #014E6E;
 $c-red:             #EB4329;
@@ -18,6 +11,14 @@ $c-board-detail:    #C9CCCF;
 $c-body-bg:         #eee;
 $c-body-font:       $c-slate;
 $c-body-border:     #fff;
+$c-grid-border:     #ddd;
+
+$grid-border:       8px solid $c-grid-border;
+
+$column-gutter:     1rem;
+$row-width:         640px;
+
+$padding-section:   calc($column-gutter*10);
 
 $body-font-family:   'Montserrat', 'Helvetica Neue', Helvetica, sans-serif;
 $title-font-family:  'Rock Salt', 'Helvetica Neue', Helvetica, sans-serif;
