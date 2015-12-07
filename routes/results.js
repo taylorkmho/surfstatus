@@ -13,24 +13,25 @@ router.get('/', function(req, res, next) {
     MAGIC SEAWEED ACTION
   */
   var magicSWKey = secrets[0].apiKeys.magicSW;
-  // console.log(magicSWKey);
+
   var swellInfo = new Array();
-  // console.log(breaksBasedOnQueries);
+
+
+
   async.each(
     surfbreaksList,
     function(resultSurfbreak, callback) {
       request(
         { url: "http://magicseaweed.com/api/" + magicSWKey + "/forecast/?spot_id=" + resultSurfbreak.magicSW, method: "GET", timeout: 20000 },
         function(err, response, body) {
+
           if (err) {
-            if (err.message === 'read ECONNRESET') {
-              err.message = 'Looks like the server we get our surf report from is down :(';
-            }
             res.render('error', {
               message: err.message,
               error: err
             });
           }
+
           var breakArray = JSON.parse(body);
 
           var surfbreakInfoSuccess = true;
@@ -72,6 +73,13 @@ router.get('/', function(req, res, next) {
       )
     },
     function (err) {
+
+      if (err) {
+        res.render('error', {
+          message: err.message,
+          error: err
+        });
+      }
 
       var sortByHeight = function(arrayName) {
         arrayName.sort(function(a, b){
