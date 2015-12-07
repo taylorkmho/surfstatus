@@ -35,6 +35,8 @@
     "jade": "~1.11.0",
     "lost": "^6.6.2",
     "main-bower-files": "^2.9.0",
+    "mongojs": "^2.0.0",
+    "mongoose": "^4.2.9",
     "morgan": "~1.6.1",
     "postcss-center": "^1.0.0",
     "postcss-focus": "^1.0.0",
