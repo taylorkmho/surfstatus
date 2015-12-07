@@ -1,22 +1,52 @@
 
 .wave-report {
   border-top: calc($column-gutter*2) solid $c-body-border;
-  padding-top: $padding-section;
-  padding-bottom: $padding-section;
+  padding: calc($column-gutter*3);
   lost-utility: clearfix;
+  transition: all $easeOutExpo 400ms;
 }
 
-.directions, .sunrise-sunset {
-  lost-column: 1/3 3 0;
-  position: relative;
-  left: calc(100%/3);
+@media screen and (min-width: 400px) {
+  .wave-report {
+    padding: calc($column-gutter*4);
+  }
 }
+
+@media screen and (min-width: 840px) {
+  .wave-report {
+    padding-top: $padding-section;
+    padding-bottom: $padding-section;
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .wave-report {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media screen and (min-width: 840px) {
+  .directions, .sunrise-sunset {
+    lost-column: 1/2 2 0;
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .directions, .sunrise-sunset {
+    lost-column: 1/3 3 0;
+    position: relative;
+    left: calc(100%/3);
+  }
+}
+
 
 .directions {
   text-align: center;
   border: $grid-border;
   cursor: default;
-
+  lost-utility: clearfix;
+  transition: all $easeOutExpo 400ms;
   *::selection {
     background: transparent;
   }
@@ -40,7 +70,7 @@
       margin: 0;
       transform: translate3d(0, -50%, 0);
       display: inline-block;
-      font-size: 4rem;
+      font-size: 2rem;
       color: $c-red;
       text-transform: uppercase;
       span {
@@ -49,7 +79,7 @@
         right: -.5rem;
 
         font-family: $title-font-family;
-        font-size: 1.5rem;
+        font-size: 1rem;
         text-transform: lowercase;
         color: #222;
       }
@@ -65,10 +95,63 @@
   }
 }
 
+@media screen and (min-width: 520px) {
+  .directions {
+    &__direction {
+      &__title {
+        font-size: 3rem;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .directions {
+    &__direction {
+      &__title {
+        font-size: 3rem;
+        span {
+          font-size: 1.25rem;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .directions {
+    &__direction {
+      &__title {
+        font-size: 4rem;
+        span {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+}
+
 .sunrise-sunset {
-  margin-top: 150px;
-  padding: 0 calc($column-gutter*2);
   text-align: center;
+  transition: all $easeOutExpo 400ms;
+}
+
+@media screen and (min-width: 400px) {
+  .sunrise-sunset {
+    padding: 0 calc($column-gutter*2);
+  }
+}
+
+@media screen and (min-width: 840px) {
+  .sunrise-sunset {
+    margin-top: 100px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .sunrise-sunset {
+    margin-top: 150px;
+  }
 }
 
 .mokes {
@@ -94,18 +177,42 @@
 }
 
 .surfbreak {
-  &__title, &__height {
-    margin: 0;
-  }
   &__height {
-    font-size: 5rem;
+    margin: 0;
+    font-size: 2rem;
     color: $c-slate;
-  }
-  &__title {
-    font-size: 1rem;
+    transition: font $easeOutExpo 400ms;
   }
 }
 
-/* .Wallop {
-  cursor: default;
-} */
+@media screen and (min-width: 400px) {
+  .surfbreak {
+    &__height {
+      font-size: 3rem;
+    }
+  }
+}
+
+@media screen and (min-width: 560px) {
+  .surfbreak {
+    &__height {
+      font-size: 5rem;
+    }
+  }
+}
+
+@media screen and (min-width: 840px) {
+  .surfbreak {
+    &__height {
+      font-size: 3rem;
+    }
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .surfbreak {
+    &__height {
+      font-size: 5rem;
+    }
+  }
+}
