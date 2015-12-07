@@ -1,12 +1,15 @@
-body[data-template="results"] {
-  background: #eee;
+
+.wave-report {
+  border-top: calc($column-gutter*2) solid $c-body-border;
+  padding-top: $padding-section;
+  padding-bottom: $padding-section;
 }
 
 .directions {
+
   lost-center: $row-width;
   text-align: center;
   border: $grid-border;
-  margin-top: 6rem;
   *::selection {
     background: transparent;
   }
