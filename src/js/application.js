@@ -7,7 +7,7 @@ var canvas = document.querySelector( ".waves__canvas" );
 if (canvas) {
 
   var options = {
-    color: "rgba(0,0,0,.025)",
+    color: "rgba(235,67,41,.1)",
     waveAmplitude: 30,
     waveRadius: 200,
     waveElasticity: 0.75,

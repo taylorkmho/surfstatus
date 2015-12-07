@@ -9,11 +9,12 @@
 
 .branding {
   position: relative;
-  /* z-index: 100; */
   padding: calc($column-gutter*2);
   lost-utility: clearfix;
 
   height: 100%;
+
+  background: #fff;
 
   &:before {
     content: "";

@@ -6,6 +6,8 @@ $row-width:         640px;
 
 $grid-border:       8px solid #ddd;
 
+$padding-section:   calc($column-gutter*10);
+
 $c-slate:           #1A1D2D;
 $c-blue:            #014E6E;
 $c-red:             #EB4329;
@@ -13,7 +15,7 @@ $c-red:             #EB4329;
 $c-board-fill:      #444;
 $c-board-detail:    #C9CCCF;
 
-$c-body-bg:         $c-blue;
+$c-body-bg:         #eee;
 $c-body-font:       $c-slate;
 $c-body-border:     #fff;
 

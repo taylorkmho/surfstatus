@@ -12,6 +12,7 @@ html, body {
 
 body {
   font-family: $body-font-family;
+  background: $c-body-bg;
   &:before, &:after {
     content: "";
     position: fixed;
