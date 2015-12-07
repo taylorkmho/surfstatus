@@ -3,11 +3,16 @@
   border-top: calc($column-gutter*2) solid $c-body-border;
   padding-top: $padding-section;
   padding-bottom: $padding-section;
+  lost-utility: clearfix;
+}
+
+.directions, .sunrise-sunset {
+  lost-column: 1/3 3 0;
+  position: relative;
+  left: calc(100%/3);
 }
 
 .directions {
-
-  lost-center: $row-width;
   text-align: center;
   border: $grid-border;
   cursor: default;
@@ -57,6 +62,34 @@
       width: 100%;
     }
 
+  }
+}
+
+.sunrise-sunset {
+  margin-top: 150px;
+  padding: 0 calc($column-gutter*2);
+  text-align: center;
+}
+
+.mokes {
+  max-width: 360px;
+  &__island {
+    fill: $c-slate;
+  }
+  &__sun {
+    fill: $c-red;
+  }
+  &__motionPath {
+    fill: transparent;
+  }
+  &__blocker {
+    fill: #eee;
+  }
+  &__label {
+    font-size: 1.5rem;
+    &--time {
+      font-size: 2.5rem;
+    }
   }
 }
 

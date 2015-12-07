@@ -31,8 +31,17 @@ block content
                     | -
                     = surfHeightRanges[i].max
                     | &rsquo;
-
+    .sunrise-sunset(data-weather-sunset=weather.sunset data-weather-sunrise=weather.sunrise)
+      include ../src/images/svg/mokes.svg
 
 block footerScripts
   script(src="../js/vendor/wave-canvas.js")
   script(src="../js/vendor/Wallop.js")
+  script.
+    //- console.log(weather.sunset);
+    var sunTracker          = document.querySelector( '.mokes' );
+    var sunTrackerContainer = document.querySelector( '.sunrise-sunset' );
+    var sunriseTime         = sunTracker.querySelector( '[data-time-for="sunrise"]' );
+    var sunsetTime          = sunTracker.querySelector( '[data-time-for="sunset"]' );
+    sunsetTime.innerHTML = sunTrackerContainer.getAttribute('data-weather-sunset');
+    sunriseTime.innerHTML = sunTrackerContainer.getAttribute('data-weather-sunrise');

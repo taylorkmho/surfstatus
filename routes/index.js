@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
 
   var swellInfo = new Array();
   var surfHeightRanges = new Array();
+  var weather = new Array();
 
   var weatherAPIKey = secrets[0].apiKeys.openWeatherMap;
 
@@ -89,15 +90,15 @@ router.get('/', function(req, res, next) {
             });
           }
           var jsonResponse = JSON.parse(body);
-          var weather = {
+          weather = {
             "temperatureMin" : toFarenheit(jsonResponse.main.temp_min),
             "temperatureMax" : toFarenheit(jsonResponse.main.temp_max),
             "clouds"         : jsonResponse.weather[0].description,
             "windSpeed"      : toMPH(jsonResponse.wind.speed),
             "windDir"        : jsonResponse.wind.deg,
             "windDirComp"    : toCompass(jsonResponse.wind.deg),
-            "sunrise"        : toHITime(jsonResponse.sys.sunrise),
-            "sunset"         : toHITime(jsonResponse.sys.sunset)
+            "sunrise"        : toHITime(jsonResponse.sys.sunrise)+'am',
+            "sunset"         : toHITime(jsonResponse.sys.sunset)+'pm'
           };
           console.log(weather);
           callback();
@@ -108,7 +109,7 @@ router.get('/', function(req, res, next) {
 
     ],
     function(err, results) {
-      res.render('index', { title: 'Surf or Nah?', surfHeightRanges: surfHeightRanges, swellInfo: swellInfo });
+      res.render('index', { title: 'Surf or Nah?', surfHeightRanges: surfHeightRanges, weather: weather });
     }
   );
 
