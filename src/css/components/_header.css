@@ -21,7 +21,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 200;
+    z-index: 300;
     height: calc(2*$column-gutter);
     background-color: $c-body-border;
   }
@@ -29,20 +29,18 @@
     position: relative;
     lost-center: $row-width;
     height: 100%;
-    z-index: 300;
-
-    /* background: #ddd; */
+    padding: 0;
     text-align: center;
   }
   .logo-surfornah {
     position: absolute;
     top: 50%;
     left: 50%;
+    z-index: 200;
     transform: translate(-50%, -50%);
     width: 100%;
     height: auto;
 
-    padding: calc(4*$column-gutter);
     &__surf, &__nugget {
       fill: $c-red;
     }

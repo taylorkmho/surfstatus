@@ -17,7 +17,7 @@ body {
     position: fixed;
     top: 0;
     height: 100%;
-    z-index: 200;
+    z-index: 300;
     width: calc(2*$column-gutter);
     background-color: $c-body-border;
   }
