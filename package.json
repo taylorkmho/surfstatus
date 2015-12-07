@@ -44,6 +44,7 @@
     "postcss-simple-extend": "^1.0.0",
     "postcss-simple-vars": "^1.1.0",
     "request": "^2.67.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "xml2js": "^0.4.15"
   }
 }

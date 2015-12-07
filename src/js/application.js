@@ -43,12 +43,8 @@ if (directions) {
     var thisBreaks = directions[i].querySelectorAll('.surfbreak');
 
     // SET DESCRIPTIVE SURF CONDITIONS
-    var sumHeightMeans = 0;
-    for (var breakIndex = 0; breakIndex < thisBreaks.length; breakIndex++) {
-      sumHeightMeans = sumHeightMeans + parseFloat(thisBreaks[breakIndex].getAttribute('data-height-mean'));
-      var thisAverage = sumHeightMeans / thisBreaks.length;
-    }
-
+    var thisAverage = directions[i].getAttribute('data-height-mean');
+    console.log(thisAverage);
     var setSurfConditions = function(surfConditions) {
       directions[i].querySelector('.direction__height').innerHTML = surfConditions;
     };
@@ -56,13 +52,13 @@ if (directions) {
       setSurfConditions('flat');
     } else if (thisAverage >= 1 && thisAverage < 1.5) {
       setSurfConditions('small');
-    } else if (thisAverage >= 1.5 && thisAverage < 2) {
+    } else if (thisAverage >= 1.5 && thisAverage < 3) {
       setSurfConditions('not bad');
-    } else if (thisAverage >= 2 && thisAverage < 5) {
+    } else if (thisAverage >= 3 && thisAverage < 4) {
       setSurfConditions('good');
-    } else if (thisAverage >= 5 && thisAverage < 8) {
+    } else if (thisAverage >= 4 && thisAverage < 5) {
       setSurfConditions('firing');
-    } else if (thisAverage >= 8) {
+    } else if (thisAverage >= 5) {
       setSurfConditions('massive');
     }
   }
