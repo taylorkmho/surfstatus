@@ -1,20 +1,16 @@
-.waves {
+/* .waves {
   &, &__canvas {
     position: absolute;
     height: 100%;
     width: 100%;
     z-index: 100;
   }
-}
+} */
 
 .branding {
   position: relative;
-  padding: calc($column-gutter*2);
+  padding: calc($column-gutter*2) calc($column-gutter*4) 0;
   lost-utility: clearfix;
-
-  height: 100%;
-
-  background: #fff;
 
   &:before {
     content: "";
@@ -26,26 +22,21 @@
     height: calc(2*$column-gutter);
     background-color: $c-body-border;
   }
-  &__logo {
-    position: relative;
-    lost-center: $row-width;
-    height: 100%;
-    padding: 0;
-    text-align: center;
+
+  &__logo-container {
+    width: 100%;
+    border-bottom: $c-grid-border calc($column-gutter) solid;
   }
   .logo-surfornah {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 200;
-    transform: translate3d(-50%, -50%, 0);
-    width: 100%;
+    display: block;
+    width: 200px;
     height: auto;
+    margin: calc(2*$column-gutter) auto;
 
     &__surf, &__nugget {
       fill: $c-red;
     }
-    &__nah {
+    &__or-nah {
       fill: #fff;
     }
   }

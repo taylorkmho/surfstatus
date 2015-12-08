@@ -3,31 +3,31 @@
  * START
  */
 
-var canvas = document.querySelector( ".waves__canvas" );
-if (canvas) {
+// var canvas = document.querySelector( ".waves__canvas" );
+// if (canvas) {
 
-  var options = {
-    color: "rgba(235,67,41,.1)",
-    waveAmplitude: 30,
-    waveRadius: 200,
-    waveElasticity: 0.75,
-    waveStrength: 0.01,
-    waveMouse: 40,
-    waveMax: 100,
-    waveComeUp: function() {},
-    waveRiseSpeed: 15,
-    lineWidth: 5,
-    waveLength: 100,
-    distance: 20
-  };
+//   var options = {
+//     color: "rgba(235,67,41,.1)",
+//     waveAmplitude: 30,
+//     waveRadius: 200,
+//     waveElasticity: 0.75,
+//     waveStrength: 0.01,
+//     waveMouse: 40,
+//     waveMax: 100,
+//     waveComeUp: function() {},
+//     waveRiseSpeed: 15,
+//     lineWidth: 5,
+//     waveLength: 100,
+//     distance: 20
+//   };
 
-  var app = new Canvas( canvas, size );
+//   var app = new Canvas( canvas, size );
 
-  window.addEventListener( "resize", function() {
-    app.setSize( window.innerWidth, window.innerHeight );
-  }, false );
+//   window.addEventListener( "resize", function() {
+//     app.setSize( window.innerWidth, window.innerHeight );
+//   }, false );
 
-}
+// }
 
 /*
   Directions messages
@@ -54,9 +54,9 @@ if (directions) {
       setSurfConditions('small');
     } else if (thisAverage >= 2 && thisAverage < 3) {
       setSurfConditions('not bad');
-    } else if (thisAverage >= 3 && thisAverage < 4) {
+    } else if (thisAverage >= 3 && thisAverage < 5) {
       setSurfConditions('good');
-    } else if (thisAverage >= 4 && thisAverage < 7) {
+    } else if (thisAverage >= 5 && thisAverage < 7) {
       setSurfConditions('firing');
     } else if (thisAverage >= 7) {
       setSurfConditions('massive');

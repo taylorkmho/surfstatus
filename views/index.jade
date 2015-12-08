@@ -2,25 +2,25 @@ extends ./layouts/_layout.jade
 
 block vars
   - var bodyTemplate = "results"
-  - var directions = ['north', 'west', 'east', 'south']
+  - var directions = [['north','north<br>shore'], ['west','west<br>side'], ['east','east<br>side'], ['south','south<br>shore']]
 
 block addToHead
 
 block content
 
-  section.waves
-    canvas.waves__canvas
+  //- section.waves
+  //-   canvas.waves__canvas
 
   header.branding
-    .branding__logo
+    .branding__logo-container
       include ../src/images/svg/logo-surfornah.svg
 
   section.wave-report
     .directions
       - for (var i = 0; i < directions.length; i++)
-        .directions__direction(data-shore=directions[i] data-height-mean=surfHeightRanges[i].mean)
+        .directions__direction(data-shore=directions[i][0] data-height-mean=surfHeightRanges[i].mean)
           h1.directions__direction__title
-            = directions[i]
+            != directions[i][1]
             span.direction__height
           .directions__direction__container
             .Wallop(class="Wallop-0#{i+1}")

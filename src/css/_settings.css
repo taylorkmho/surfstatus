@@ -8,15 +8,15 @@ $c-red:             #EB4329;
 $c-board-fill:      #444;
 $c-board-detail:    #C9CCCF;
 
-$c-body-bg:         #eee;
-$c-body-font:       $c-slate;
+$c-body-bg:         #171717;
+$c-body-font:       #fff;
 $c-body-border:     #fff;
-$c-grid-border:     #ddd;
-
-$grid-border:       8px solid $c-grid-border;
+$c-grid-border:     #222;
 
 $column-gutter:     1rem;
 $row-width:         640px;
+
+$grid-border:       calc($column-gutter/2) solid $c-grid-border;
 
 $padding-section:   calc($column-gutter*10);
 

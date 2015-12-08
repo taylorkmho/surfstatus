@@ -1,11 +1,10 @@
 .wave-report {
-  border-top: calc($column-gutter*2) solid $c-body-border;
-  padding: calc($column-gutter*3);
+  padding: calc($column-gutter*4) calc($column-gutter*2);
   lost-utility: clearfix;
   transition: all $easeOutExpo 400ms;
 }
 
-@media screen and (min-width: 400px) {
+/* @media screen and (min-width: 400px) {
   .wave-report {
     padding: calc($column-gutter*4);
   }
@@ -23,9 +22,9 @@
     padding-left: 0;
     padding-right: 0;
   }
-}
+} */
 
-@media screen and (min-width: 840px) {
+/* @media screen and (min-width: 840px) {
   .directions, .sunrise-sunset {
     lost-column: 1/2 2 0;
   }
@@ -37,12 +36,14 @@
     position: relative;
     left: calc(100%/3);
   }
-}
+} */
 
 
 .directions {
+  display: table;
+  width: 100%;
   text-align: center;
-  border: $grid-border;
+  /* border: $grid-border; */
   cursor: default;
   lost-utility: clearfix;
   transition: all $easeOutExpo 400ms;
@@ -52,81 +53,57 @@
 
   &__direction {
     position: relative;
-    height: 0;
-    padding-bottom: 50%;
-
     lost-column: 1/2 2 0;
-    &:nth-child(odd) {
-      border-right: $grid-border;
-    }
-    &:nth-last-child(-n+2) {
-      border-top: $grid-border;
-    }
 
+    display: table-cell;
 
     &__title {
       position: relative;
       margin: 0;
-      transform: translate3d(0, -50%, 0);
       display: inline-block;
-      font-size: 2rem;
-      color: $c-red;
+      font-size: 4vw;
+      line-height: .85;
+      color: #fff;
       text-transform: uppercase;
       span {
         position: absolute;
-        bottom: -.5rem;
-        right: -.5rem;
+        bottom: -.5vw;
+        right: -.5vw;
 
         font-family: $title-font-family;
-        font-size: 1rem;
+        font-size: 2vw;
         text-transform: lowercase;
-        color: #222;
+        color: $c-red;
+        text-shadow: 0 0 .5rem color(#000 a(50%));
       }
     }
 
     &__container {
-      position: absolute;
-      top: 50%;
-      transform: translate3d(0, -50%, 0);
       width: 100%;
     }
-
   }
 }
 
-@media screen and (min-width: 520px) {
+@media screen and (min-width: 1200px) {
   .directions {
     &__direction {
-      &__title {
-        font-size: 3rem;
-      }
+      lost-column: 1/4 4 0;
+      padding-top: calc($column-gutter*2);
+      padding-bottom: calc($column-gutter*2);
+
+      border-right: $column-gutter $c-grid-border solid;
+      &:last-of-type {  border-right: 0; }
     }
   }
 }
 
-@media screen and (min-width: 1024px) {
-  .directions {
-    &__direction {
-      &__title {
-        font-size: 3rem;
-        span {
-          font-size: 1.25rem;
-        }
-      }
-    }
-  }
-}
-
-@media screen and (min-width: 1600px) {
-  .directions {
-    &__direction {
-      &__title {
-        font-size: 4rem;
-        span {
-          font-size: 1.5rem;
-        }
-      }
-    }
+.surfbreak {
+  padding: calc($column-gutter*4) 0;
+  &__height {
+    margin: 0;
+    font-size: 6vw;
+    color: #fff;
+    transition: font $easeOutExpo 400ms;
   }
 }
 
@@ -165,55 +142,14 @@
     fill: transparent;
   }
   &__blocker {
-    fill: #eee;
+    fill: $c-body-bg;
   }
   &__label {
     font-size: 1.5rem;
     fill: $c-red;
     &--time {
-      fill: $c-slate;
+      fill: #fff;
       font-size: 2.5rem;
-    }
-  }
-}
-
-.surfbreak {
-  &__height {
-    margin: 0;
-    font-size: 2rem;
-    color: $c-slate;
-    transition: font $easeOutExpo 400ms;
-  }
-}
-
-@media screen and (min-width: 400px) {
-  .surfbreak {
-    &__height {
-      font-size: 3rem;
-    }
-  }
-}
-
-@media screen and (min-width: 560px) {
-  .surfbreak {
-    &__height {
-      font-size: 5rem;
-    }
-  }
-}
-
-@media screen and (min-width: 840px) {
-  .surfbreak {
-    &__height {
-      font-size: 3rem;
-    }
-  }
-}
-
-@media screen and (min-width: 1600px) {
-  .surfbreak {
-    &__height {
-      font-size: 5rem;
     }
   }
 }
