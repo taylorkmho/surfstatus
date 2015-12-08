@@ -67,7 +67,7 @@ router.get('/', function(req, res, next) {
             var outputRangeSplit = outputRange.split(' to ');
             outputRangeSplit['min'] = Math.round(outputRangeSplit[0] / hawaiianScale);
             outputRangeSplit['max'] = Math.round(outputRangeSplit[1] / hawaiianScale);
-            outputRangeSplit['mean'] = (outputRangeSplit['min'] + outputRangeSplit['max'] / 2);
+            outputRangeSplit['mean'] = (outputRangeSplit['min'] + outputRangeSplit['max']) / 2;
             // console.log('outputRangeSplit ' + outputRangeSplit);
             surfHeightRanges.push(outputRangeSplit);
           }

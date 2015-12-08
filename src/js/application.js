@@ -50,15 +50,15 @@ if (directions) {
     };
     if (thisAverage < 1) {
       setSurfConditions('flat');
-    } else if (thisAverage >= 1 && thisAverage < 1.5) {
+    } else if (thisAverage >= 1 && thisAverage < 2) {
       setSurfConditions('small');
-    } else if (thisAverage >= 1.5 && thisAverage < 3) {
+    } else if (thisAverage >= 2 && thisAverage < 3) {
       setSurfConditions('not bad');
     } else if (thisAverage >= 3 && thisAverage < 4) {
       setSurfConditions('good');
-    } else if (thisAverage >= 4 && thisAverage < 5) {
+    } else if (thisAverage >= 4 && thisAverage < 7) {
       setSurfConditions('firing');
-    } else if (thisAverage >= 5) {
+    } else if (thisAverage >= 7) {
       setSurfConditions('massive');
     }
   }
