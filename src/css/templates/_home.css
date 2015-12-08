@@ -55,6 +55,14 @@
     position: relative;
     lost-column: 1/2 2 0;
 
+    padding-top: calc($column-gutter*2);
+    padding-bottom: calc($column-gutter*2);
+
+    border-right: $column-gutter $c-grid-border solid;
+    &:nth-child(even) {
+      border-right: 0;
+    }
+
     display: table-cell;
 
     &__title {
@@ -88,10 +96,9 @@
   .directions {
     &__direction {
       lost-column: 1/4 4 0;
-      padding-top: calc($column-gutter*2);
-      padding-bottom: calc($column-gutter*2);
-
+      border: 0;
       border-right: $column-gutter $c-grid-border solid;
+      &:nth-child(even) {  border-right: $column-gutter $c-grid-border solid; }
       &:last-of-type {  border-right-color: transparent; }
     }
   }
@@ -101,12 +108,20 @@
   padding: 4vw 0;
   &__height {
     margin: 0;
-    font-size: 6vw;
+    font-size: 3rem;
     color: #fff;
     transition: font $easeOutExpo 400ms;
   }
 }
 
+@media screen and (min-width: 1200px) {
+  .surfbreak {
+    &__height {
+      font-size: 6vw;
+      }
+    }
+  }
+}
 .tide {
   padding: calc($column-gutter*2);
   svg {
@@ -137,6 +152,7 @@
 }
 
 .sunrise-sunset {
+  margin-top: $column-gutter;
   text-align: center;
   transition: all $easeOutExpo 400ms;
 }
@@ -144,18 +160,6 @@
 @media screen and (min-width: 400px) {
   .sunrise-sunset {
     padding: 0 calc($column-gutter*2);
-  }
-}
-
-@media screen and (min-width: 840px) {
-  .sunrise-sunset {
-    margin-top: 100px;
-  }
-}
-
-@media screen and (min-width: 1000px) {
-  .sunrise-sunset {
-    margin-top: 150px;
   }
 }
 
@@ -186,9 +190,16 @@
 .Wallop {
   &-list {
     height: 320px;
-    height: 17vw;
+    height: 34vw;
     &-item {
       height: 100%;
+    }
+  }
+}
+@media screen and (min-width: 1200px) {
+  .Wallop {
+    &-list {
+      height: 17vw;
     }
   }
 }
