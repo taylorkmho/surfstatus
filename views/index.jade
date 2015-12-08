@@ -31,12 +31,22 @@ block content
                     span -
                     = surfHeightRanges[i].max
                     span &rsquo;
+                .tide.Wallop-item
+                  - var tidesTimes = []
+                  - var tidesLabels = []
+                  - var tidesGraph = []
+                  each tide in tides[directions[i][0]]
+                    - tidesTimes.push(tide[0])
+                    - tidesLabels.push(tide[1])
+                    - tidesGraph.push(tide[2])
+                  svg.tide__graph(data-shore=directions[i][0] data-tides=tidesGraph data-times=tidesTimes data-time-labels=tidesLabels)
     .sunrise-sunset(data-weather-sunset=weather.sunset data-weather-sunrise=weather.sunrise)
       include ../src/images/svg/mokes.svg
 
 block footerScripts
   script(src="../js/vendor/wave-canvas.js")
   script(src="../js/vendor/Wallop.js")
+  script(src="../js/vendor/d3.js")
   script.
     //- console.log(weather.sunset);
     var sunTracker          = document.querySelector( '.mokes' );

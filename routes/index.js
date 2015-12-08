@@ -20,6 +20,30 @@ router.get('/', function(req, res, next) {
     return meter * 3.28084;
   }
 
+  function toFarenheit(kelvin) {
+    return Math.round(kelvin * (9/5) - 459.67);
+  }
+
+  function toMPH(mps) {
+    return Math.round( (mps * 2.2369362920544) * 2 ) / 2;
+  }
+
+  function toCompass(deg) {
+    while ( deg < 0 ) deg += 360;
+    while ( deg >= 360 ) deg -= 360;
+    var val = Math.round( (deg -11.25 ) / 22.5 );
+    var arr = ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
+    return arr[ Math.abs(val) ];
+  }
+
+  function toHITime(timestamp) {
+    var date = new Date(timestamp*1000);
+    var hours = date.getHours();
+    var minutes = (date.getMinutes()<10?'0':'') + date.getMinutes();
+    if ( hours > 12 ) { hours = hours - 12 };
+    return hours + ':' + minutes;
+  }
+
   var timeNow = Math.floor(Date.now() / 1000);
   var time24HrsAgo = timeNow - 86400;
   console.log('time24HrsAgo ' + time24HrsAgo);
@@ -76,30 +100,6 @@ router.get('/', function(req, res, next) {
             });
           }
 
-          function toFarenheit(kelvin) {
-            return Math.round(kelvin * (9/5) - 459.67);
-          }
-
-          function toMPH(mps) {
-            return Math.round( (mps * 2.2369362920544) * 2 ) / 2;
-          }
-
-          function toCompass(deg) {
-            while ( deg < 0 ) deg += 360;
-            while ( deg >= 360 ) deg -= 360;
-            var val = Math.round( (deg -11.25 ) / 22.5 );
-            var arr = ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
-            return arr[ Math.abs(val) ];
-          }
-
-          function toHITime(timestamp) {
-            var date = new Date(timestamp*1000);
-            var hours = date.getHours();
-            var minutes = date.getMinutes();
-            if ( hours > 12 ) { hours = hours - 12 };
-            return hours + ':' + minutes;
-          }
-
           var jsonResponse = JSON.parse(body);
           weather = {
             "temperatureMin" : toFarenheit(jsonResponse.main.temp_min),
@@ -134,12 +134,12 @@ router.get('/', function(req, res, next) {
           var jsonResponse = JSON.parse(body);
 
           tides.north = {
-            "nowMinus1"   : [ jsonResponse.extremes[0].dt, jsonResponse.extremes[0].type , toFeet( jsonResponse.extremes[0].height ) ],
-            "now"         : [ jsonResponse.extremes[1].dt, jsonResponse.extremes[1].type , toFeet( jsonResponse.extremes[1].height ) ],
-            "nowPlus1"    : [ jsonResponse.extremes[2].dt, jsonResponse.extremes[2].type , toFeet( jsonResponse.extremes[2].height ) ],
-            "nowPlus2"    : [ jsonResponse.extremes[3].dt, jsonResponse.extremes[3].type , toFeet( jsonResponse.extremes[3].height ) ],
-            "nowPlus3"    : [ jsonResponse.extremes[4].dt, jsonResponse.extremes[4].type , toFeet( jsonResponse.extremes[4].height ) ],
-            "nowPlus4"    : [ jsonResponse.extremes[5].dt, jsonResponse.extremes[5].type , toFeet( jsonResponse.extremes[5].height ) ]
+            "nowMinus1"   : [ toHITime(jsonResponse.extremes[0].dt), jsonResponse.extremes[0].type , toFeet( jsonResponse.extremes[0].height ) ],
+            "now"         : [ toHITime(jsonResponse.extremes[1].dt), jsonResponse.extremes[1].type , toFeet( jsonResponse.extremes[1].height ) ],
+            "nowPlus1"    : [ toHITime(jsonResponse.extremes[2].dt), jsonResponse.extremes[2].type , toFeet( jsonResponse.extremes[2].height ) ],
+            "nowPlus2"    : [ toHITime(jsonResponse.extremes[3].dt), jsonResponse.extremes[3].type , toFeet( jsonResponse.extremes[3].height ) ],
+            "nowPlus3"    : [ toHITime(jsonResponse.extremes[4].dt), jsonResponse.extremes[4].type , toFeet( jsonResponse.extremes[4].height ) ],
+            "nowPlus4"    : [ toHITime(jsonResponse.extremes[5].dt), jsonResponse.extremes[5].type , toFeet( jsonResponse.extremes[5].height ) ]
           };
 
           // console.log('tides.north - \n', tides.north);
@@ -165,12 +165,12 @@ router.get('/', function(req, res, next) {
           var jsonResponse = JSON.parse(body);
 
           tides.west = {
-            "nowMinus1"   : [ jsonResponse.extremes[0].dt, jsonResponse.extremes[0].type , toFeet( jsonResponse.extremes[0].height ) ],
-            "now"         : [ jsonResponse.extremes[1].dt, jsonResponse.extremes[1].type , toFeet( jsonResponse.extremes[1].height ) ],
-            "nowPlus1"    : [ jsonResponse.extremes[2].dt, jsonResponse.extremes[2].type , toFeet( jsonResponse.extremes[2].height ) ],
-            "nowPlus2"    : [ jsonResponse.extremes[3].dt, jsonResponse.extremes[3].type , toFeet( jsonResponse.extremes[3].height ) ],
-            "nowPlus3"    : [ jsonResponse.extremes[4].dt, jsonResponse.extremes[4].type , toFeet( jsonResponse.extremes[4].height ) ],
-            "nowPlus4"    : [ jsonResponse.extremes[5].dt, jsonResponse.extremes[5].type , toFeet( jsonResponse.extremes[5].height ) ]
+            "nowMinus1"   : [ toHITime(jsonResponse.extremes[0].dt), jsonResponse.extremes[0].type , toFeet( jsonResponse.extremes[0].height ) ],
+            "now"         : [ toHITime(jsonResponse.extremes[1].dt), jsonResponse.extremes[1].type , toFeet( jsonResponse.extremes[1].height ) ],
+            "nowPlus1"    : [ toHITime(jsonResponse.extremes[2].dt), jsonResponse.extremes[2].type , toFeet( jsonResponse.extremes[2].height ) ],
+            "nowPlus2"    : [ toHITime(jsonResponse.extremes[3].dt), jsonResponse.extremes[3].type , toFeet( jsonResponse.extremes[3].height ) ],
+            "nowPlus3"    : [ toHITime(jsonResponse.extremes[4].dt), jsonResponse.extremes[4].type , toFeet( jsonResponse.extremes[4].height ) ],
+            "nowPlus4"    : [ toHITime(jsonResponse.extremes[5].dt), jsonResponse.extremes[5].type , toFeet( jsonResponse.extremes[5].height ) ]
           };
 
           // console.log('tides.west - \n', tides.west);
@@ -196,12 +196,12 @@ router.get('/', function(req, res, next) {
           var jsonResponse = JSON.parse(body);
 
           tides.east = {
-            "nowMinus1"   : [ jsonResponse.extremes[0].dt, jsonResponse.extremes[0].type , toFeet( jsonResponse.extremes[0].height ) ],
-            "now"         : [ jsonResponse.extremes[1].dt, jsonResponse.extremes[1].type , toFeet( jsonResponse.extremes[1].height ) ],
-            "nowPlus1"    : [ jsonResponse.extremes[2].dt, jsonResponse.extremes[2].type , toFeet( jsonResponse.extremes[2].height ) ],
-            "nowPlus2"    : [ jsonResponse.extremes[3].dt, jsonResponse.extremes[3].type , toFeet( jsonResponse.extremes[3].height ) ],
-            "nowPlus3"    : [ jsonResponse.extremes[4].dt, jsonResponse.extremes[4].type , toFeet( jsonResponse.extremes[4].height ) ],
-            "nowPlus4"    : [ jsonResponse.extremes[5].dt, jsonResponse.extremes[5].type , toFeet( jsonResponse.extremes[5].height ) ]
+            "nowMinus1"   : [ toHITime(jsonResponse.extremes[0].dt), jsonResponse.extremes[0].type , toFeet( jsonResponse.extremes[0].height ) ],
+            "now"         : [ toHITime(jsonResponse.extremes[1].dt), jsonResponse.extremes[1].type , toFeet( jsonResponse.extremes[1].height ) ],
+            "nowPlus1"    : [ toHITime(jsonResponse.extremes[2].dt), jsonResponse.extremes[2].type , toFeet( jsonResponse.extremes[2].height ) ],
+            "nowPlus2"    : [ toHITime(jsonResponse.extremes[3].dt), jsonResponse.extremes[3].type , toFeet( jsonResponse.extremes[3].height ) ],
+            "nowPlus3"    : [ toHITime(jsonResponse.extremes[4].dt), jsonResponse.extremes[4].type , toFeet( jsonResponse.extremes[4].height ) ],
+            "nowPlus4"    : [ toHITime(jsonResponse.extremes[5].dt), jsonResponse.extremes[5].type , toFeet( jsonResponse.extremes[5].height ) ]
           };
 
           // console.log('tides.east - \n', tides.east);
@@ -227,12 +227,12 @@ router.get('/', function(req, res, next) {
           var jsonResponse = JSON.parse(body);
 
           tides.south = {
-            "nowMinus1"   : [ jsonResponse.extremes[0].dt, jsonResponse.extremes[0].type , toFeet( jsonResponse.extremes[0].height ) ],
-            "now"         : [ jsonResponse.extremes[1].dt, jsonResponse.extremes[1].type , toFeet( jsonResponse.extremes[1].height ) ],
-            "nowPlus1"    : [ jsonResponse.extremes[2].dt, jsonResponse.extremes[2].type , toFeet( jsonResponse.extremes[2].height ) ],
-            "nowPlus2"    : [ jsonResponse.extremes[3].dt, jsonResponse.extremes[3].type , toFeet( jsonResponse.extremes[3].height ) ],
-            "nowPlus3"    : [ jsonResponse.extremes[4].dt, jsonResponse.extremes[4].type , toFeet( jsonResponse.extremes[4].height ) ],
-            "nowPlus4"    : [ jsonResponse.extremes[5].dt, jsonResponse.extremes[5].type , toFeet( jsonResponse.extremes[5].height ) ]
+            "nowMinus1"   : [ toHITime(jsonResponse.extremes[0].dt), jsonResponse.extremes[0].type , toFeet( jsonResponse.extremes[0].height ) ],
+            "now"         : [ toHITime(jsonResponse.extremes[1].dt), jsonResponse.extremes[1].type , toFeet( jsonResponse.extremes[1].height ) ],
+            "nowPlus1"    : [ toHITime(jsonResponse.extremes[2].dt), jsonResponse.extremes[2].type , toFeet( jsonResponse.extremes[2].height ) ],
+            "nowPlus2"    : [ toHITime(jsonResponse.extremes[3].dt), jsonResponse.extremes[3].type , toFeet( jsonResponse.extremes[3].height ) ],
+            "nowPlus3"    : [ toHITime(jsonResponse.extremes[4].dt), jsonResponse.extremes[4].type , toFeet( jsonResponse.extremes[4].height ) ],
+            "nowPlus4"    : [ toHITime(jsonResponse.extremes[5].dt), jsonResponse.extremes[5].type , toFeet( jsonResponse.extremes[5].height ) ]
           };
           callback();
 
