@@ -242,7 +242,7 @@ router.get('/', function(req, res, next) {
 
     ],
     function(err, results) {
-      res.render('index', { title: 'Surf or Nah?', surfHeightRanges: surfHeightRanges, weather: weather, tides: tides });
+      res.render('index', { title: 'surfstatus - your new favorite surf report', surfHeightRanges: surfHeightRanges, weather: weather, tides: tides });
     }
   );
 

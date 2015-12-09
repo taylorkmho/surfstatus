@@ -27,17 +27,14 @@
     width: 100%;
     border-bottom: $c-grid-border calc($column-gutter) solid;
   }
-  .logo-surfornah {
+  .logo-surfstatus {
     display: block;
-    width: 200px;
+    width: 100%;
     height: auto;
     margin: calc(2*$column-gutter) auto;
+    padding-left: calc(2*$column-gutter);
+    padding-right: calc(2*$column-gutter);
+    path { fill: #3a3a3a; }
 
-    &__surf, &__nugget {
-      fill: $c-red;
-    }
-    &__or-nah {
-      fill: #fff;
-    }
   }
 }
