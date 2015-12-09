@@ -9,7 +9,7 @@
   width: 100%;
   text-align: center;
   /* border: $grid-border; */
-  cursor: pointer;
+  cursor: default;
   lost-utility: clearfix;
   transition: all $easeOutExpo 400ms;
   *::selection {
