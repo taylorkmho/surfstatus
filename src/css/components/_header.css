@@ -1,0 +1,40 @@
+/* .waves {
+  &, &__canvas {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+  }
+} */
+
+.branding {
+  position: relative;
+  padding: calc($column-gutter*2) calc($column-gutter*4) 0;
+  lost-utility: clearfix;
+
+  &:before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 300;
+    height: calc(2*$column-gutter);
+    background-color: $c-body-border;
+  }
+
+  &__logo-container {
+    width: 100%;
+    border-bottom: $c-grid-border calc($column-gutter) solid;
+  }
+  .logo-surfstatus {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: calc(2*$column-gutter) auto;
+    padding-left: calc(2*$column-gutter);
+    padding-right: calc(2*$column-gutter);
+    path { fill: #3a3a3a; }
+
+  }
+}

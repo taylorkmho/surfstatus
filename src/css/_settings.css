@@ -1,20 +1,26 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
+@import url(https://fonts.googleapis.com/css?family=Rock+Salt);
 
-$column-gutter:     1rem;
-$row-width:         920px;
-
-$c-navy:            #0D273D;
-$c-aqua:            #54D0ED;
-$c-creme:           #FFFEF1;
-$c-green:           #70B85D;
-$c-green--dark:     #2C5E2E;
+$c-slate:           #1A1D2D;
+$c-blue:            #014E6E;
+$c-red:             #EB4329;
 
 $c-board-fill:      #444;
 $c-board-detail:    #C9CCCF;
 
-$c-body-bg:         $c-navy;
-$c-body-font:       #aaa;
+$c-body-bg:         #171717;
+$c-body-font:       #fff;
+$c-body-border:     #fff;
+$c-grid-border:     #222;
 
-$body-font-family:  'Montserrat', 'Helvetica Neue', Helvetica, sans-serif;
+$column-gutter:     1rem;
+$row-width:         640px;
+
+$grid-border:       calc($column-gutter/2) solid $c-grid-border;
+
+$padding-section:   calc($column-gutter*10);
+
+$body-font-family:   'Montserrat', 'Helvetica Neue', Helvetica, sans-serif;
+$title-font-family:  'Rock Salt', 'Helvetica Neue', Helvetica, sans-serif;
 
 $easeOutExpo:       cubic-bezier(0.19, 1, 0.22, 1);

@@ -1,0 +1,10 @@
+mixin surfbreakMixin(title, min, max, mean)
+  .surfbreak.Wallop-item(data-height-mean=mean)
+    h3.surfbreak__height
+      - if (min === 0 && max === 0)
+        | flat
+      - else if (min === max || min > max)
+        | ~#{min}&rsquo;
+      - else
+        | #{min}-#{max}&rsquo;
+    p.surfbreak__title= title

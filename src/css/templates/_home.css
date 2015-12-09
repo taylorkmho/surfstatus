@@ -1,57 +1,170 @@
-.waves {
-  position: absolute;
-  height: 100%;
+.wave-report {
+  padding: calc($column-gutter*4) calc($column-gutter*2);
+  lost-utility: clearfix;
+  transition: all $easeOutExpo 400ms;
+}
+
+.directions {
+  display: table;
   width: 100%;
-  &__canvas {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-  }
-}
-
-.splash {
-  height: 100%;
-  width: 100%;
-  &__container {
-    @extend container--center;
-
-    pointer-events: none;
-
-    img {
-      padding: 0 calc($column-gutter*2);
-      margin-bottom: $column-gutter;
-    }
-    .btn {
-      pointer-events: initial;
-    }
-  }
-}
-
-.logo-surfornah {
-  padding: 0 $column-gutter;
-  &__surf, &__nugget {
-    fill: #fff;
-  }
-  &__or-nah {
-  }
-}
-
-.tagline {
   text-align: center;
-  h1 {
-    display: none;
+  /* border: $grid-border; */
+  cursor: pointer;
+  lost-utility: clearfix;
+  transition: all $easeOutExpo 400ms;
+  *::selection {
+    background: transparent;
   }
-  h2 {
-    margin: calc($column-gutter*2) 0 calc($column-gutter*2);
-    padding: 0 $column-gutter;
+
+  &__direction {
+    position: relative;
+    lost-column: 1/2 2 0;
+
+    padding-top: calc($column-gutter*2);
+    padding-bottom: calc($column-gutter*2);
+
+    border-right: $column-gutter $c-grid-border solid;
+    &:nth-child(even) {
+      border-right: 0;
+    }
+
+    display: table-cell;
+
+    &__title {
+      position: relative;
+      margin: 0;
+      display: inline-block;
+      font-size: 4vw;
+      line-height: .85;
+      color: #fff;
+      text-transform: uppercase;
+      span {
+        position: absolute;
+        bottom: -.5vw;
+        right: -.5vw;
+
+        font-family: $title-font-family;
+        font-size: 2vw;
+        text-transform: lowercase;
+        color: $c-red;
+        text-shadow: 0 0 .5rem color(#000 a(50%));
+      }
+    }
+
+    &__container {
+      width: 100%;
+    }
   }
 }
 
-@media screen and (min-width: 640px) {
-  .tagline {
-    h2 {
-      padding: 0;
+@media screen and (min-width: 1200px) {
+  .directions {
+    &__direction {
+      lost-column: 1/4 4 0;
+      border: 0;
+      border-right: $column-gutter $c-grid-border solid;
+      &:nth-child(even) {  border-right: $column-gutter $c-grid-border solid; }
+      &:last-of-type {  border-right-color: transparent; }
+    }
+  }
+}
+
+.surfbreak {
+  padding: 4vw 0;
+  &__height {
+    margin: 0;
+    font-size: 3rem;
+    color: #fff;
+    transition: font $easeOutExpo 400ms;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .surfbreak {
+    &__height {
+      font-size: 6vw;
+    }
+  }
+}
+.tide {
+  padding: calc($column-gutter*2);
+  svg {
+    border-radius: $column-gutter;
+    box-shadow: 0 0 3rem 0 color(#000 a(.5));
+    margin-top: $column-gutter;
+    path {
+      fill: #fff;
+    }
+    line {
+      stroke: color($c-body-bg a(.2));
+      stroke-width: calc($column-gutter/4);
+      transform: translate3d(-4px, 0, 0);
+    }
+    text {
       font-size: 2rem;
+      color: $c-body-bg;
+      transform: translate3d(0, -8px, 0);
+      &[y="60"] {
+        fill: $c-red;
+        color: $c-red;
+        text-transform: uppercase;
+        font-size: 1.9rem;
+        letter-spacing: .01rem;
+      }
+    }
+  }
+}
+
+.sunrise-sunset {
+  margin-top: $column-gutter;
+  text-align: center;
+  transition: all $easeOutExpo 400ms;
+}
+
+@media screen and (min-width: 400px) {
+  .sunrise-sunset {
+    padding: 0 calc($column-gutter*2);
+  }
+}
+
+.mokes {
+  max-width: 360px;
+  &__island {
+    fill: $c-grid-border;
+  }
+  &__sun {
+    fill: $c-red;
+  }
+  &__motionPath {
+    fill: transparent;
+  }
+  &__blocker {
+    fill: $c-body-bg;
+  }
+  &__label {
+    font-size: 1.5rem;
+    fill: $c-red;
+    &--time {
+      fill: #fff;
+      font-size: 2.5rem;
+    }
+  }
+}
+
+.Wallop {
+  cursor: pointer;
+  &-list {
+    height: 320px;
+    height: 34vw;
+    &-item {
+      height: 100%;
+    }
+  }
+}
+@media screen and (min-width: 1200px) {
+  .Wallop {
+    &-list {
+      height: 17vw;
     }
   }
 }

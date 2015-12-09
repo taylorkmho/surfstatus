@@ -1,12 +1,15 @@
 @import '../../bower_components/normalize-css/normalize.css';
+@import '../../bower_components/wallop/css/wallop.css';
 
 @import './_settings';
+@import './_extends';
 @import './_structure';
+@import './_animations';
 
-@import './components/_extends';
+@import './components/_header';
+@import './components/_footer';
 @import './components/_buttons';
+/* @import './components/_loaders'; */
 
 @import './templates/_home';
-@import './templates/_location';
-@import './templates/_boards';
-@import './templates/_skill';
+/* @import './templates/_results'; */

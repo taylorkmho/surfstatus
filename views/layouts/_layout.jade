@@ -10,11 +10,15 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     title #{title}
     link(rel='stylesheet' href='../css/app.css')
+    block addToHead
   body(data-template="#{bodyTemplate}")
-    section.waves
-      canvas.waves__canvas
+
     block content
-    script(src="../js/jaaulde-cookies.js")
-    //- script(src="../js/sine-waves.js")
-    script(src="../js/app.js")
+
+    footer.footer
+      h1.footer__message your new favorite <span>surf report</span>
+      h1.footer__built-by <a href="http://taylorkmho.com?ref=surfstatus" target="_blank">dev&design by <span>tho</span></a>
+
     block footerScripts
+    script(src="../js/vendor/jaaulde-cookies.js")
+    script(src="../js/app.js")

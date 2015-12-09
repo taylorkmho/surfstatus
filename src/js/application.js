@@ -1,477 +1,143 @@
 'use strict';
-
-var canvas = document.querySelector( ".waves__canvas" );
-var size = {
-    width: window.innerWidth,
-    height: window.innerHeight
-};
-
-/*
- * CONFIG
- */
-
-var options = {
-    color: "rgba(255,255,255,.025)",
-    waveAmplitude: 30,
-    waveRadius: 200,
-    waveElasticity: 0.75,
-    waveStrength: 0.01,
-    waveMouse: 40,
-    waveMax: 100,
-    waveComeUp: function() {},
-    waveRiseSpeed: 15,
-    lineWidth: 5,
-    waveLength: 100,
-    distance: 20
-};
-
-/*
- * UTILITIES
- */
-
-function times( amount, closure ) {
-    for ( var i = 0; i < amount; i++ ) {
-        closure( i );
-    }
-}
-
-function func( name ) {
-    return function( obj ) {
-        return obj[ name ]();
-    };
-}
-
-
-function rand( min, max ) {
-    return min + ( max - min ) * Math.random();
-}
-
-function bezier( points, context ) {
-
-    var a, b, x, y;
-
-    for ( var i = 1, length = points.length - 2; i < length; i++ ) {
-
-        a = points[ i ];
-        b = points[ i + 1 ];
-
-        x = ( a.x + b.x ) * 0.5;
-        y = ( a.y + b.y ) * 0.5;
-
-        context.quadraticCurveTo( a.x, a.y, x, y );
-    }
-
-    a = points[ i ];
-    b = points[ i + 1 ];
-
-    context.quadraticCurveTo( a.x, a.y, b.x, b.y );
-}
-
-function distance( a, b ) {
-    var x = b.x - a.x;
-    var y = b.y - a.y;
-
-    return Math.sqrt( x * x + y * y );
-}
-
-function clamp( val, min, max ) {
-    return val < min ? min : ( val > max ? max : val );
-}
-
-/*
- * GLOBAL CLASSES
- */
-
-var Mouse = ( function() {
-
-    var exports = {
-        x: 0,
-        y: 0,
-        bind: function( canvas ) {
-            canvas.addEventListener( "mousemove", onMouseMove );
-            canvas.addEventListener( "touchmove", onTouchMove );
-        },
-        unbind: function( canvas ) {
-            canvas.removeEventListener( "mousemove", onMouseMove );
-            canvas.removeEventListener( "touchmove", onTouchMove );
-        }
-    };
-
-    function onMouseMove( event ) {
-        exports.x = event.pageX;
-        exports.y = event.pageY;
-    }
-
-    function onTouchMove( event ) {
-        event.preventDefault();
-
-        exports.x = event.touches[ 0 ].pageX;
-        exports.y = event.touches[ 0 ].pageY;
-    }
-
-    return exports;
-
-} )();
-
-var Stage = {
-    width: 1,
-    height: 1,
-    set: function( values ) {
-        Stage.width = values.width;
-        Stage.height = values.height;
-    }
-};
-
-/*
- * ARCHITECTURE CLASSES
- */
-
-var Water = function( context ) {
-
-    var waves;
-
-    function init() {
-        options.waveComeUp = this.start.bind( this );
-    }
-
-    this.render = function() {
-        context.strokeStyle = options.color;
-        context.lineWidth = options.lineWidth;
-        context.lineCap = "round";
-        context.beginPath();
-
-        waves.forEach( func( "render" ) );
-
-        context.stroke();
-    };
-
-    this.setSize = function( width, height ) {
-
-        createWaves( height );
-
-        waves.forEach( function( wave ) {
-            wave.setSize( width, height );
-        } );
-
-    };
-
-    this.start = function() {
-        waves.forEach( func( "start" ) );
-    };
-
-    function createWaves( height ) {
-
-        waves = [];
-        var distance = options.distance;
-
-        times( height / distance, function( index ) {
-            waves.push( new Wave( 0, index * distance + 10, context, rand( 0.08, 0.12 ) * index ) );
-        } );
-
-    }
-
-    init.call( this );
-
-};
-
-var Wave = function( originalX, originalY, context, offset ) {
-
-    var anchors;
-    var width;
-    var height;
-    var mouseDirection;
-    var oldMouse;
-    var x;
-    var y;
-
-    function init() {
-        x = originalX;
-        y = originalY;
-
-        anchors = [];
-        mouseDirection = { x: 0, y: 0 };
-
-        var anchor;
-        var current = 0;
-        var start = - options.waveAmplitude;
-        var target = options.waveAmplitude;
-        var delta = offset;
-        var step = 0.4;
-
-        times( window.innerWidth / options.waveLength, function() {
-            anchor = new Anchor( current, 0, start, target, delta );
-            anchor.setOrigin( current + x, y );
-
-            anchors.push( anchor );
-
-            current += 90;
-            delta += step;
-
-            if ( delta > 1 ) {
-                times( Math.floor( delta ), function() {
-                    delta--;
-                    start *= -1;
-                    target *= -1;
-                } );
-            }
-
-        } );
-    }
-
-    this.render = function() {
-
-        update();
-
-        context.save();
-        context.translate( x, y );
-
-        context.moveTo( anchors[ 0 ].x, anchors[ 0 ].y );
-        bezier( anchors, context );
-
-        context.restore();
-    };
-
-    this.setSize = function( _width, _height ) {
-        width = _width;
-        height = _height;
-
-        var step = _width / ( anchors.length - 1 );
-
-        anchors.forEach( function( anchor, i ) {
-            anchor.x = step * i;
-            anchor.setOrigin( anchor.x, y );
-        } );
-    };
-
-    this.onAmpChange = function() {
-        anchors.forEach( func( "onAmpChange" ) );
-    };
-
-    this.start = function() {
-        y = height + 300 + originalY * 0.4;
-    };
-
-    function update() {
-        var targetY = Math.min( y, Mouse.y + originalY );
-        y += ( targetY - y ) / options.waveRiseSpeed;
-
-        updateMouse();
-
-        anchors.forEach( function( anchor ) {
-            anchor.update( mouseDirection, y );
-        } );
-    }
-
-    function updateMouse() {
-        if ( ! oldMouse ) {
-            oldMouse = { x: Mouse.x, y: Mouse.y };
-            return;
-        }
-
-        mouseDirection.x = Mouse.x - oldMouse.x;
-        mouseDirection.y = Mouse.y - oldMouse.y;
-
-        oldMouse = { x: Mouse.x, y: Mouse.y };
-    }
-
-    init.call( this );
-
-};
-
-var Anchor = function( x, y, start, target, delta ) {
-
-    var spring;
-    var motion;
-    var origin;
-
-    function init() {
-        spring = new Spring();
-        motion = new Motion( start, target, delta );
-        origin = {};
-        this.x = x;
-        this.y = y;
-    }
-
-    this.update = function( mouseDirection, currentY ) {
-        origin.y = currentY;
-
-        var factor = getMultiplier();
-        var vector = {
-            x: mouseDirection.x * factor * options.waveMouse,
-            y: mouseDirection.y * factor * options.waveMouse
-        };
-
-        if ( factor > 0 ) {
-            spring.shoot( vector );
-        }
-
-        spring.update();
-        motion.update();
-
-        this.y = motion.get() + spring.y;
-    };
-
-    this.onAmpChange = function() {
-        motion.onAmpChange();
-    };
-
-    this.setOrigin = function( x, y ) {
-        origin.x = x;
-        origin.y = y;
-    };
-
-
-    function getMultiplier() {
-        var lang = distance( Mouse, origin );
-        var radius = options.waveRadius;
-
-        return  lang < radius ? 1 - lang / radius : 0;
-    }
-
-    init.call( this );
-
-};
-
-var Motion = function( start, target, delta ) {
-
-    var SPEED = 0.02;
-    var half;
-    var upper;
-    var lower;
-    var min;
-    var max;
-
-    function init() {
-        this.onAmpChange();
-    }
-
-
-    this.setRange = function( a, b ) {
-        min = a;
-        max = b;
-    };
-
-    this.update = function() {
-        delta += SPEED;
-
-        if ( delta > 1 ) {
-            delta = 0;
-            start = target;
-            target = target < half ? rand( upper, max ) : rand( min, lower );
-        }
-    };
-
-    this.get = function() {
-        var factor = ( Math.cos( ( 1 + delta ) * Math.PI ) + 1 ) / 2;
-        return start + factor * ( target - start );
-    };
-
-    this.onAmpChange = function() {
-        min = - options.waveAmplitude;
-        max = options.waveAmplitude;
-        half = min + ( max - min ) / 2;
-        upper = min + ( max - min ) * 0.75;
-        lower = min + ( max - min ) * 0.25;
-    };
-
-
-    init.call( this );
-
-};
-
-var Spring = function() {
-
-    var px = 0;
-    var py = 0;
-    var vx = 0;
-    var vy = 0;
-    var targetX = 0;
-    var targetY = 0;
-    var timeout;
-
-    function init() {
-        this.x = 0;
-        this.y = 0;
-    }
-
-    this.update = function() {
-        vx = targetX - this.x;
-        vy = targetY - this.y;
-        px = px * options.waveElasticity + vx * options.waveStrength;
-        py = py * options.waveElasticity + vy * options.waveStrength;
-        this.x += px;
-        this.y += py;
-    };
-
-    this.shoot = function( vector ) {
-        targetX = clamp( vector.x, -options.waveMax, options.waveMax );
-        targetY = clamp( vector.y, -options.waveMax, options.waveMax );
-
-        clearTimeout( timeout );
-        timeout = setTimeout( cancelOffset, 100 );
-    };
-
-    function cancelOffset() {
-        targetX = 0;
-        targetY = 0;
-    }
-
-    init.call( this );
-};
-
-var Canvas = function( canvas, size ) {
-
-    var context;
-    var width, height;
-    var animation;
-
-    function init() {
-
-        context = canvas.getContext( "2d" );
-
-        setTimeout( function() {
-            Mouse.bind( canvas );
-        }, 1000 );
-
-        Stage.set( size );
-
-        animation = new Water( context );
-
-        this.setSize( size.width, size.height );
-
-        animation.start();
-
-        requestAnimationFrame( render );
-    }
-
-    function render() {
-        context.setTransform( 1, 0, 0, 1, 0, 0 );
-        context.clearRect( 0, 0, width, height );
-
-        context.save();
-        animation.render();
-        context.restore();
-
-        requestAnimationFrame( render );
-    }
-
-    this.setSize = function( _width, _height ) {
-
-        canvas.width = Stage.width = width = _width;
-        canvas.height = Stage.height = height = _height;
-
-        animation.setSize( _width, _height );
-    };
-
-    init.call( this );
-};
-
 /*
  * START
  */
 
-var app = new Canvas( canvas, size );
+// var canvas = document.querySelector( ".waves__canvas" );
+// if (canvas) {
 
-window.addEventListener( "resize", function() {
-    app.setSize( window.innerWidth, window.innerHeight );
-}, false );
+//   var options = {
+//     color: "rgba(235,67,41,.1)",
+//     waveAmplitude: 30,
+//     waveRadius: 200,
+//     waveElasticity: 0.75,
+//     waveStrength: 0.01,
+//     waveMouse: 40,
+//     waveMax: 100,
+//     waveComeUp: function() {},
+//     waveRiseSpeed: 15,
+//     lineWidth: 5,
+//     waveLength: 100,
+//     distance: 20
+//   };
+
+//   var app = new Canvas( canvas, size );
+
+//   window.addEventListener( "resize", function() {
+//     app.setSize( window.innerWidth, window.innerHeight );
+//   }, false );
+
+// }
+
+/*
+  Surf height description
+*/
+
+var directions = document.querySelectorAll('.directions__direction');
+
+if (directions) {
+  for (var i = 0; i < directions.length; i ++) {
+    var thisBreaks = directions[i].querySelectorAll('.surfbreak');
+
+    // SET DESCRIPTIVE SURF CONDITIONS
+    var thisAverage = directions[i].getAttribute('data-height-mean');
+    var setSurfConditions = function(surfConditions) {
+      directions[i].querySelector('.direction__height').innerHTML = surfConditions;
+    };
+    if (thisAverage < 1) {
+      setSurfConditions('flat');
+    } else if (thisAverage >= 1 && thisAverage < 2) {
+      setSurfConditions('small');
+    } else if (thisAverage >= 2 && thisAverage < 3) {
+      setSurfConditions('not bad');
+    } else if (thisAverage >= 3 && thisAverage < 5) {
+      setSurfConditions('good');
+    } else if (thisAverage >= 5 && thisAverage < 7) {
+      setSurfConditions('firing');
+    } else if (thisAverage >= 7) {
+      setSurfConditions('massive');
+    }
+  }
+
+  /*
+    CREATE CAROUSELS
+  */
+
+  var width = 800,
+      widthSegment = (width/5),
+      height = 500,
+      multiplier = 150;
+
+  var shoreDirections = ['north','west','east','south'];
+  var tideGraphs = document.querySelectorAll('.tide__graph');
+  for (var tideIndex = 0; tideIndex < tideGraphs.length; tideIndex++) {
+    var tidesData     = tideGraphs[tideIndex].getAttribute('data-tides').replace('[','').replace(']','').split(',');
+    var timesData     = tideGraphs[tideIndex].getAttribute('data-times').replace('["','').replace('"]','').split('","');
+    var timeLabelData = tideGraphs[tideIndex].getAttribute('data-time-labels').replace('["','').replace('"]','').split('","');
+
+    var lineData = [ { "x": 0,              "y": 500},
+                     { "x": 0,              "y": tidesData[0]},
+                     { "x": widthSegment,   "y": tidesData[1]},
+                     { "x": widthSegment*2, "y": tidesData[2]},
+                     { "x": widthSegment*3, "y": tidesData[3]},
+                     { "x": widthSegment*4, "y": tidesData[4]},
+                     { "x": widthSegment*5, "y": tidesData[5]}
+                   ];
+
+    var svgContainer = d3.select(".tide__graph[data-shore="+ shoreDirections[tideIndex] +"]").attr('viewBox', '0 0 800 500');
+
+    var line = d3.svg.line();
+
+    var tideFunction  = d3.svg.line()
+                              .x(function(d) {
+                                return d.x;
+                              })
+                              .y(function(d) {
+                                d = (d.y * multiplier) + (height/2);
+                                return d;
+                              }).interpolate("monotone");
+    var tideAttributes  = svgContainer.append("path").attr('d', tideFunction(lineData));
+    var graphMarks      = svgContainer.append("line").attr('x1', widthSegment).attr('y1', 0).attr('x2', widthSegment).attr('y2', 500);
+    var graphMarks1     = svgContainer.append("line").attr('x1', widthSegment*2).attr('y1', 0).attr('x2', widthSegment*2).attr('y2', 500);
+    var graphMarks2     = svgContainer.append("line").attr('x1', widthSegment*3).attr('y1', 0).attr('x2', widthSegment*3).attr('y2', 500);
+    var graphMarks3     = svgContainer.append("line").attr('x1', widthSegment*4).attr('y1', 0).attr('x2', widthSegment*4).attr('y2', 500);
+    var graphTime      = svgContainer.append("text").attr('x', widthSegment-30).attr('y',   500).text(timesData[0]);
+    var graphTime1     = svgContainer.append("text").attr('x', widthSegment*2-30).attr('y', 500).text(timesData[1]);
+    var graphTime2     = svgContainer.append("text").attr('x', widthSegment*3-30).attr('y', 500).text(timesData[2]);
+    var graphTime3     = svgContainer.append("text").attr('x', widthSegment*4-30).attr('y', 500).text(timesData[3]);
+    var graphLabel      = svgContainer.append("text").attr('x', widthSegment-35).attr('y',   60).text(timeLabelData[0]);
+    var graphLabel1     = svgContainer.append("text").attr('x', widthSegment*2-35).attr('y', 60).text(timeLabelData[1]);
+    var graphLabel2     = svgContainer.append("text").attr('x', widthSegment*3-35).attr('y', 60).text(timeLabelData[2]);
+    var graphLabel3     = svgContainer.append("text").attr('x', widthSegment*4-35).attr('y', 60).text(timeLabelData[3]);
+    // var circle = svgContainer.append("line")
+    //  8                         .attr("x1", 5)
+    //  9                         .attr("y1", 5)
+    // 10                         .attr("x2", 50)
+    // 11                         .attr("y2", 50);
+  }
+
+  /*
+    CREATE CAROUSELS
+  */
+  var wallopEl01 = document.querySelector('.Wallop-01');
+  var slider01 = new Wallop(wallopEl01);
+  wallopEl01.addEventListener('click', function(){
+    slider01.next();
+  })
+  var wallopEl02 = document.querySelector('.Wallop-02');
+  var slider02 = new Wallop(wallopEl02);
+  wallopEl02.addEventListener('click', function(){
+    slider02.next();
+  })
+  var wallopEl03 = document.querySelector('.Wallop-03');
+  var slider03 = new Wallop(wallopEl03);
+  wallopEl03.addEventListener('click', function(){
+    slider03.next();
+  })
+  var wallopEl04 = document.querySelector('.Wallop-04');
+  var slider04 = new Wallop(wallopEl04);
+  wallopEl04.addEventListener('click', function(){
+    slider04.next();
+  })
+
+}

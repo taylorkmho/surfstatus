@@ -2,5 +2,5 @@
   position: relative;
   lost-center: $row-width;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translate3d(0, -50%, 0);
 }

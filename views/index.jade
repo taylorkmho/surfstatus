@@ -1,14 +1,57 @@
 extends ./layouts/_layout.jade
 
 block vars
-  - var bodyTemplate = "home"
+  - var bodyTemplate = "results"
+  - var directions = [['north','north<br>shore'], ['west','west<br>side'], ['east','east<br>side'], ['south','south<br>shore']]
+
+block addToHead
 
 block content
-  section.splash
-    .splash__container
-      include ../src/images/svg/logo-surfornah.svg
-      .tagline
-        .tagline__container
-          h1= title
-          h2 Figure out what surf breaks <em>you</em> should check out <em>today</em>.
-          a.btn.btn--blue(href="/location") Let&rsquo;s Go
+
+  //- section.waves
+  //-   canvas.waves__canvas
+
+  header.branding
+    .branding__logo-container
+      include ../src/images/svg/logo-surfstatus.svg
+
+  section.wave-report
+    .directions
+      - for (var i = 0; i < directions.length; i++)
+        .directions__direction(data-shore=directions[i][0] data-height-mean=surfHeightRanges[i].mean)
+          h1.directions__direction__title
+            != directions[i][1]
+            span.direction__height
+          .directions__direction__container
+            .Wallop(class="Wallop-0#{i+1}")
+              .Wallop-list
+                .surfbreak.Wallop-item.Wallop-item--current
+                  h3.surfbreak__height
+                    = surfHeightRanges[i].min
+                    span -
+                    = surfHeightRanges[i].max
+                    span &rsquo;
+                .tide.Wallop-item
+                  - var tidesTimes = []
+                  - var tidesLabels = []
+                  - var tidesGraph = []
+                  each tide in tides[directions[i][0]]
+                    - tidesTimes.push(tide[0])
+                    - tidesLabels.push(tide[1])
+                    - tidesGraph.push(tide[2])
+                  svg.tide__graph(data-shore=directions[i][0] data-tides=tidesGraph data-times=tidesTimes data-time-labels=tidesLabels)
+    .sunrise-sunset(data-weather-sunset=weather.sunset data-weather-sunrise=weather.sunrise)
+      include ../src/images/svg/mokes.svg
+
+block footerScripts
+  script(src="../js/vendor/wave-canvas.js")
+  script(src="../js/vendor/Wallop.js")
+  script(src="../js/vendor/d3.js")
+  script.
+    //- console.log(weather.sunset);
+    var sunTracker          = document.querySelector( '.mokes' );
+    var sunTrackerContainer = document.querySelector( '.sunrise-sunset' );
+    var sunriseTime         = sunTracker.querySelector( '[data-time-for="sunrise"]' );
+    var sunsetTime          = sunTracker.querySelector( '[data-time-for="sunset"]' );
+    sunsetTime.innerHTML = sunTrackerContainer.getAttribute('data-weather-sunset');
+    sunriseTime.innerHTML = sunTrackerContainer.getAttribute('data-weather-sunrise');

@@ -11,9 +11,23 @@ html, body {
 }
 
 body {
-  background: $c-body-bg;
   font-family: $body-font-family;
-  color: $c-body-font;
+  background: $c-body-bg;
+  &:before, &:after {
+    content: "";
+    position: fixed;
+    top: 0;
+    height: 100%;
+    z-index: 300;
+    width: calc(2*$column-gutter);
+    background-color: $c-body-border;
+  }
+  &:before {
+    left: 0;
+  }
+  &:after {
+    right: 0;
+  }
 }
 
 * {
@@ -29,4 +43,8 @@ svg, img {
 
 img {
   -ms-interpolation-mode: bicubic;
+}
+
+::selection {
+  background-color: color($c-red tint(50%));
 }

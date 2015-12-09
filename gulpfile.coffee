@@ -48,20 +48,21 @@ secrets                = require './data/secrets.json'
 
 paths =
   base:
-    root : ''
-    src  : './src'
-    dist : './public'
-    tmp  : './tmp'
+    root   : ''
+    src    : './src'
+    dist   : './public'
+    tmp    : './tmp'
 
 paths.src =
-  css    : paths.base.src + '/css'
-  js     : paths.base.src + '/js'
-  images : paths.base.src + '/images'
+  css      : paths.base.src + '/css'
+  js       : paths.base.src + '/js'
+  images   : paths.base.src + '/images'
 
 paths.dist =
-  css    : paths.base.dist + '/css'
-  js     : paths.base.dist + '/js'
-  images : paths.base.dist + '/images'
+  css      : paths.base.dist + '/css'
+  js       : paths.base.dist + '/js'
+  vendorjs : paths.base.dist + '/js/vendor'
+  images   : paths.base.dist + '/images'
 
 ####################
 # Functions
@@ -121,17 +122,15 @@ gulp.task 'bower', ->
   gulp.src bower()
     .pipe filter('*.js')
     .pipe uglify()
-    .pipe gulp.dest(paths.dist.js)
+    .pipe gulp.dest(paths.dist.vendorjs)
     .on('error', onError)
 
 gulp.task 'js', ->
 
-  gulp.src "#{paths.src.js}/**/[^_]*.{js,coffee}"
+  gulp.src "#{paths.src.js}/*.js"
     .pipe order([
-      "utils.js"
-      "lib/jello/jello.js"
-      "lib/jello/modules/**/*.js"
-      "app.js"
+      "helpers.js",
+      "application.js"
     ])
     # .pipe changed(paths.dist.js)
     .pipe include().on('error', onError)
@@ -143,6 +142,9 @@ gulp.task 'js', ->
     # .pipe gzip({ append: true })
     # .pipe gulp.dest(paths.dist.js)
     .on('error', onError)
+
+  gulp.src "#{paths.src.js}/vendor/*.js"
+    .pipe gulp.dest(paths.dist.vendorjs)
 
 gulp.task 'css', ->
   postCSSProcessors = [
