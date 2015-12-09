@@ -18,14 +18,13 @@
 
   &__direction {
     position: relative;
-    lost-column: 1/2 2 0;
+    lost-column: 1;
 
     padding-top: calc($column-gutter*2);
     padding-bottom: calc($column-gutter*2);
 
-    border-right: $column-gutter $c-grid-border solid;
-    &:nth-child(even) {
-      border-right: 0;
+    &:nth-child(1), &:nth-child(2) {
+      border-bottom: $column-gutter $c-grid-border solid;
     }
 
     display: table-cell;
@@ -34,7 +33,7 @@
       position: relative;
       margin: 0;
       display: inline-block;
-      font-size: 4vw;
+      font-size: 15vw;
       line-height: .85;
       color: #fff;
       text-transform: uppercase;
@@ -44,7 +43,7 @@
         right: -.5vw;
 
         font-family: $title-font-family;
-        font-size: 2vw;
+        font-size: 6vw;
         text-transform: lowercase;
         color: $c-red;
         text-shadow: 0 0 .5rem color(#000 a(50%));
@@ -57,14 +56,42 @@
   }
 }
 
+@media screen and (min-width: 640px) {
+  .directions {
+    &__direction {
+      lost-column: 1/2 2 0;
+
+      border-right: $column-gutter $c-grid-border solid;
+      &:nth-child(even) {
+        border-right: 0;
+      }
+      &__title {
+        font-size: 8vw;
+        span {
+          font-size: 3vw;
+        }
+      }
+    }
+  }
+}
+
 @media screen and (min-width: 1200px) {
   .directions {
     &__direction {
       lost-column: 1/4 4 0;
       border: 0;
       border-right: $column-gutter $c-grid-border solid;
+      &:nth-child(1), &:nth-child(2) {
+        border-bottom: 0;
+      }
       &:nth-child(even) {  border-right: $column-gutter $c-grid-border solid; }
       &:last-of-type {  border-right-color: transparent; }
+      &__title {
+        font-size: 4vw;
+        span {
+          font-size: 2vw;
+        }
+      }
     }
   }
 }
@@ -73,9 +100,16 @@
   padding: 4vw 0;
   &__height {
     margin: 0;
-    font-size: 3rem;
+    font-size: 20vw;
     color: #fff;
     transition: font $easeOutExpo 400ms;
+  }
+}
+@media screen and (min-width: 640px) {
+  .surfbreak {
+    &__height {
+      font-size: 10vw;
+    }
   }
 }
 
@@ -154,13 +188,21 @@
 .Wallop {
   cursor: pointer;
   &-list {
-    height: 320px;
-    height: 34vw;
+    height: 70vw;
     &-item {
       height: 100%;
     }
   }
 }
+
+@media screen and (min-width: 640px) {
+  .Wallop {
+    &-list {
+      height: 34vw;
+    }
+  }
+}
+
 @media screen and (min-width: 1200px) {
   .Wallop {
     &-list {
