@@ -12,20 +12,22 @@
   cursor: default;
   lost-utility: clearfix;
   transition: all $easeOutExpo 400ms;
+  background-color: $c-grid-border;
   *::selection {
     background: transparent;
   }
 
   &__direction {
     position: relative;
-    lost-column: 1;
-
+    float: left;
+    width: 100%;
+    background-color: $c-body-bg;
     padding-top: calc($column-gutter*2);
     padding-bottom: calc($column-gutter*2);
 
-    &:nth-child(1), &:nth-child(2) {
+/*     &:nth-child(1), &:nth-child(2) {
       border-bottom: $column-gutter $c-grid-border solid;
-    }
+    } */
 
     display: table-cell;
 
@@ -59,12 +61,12 @@
 @media screen and (min-width: 640px) {
   .directions {
     &__direction {
-      lost-column: 1/2 2 0;
+      lost-column: 1/2 2 $column-gutter;
 
-      border-right: $column-gutter $c-grid-border solid;
+/*       border-right: $column-gutter $c-grid-border solid;
       &:nth-child(even) {
         border-right: 0;
-      }
+      } */
       &__title {
         font-size: 8vw;
         span {
@@ -78,14 +80,14 @@
 @media screen and (min-width: 1200px) {
   .directions {
     &__direction {
-      lost-column: 1/4 4 0;
-      border: 0;
-      border-right: $column-gutter $c-grid-border solid;
-      &:nth-child(1), &:nth-child(2) {
+      lost-column: 1/4 4 $column-gutter;
+      /* border: 0;
+      border-right: $column-gutter $c-grid-border solid; */
+/*       &:nth-child(1), &:nth-child(2) {
         border-bottom: 0;
       }
       &:nth-child(even) {  border-right: $column-gutter $c-grid-border solid; }
-      &:last-of-type {  border-right-color: transparent; }
+      &:last-of-type {  border-right-color: transparent; } */
       &__title {
         font-size: 4vw;
         span {
