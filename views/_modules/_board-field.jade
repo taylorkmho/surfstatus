@@ -1,8 +1,0 @@
-mixin board-field(boardType, boardTypeLongform)
-  - boardTypeCap = boardType.toUpperCase()
-  .fieldset.board-form__option
-    input(id=boardType type="checkbox" data-boardType=boardTypeCap)
-    label(for=boardType)
-      .box
-        block
-      span= boardTypeLongform
