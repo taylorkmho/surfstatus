@@ -12,4 +12,5 @@
 /* @import './components/_loaders'; */
 
 @import './templates/_home';
+@import './templates/_error';
 /* @import './templates/_results'; */

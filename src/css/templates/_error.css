@@ -1,0 +1,7 @@
+[data-template="error"] {
+  color: #fff;
+  .container {
+    lost-center: 920px;
+    margin-top: 4rem;
+  }
+}
