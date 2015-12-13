@@ -1,4 +1,3 @@
-var express        = require('express');
 var request        = require('request');
 var async          = require('async');
 var parseXML       = require('xml2js').parseString;
@@ -8,6 +7,7 @@ var Schema = mongoose.Schema;
 var CronJob = require('cron').CronJob;
 
 var surfReportSchema = new Schema({
+  timestamp: Date,
   fullNorth: String,
   minNorth: Number,
   maxNorth: Number,
@@ -26,13 +26,11 @@ var surfReportSchema = new Schema({
   meanSouth: Number
 });
 
-var SurfReport = mongoose.model('SurfReport', surfReportSchema);
-
+var SurfReport = mongoose.model('SurfData', surfReportSchema);
 
 var job = new CronJob({
   cronTime: '00 * * * * *',
   onTick: function() {
-    console.log('You fired at \n' + new Date());
 
     var surfHeightRanges = new Array();
 
@@ -84,6 +82,7 @@ var job = new CronJob({
           console.log('--surfHeightRanges ', surfHeightRanges);
 
           var newSurfReport = new SurfReport({
+            timestamp: new Date(),
             fullNorth: surfHeightRanges[0].full,
             minNorth: surfHeightRanges[0].min,
             maxNorth: surfHeightRanges[0].max,
@@ -106,7 +105,7 @@ var job = new CronJob({
             if (err) return handleError(err);
             console.log('saved new surf height');
           })
-          console.log('after newSurfModel SAVE');
+
         } else {
           console.log('error: '+ err.message);
         }

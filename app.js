@@ -6,13 +6,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/surfModels');
+mongoose.connect('mongodb://localhost/surfReportData');
 
 var index = require('./routes/index');
 
-var reportDataGenerator = require('./routes/report-data');
-
 var app = express();
+
+// models
+var surfDataModel = require('./models/surf-data');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,8 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 // app.use('/report-data', reportData);
 
-app.get('/surf-reports', function(req,res) {
-  mongoose.model('SurfReport').find(function(err, surfReports) {
+app.get('/surf-data', function(req,res) {
+  mongoose.model('SurfData').find(function(err, surfReports) {
     res.send(surfReports);
   })
 });
