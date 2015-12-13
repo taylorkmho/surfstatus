@@ -119,22 +119,22 @@ if (directions) {
   /*
     CREATE CAROUSELS
   */
-  var wallopEl01 = document.querySelector('.Wallop-01');
+  var wallopEl01 = document.querySelector('.Wallop-north');
   var slider01 = new Wallop(wallopEl01);
   wallopEl01.addEventListener('click', function(){
     slider01.next();
   })
-  var wallopEl02 = document.querySelector('.Wallop-02');
+  var wallopEl02 = document.querySelector('.Wallop-west');
   var slider02 = new Wallop(wallopEl02);
   wallopEl02.addEventListener('click', function(){
     slider02.next();
   })
-  var wallopEl03 = document.querySelector('.Wallop-03');
+  var wallopEl03 = document.querySelector('.Wallop-east');
   var slider03 = new Wallop(wallopEl03);
   wallopEl03.addEventListener('click', function(){
     slider03.next();
   })
-  var wallopEl04 = document.querySelector('.Wallop-04');
+  var wallopEl04 = document.querySelector('.Wallop-south');
   var slider04 = new Wallop(wallopEl04);
   wallopEl04.addEventListener('click', function(){
     slider04.next();

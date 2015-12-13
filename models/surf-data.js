@@ -130,3 +130,5 @@ var job = new CronJob({
   timeZone: 'Pacific/Honolulu'
 });
 job.start();
+
+module.exports = surfSchema;

@@ -17,31 +17,35 @@ block content
 
   section.wave-report
     .directions
-      - for (var i = 0; i < directions.length; i++)
-        .directions__direction(data-shore=directions[i][0] data-height-mean=surfHeightRanges[i].mean)
+      each direction in directions
+        - var thisDirection = direction[0];
+        - var surfObject = recentSurf[thisDirection]
+        //- - var tideObject = recentTide[thisDirection]
+        .directions__direction(data-shore=thisDirection data-height-mean=surfObject.mean)
           h1.directions__direction__title
-            != directions[i][1]
+            != direction[1]
             span.direction__height
           .directions__direction__container
-            .Wallop(class="Wallop-0#{i+1}")
+            .Wallop(class="Wallop-#{thisDirection}")
               .Wallop-list
                 .surfbreak.Wallop-item.Wallop-item--current
                   h3.surfbreak__height
-                    = surfHeightRanges[i].min
+                    = surfObject.min
                     span -
-                    = surfHeightRanges[i].max
+                    = surfObject.max
                     span &rsquo;
                 .tide.Wallop-item
                   - var tidesTimes = []
                   - var tidesLabels = []
                   - var tidesGraph = []
-                  each tide in tides[directions[i][0]]
-                    - tidesTimes.push(tide[0])
-                    - tidesLabels.push(tide[1])
-                    - tidesGraph.push(tide[2])
-                  svg.tide__graph(data-shore=directions[i][0] data-tides=tidesGraph data-times=tidesTimes data-time-labels=tidesLabels)
-    .sunrise-sunset(data-weather-sunset=weather.sunset data-weather-sunrise=weather.sunrise)
+                  each tide in recentTide[thisDirection]
+                    - tidesTimes.push(recentTide[thisDirection].nowMinus1[0], recentTide[thisDirection].now[0], recentTide[thisDirection].nowPlus1[0], recentTide[thisDirection].nowPlus2[0], recentTide[thisDirection].nowPlus3[0], recentTide[thisDirection].nowPlus4[0])
+                    - tidesLabels.push(recentTide[thisDirection].nowMinus1[1], recentTide[thisDirection].now[1], recentTide[thisDirection].nowPlus1[1], recentTide[thisDirection].nowPlus2[1], recentTide[thisDirection].nowPlus3[1], recentTide[thisDirection].nowPlus4[1])
+                    - tidesGraph.push(recentTide[thisDirection].nowMinus1[2], recentTide[thisDirection].now[2], recentTide[thisDirection].nowPlus1[2], recentTide[thisDirection].nowPlus2[2], recentTide[thisDirection].nowPlus3[2], recentTide[thisDirection].nowPlus4[2])
+                  svg.tide__graph(data-shore=thisDirection data-tides=tidesGraph data-times=tidesTimes data-time-labels=tidesLabels)
+    .sunrise-sunset(data-weather-sunset=recentWeather.sunset data-weather-sunrise=recentWeather.sunrise)
       include ../src/images/svg/mokes.svg
+
 
 block footerScripts
   script(src="../js/vendor/wave-canvas.js")
