@@ -46,7 +46,7 @@ router.get('/', function(req, res, next) {
 
   var timeNow = Math.floor(Date.now() / 1000);
   var time24HrsAgo = timeNow - 86400;
-  console.log('time24HrsAgo ' + time24HrsAgo);
+
   var tideTimeParams = "&start=" + time24HrsAgo + "&length=172800";
 
   async.parallel([
