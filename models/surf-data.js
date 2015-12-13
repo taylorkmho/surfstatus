@@ -44,7 +44,6 @@ var job = new CronJob({
               console.log(err);
               return;
             }
-            console.log('after error')
             var surfForecast = "";
 
             parseXML(body, function(err, result) {
@@ -78,8 +77,6 @@ var job = new CronJob({
       }],
       function(err, results) {
         if (!err) {
-
-          console.log('--surfHeightRanges ', surfHeightRanges);
 
           var newSurfReport = new SurfReport({
             timestamp: new Date(),

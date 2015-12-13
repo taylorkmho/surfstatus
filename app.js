@@ -14,6 +14,7 @@ var app = express();
 
 // models
 var surfDataModel = require('./models/surf-data');
+var weatherDataModel = require('./models/weather-data');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -33,6 +34,11 @@ app.use('/', index);
 app.get('/surf-data', function(req,res) {
   mongoose.model('SurfData').find(function(err, surfReports) {
     res.send(surfReports);
+  })
+});
+app.get('/weather-data', function(req,res) {
+  mongoose.model('WeatherData').find(function(err, WeatherDataReports) {
+    res.send(WeatherDataReports);
   })
 });
 
