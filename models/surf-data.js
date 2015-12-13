@@ -8,22 +8,30 @@ var CronJob = require('cron').CronJob;
 
 var surfReportSchema = new Schema({
   timestamp: Date,
-  fullNorth: String,
-  minNorth: Number,
-  maxNorth: Number,
-  meanNorth: Number,
-  fullWest: String,
-  minWest: Number,
-  maxWest: Number,
-  meanWest: Number,
-  fullEast: String,
-  minEast: Number,
-  maxEast: Number,
-  meanEast: Number,
-  fullSouth: String,
-  minSouth: Number,
-  maxSouth: Number,
-  meanSouth: Number
+  north: {
+    full: String,
+    min: Number,
+    max: Number,
+    mean: Number
+  },
+  west: {
+    full: String,
+    min: Number,
+    max: Number,
+    mean: Number,
+  },
+  east: {
+    full: String,
+    min: Number,
+    max: Number,
+    mean: Number,
+  },
+  south: {
+    full: String,
+    min: Number,
+    max: Number,
+    mean: Number
+  }
 });
 
 var SurfReport = mongoose.model('SurfData', surfReportSchema);
@@ -80,22 +88,30 @@ var job = new CronJob({
 
           var newSurfReport = new SurfReport({
             timestamp: new Date(),
-            fullNorth: surfHeightRanges[0].full,
-            minNorth: surfHeightRanges[0].min,
-            maxNorth: surfHeightRanges[0].max,
-            meanNorth: surfHeightRanges[0].mean,
-            fullWest: surfHeightRanges[1].full,
-            minWest: surfHeightRanges[1].min,
-            maxWest: surfHeightRanges[1].max,
-            meanWest: surfHeightRanges[1].mean,
-            fullEast: surfHeightRanges[2].full,
-            minEast: surfHeightRanges[2].min,
-            maxEast: surfHeightRanges[2].max,
-            meanEast: surfHeightRanges[2].mean,
-            fullSouth: surfHeightRanges[3].full,
-            minSouth: surfHeightRanges[3].min,
-            maxSouth: surfHeightRanges[3].max,
-            meanSouth: surfHeightRanges[3].mean
+            north: {
+              full: surfHeightRanges[0].full,
+              min: surfHeightRanges[0].min,
+              max: surfHeightRanges[0].max,
+              mean: surfHeightRanges[0].mean
+            },
+            west: {
+              full: surfHeightRanges[1].full,
+              min: surfHeightRanges[1].min,
+              max: surfHeightRanges[1].max,
+              mean: surfHeightRanges[1].mean
+            },
+            east: {
+              full: surfHeightRanges[2].full,
+              min: surfHeightRanges[2].min,
+              max: surfHeightRanges[2].max,
+              mean: surfHeightRanges[2].mean
+            },
+            south: {
+              full: surfHeightRanges[3].full,
+              min: surfHeightRanges[3].min,
+              max: surfHeightRanges[3].max,
+              mean: surfHeightRanges[3].mean
+            }
           });
 
           newSurfReport.save(function(err){
