@@ -20,6 +20,7 @@
   "dependencies": {
     "jaaulde-cookies": "~3.0.6",
     "normalize-css": "normalize.css#~3.0.3",
-    "d3": "~3.5.10"
+    "d3": "~3.5.10",
+    "fastclick": "~1.0.6"
   }
 }
