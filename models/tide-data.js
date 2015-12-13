@@ -47,7 +47,7 @@ var tideSchema = new Schema({
 var TideData = mongoose.model('TideData', tideSchema);
 
 var job = new CronJob({
-  cronTime: '00 * * * * *',
+  cronTime: '00 6 * * * *',
   onTick: function() {
 
     function toFeet(meter) {
