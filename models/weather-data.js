@@ -24,7 +24,7 @@ var weatherSchema = new Schema({
 var WeatherData = mongoose.model('WeatherData', weatherSchema);
 
 var job = new CronJob({
-  cronTime: '00 6 * * * *',
+  cronTime: '00 00 6 * * *',
   onTick: function() {
 
     function toHITime(timestamp) {

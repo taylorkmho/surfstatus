@@ -10,6 +10,7 @@ var secrets        = require('../data/secrets.json');
 var tideAPIKey    = secrets[0].apiKeys.worldTides;
 
 var tideSchema = new Schema({
+  timestamp: Date,
   north: {
     nowMinus1: Array,
     now: Array,
@@ -47,7 +48,7 @@ var tideSchema = new Schema({
 var TideData = mongoose.model('TideData', tideSchema);
 
 var job = new CronJob({
-  cronTime: '00 6 * * * *',
+  cronTime: '00 00 6 * * *',
   onTick: function() {
 
     function toFeet(meter) {
@@ -203,6 +204,7 @@ var job = new CronJob({
       function(err, results) {
         if (!err) {
           var newTideData = new TideData({
+            timestamp: new Date(),
             north: {
               nowMinus1: tides['north']['nowMinus1'],
               now: tides['north']['now'],
