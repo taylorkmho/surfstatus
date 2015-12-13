@@ -3,32 +3,6 @@
  * START
  */
 
-// var canvas = document.querySelector( ".waves__canvas" );
-// if (canvas) {
-
-//   var options = {
-//     color: "rgba(235,67,41,.1)",
-//     waveAmplitude: 30,
-//     waveRadius: 200,
-//     waveElasticity: 0.75,
-//     waveStrength: 0.01,
-//     waveMouse: 40,
-//     waveMax: 100,
-//     waveComeUp: function() {},
-//     waveRiseSpeed: 15,
-//     lineWidth: 5,
-//     waveLength: 100,
-//     distance: 20
-//   };
-
-//   var app = new Canvas( canvas, size );
-
-//   window.addEventListener( "resize", function() {
-//     app.setSize( window.innerWidth, window.innerHeight );
-//   }, false );
-
-// }
-
 /*
   Surf height description
 */
@@ -116,28 +90,12 @@ if (directions) {
     // 11                         .attr("y2", 50);
   }
 
-  /*
-    CREATE CAROUSELS
-  */
-  var wallopEl01 = document.querySelector('.Wallop-north');
-  var slider01 = new Wallop(wallopEl01);
-  wallopEl01.addEventListener('click', function(){
-    slider01.next();
-  })
-  var wallopEl02 = document.querySelector('.Wallop-west');
-  var slider02 = new Wallop(wallopEl02);
-  wallopEl02.addEventListener('click', function(){
-    slider02.next();
-  })
-  var wallopEl03 = document.querySelector('.Wallop-east');
-  var slider03 = new Wallop(wallopEl03);
-  wallopEl03.addEventListener('click', function(){
-    slider03.next();
-  })
-  var wallopEl04 = document.querySelector('.Wallop-south');
-  var slider04 = new Wallop(wallopEl04);
-  wallopEl04.addEventListener('click', function(){
-    slider04.next();
-  })
-
 }
+
+var mq = window.matchMedia( "(min-width: 520px)" );
+
+if (mq.matches) {
+  // window width is >= mq
+} else {
+  // window width is < mq
+};
