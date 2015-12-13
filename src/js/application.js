@@ -92,10 +92,37 @@ if (directions) {
 
 }
 
-var mq = window.matchMedia( "(min-width: 520px)" );
 
-if (mq.matches) {
-  // window width is >= mq
-} else {
-  // window width is < mq
-};
+
+// media query event handler
+if (matchMedia) {
+  var mq = window.matchMedia("(max-width: 639px)");
+  mq.addListener(mobileListener);
+  mobileListener(mq);
+}
+
+// media query change
+function mobileListener(mq) {
+
+  if (mq.matches) {
+    for (var i = 0; i < directions.length; i++) {
+      var thisDirection = directions[i];
+      addClass(thisDirection, 'directions__direction--dropdown');
+
+      var toggleMobile = thisDirection.querySelector('.toggle-mobile');
+      toggleMobile.addEventListener('click', function() {
+        if ( hasClass(this.parentNode, 'directions__direction--dropdown-active') ) {
+          removeClass(this.parentNode, 'directions__direction--dropdown-active');
+        } else {
+          addClass(this.parentNode, 'directions__direction--dropdown-active');
+        }
+      })
+    }
+  }
+  else {
+    for (var i = 0; i < directions.length; i++) {
+      removeClass(directions[i], 'directions__direction--dropdown');
+    }
+  }
+
+}

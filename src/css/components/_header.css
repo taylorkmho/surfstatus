@@ -25,7 +25,6 @@
 
   &__logo-container {
     width: 100%;
-    border-bottom: $c-grid-border calc($column-gutter) solid;
   }
   .logo-surfstatus {
     display: block;
@@ -36,5 +35,13 @@
     padding-right: calc(2*$column-gutter);
     path { fill: #3a3a3a; }
 
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .branding {
+    &__logo-container {
+      border-bottom: $c-grid-border calc($column-gutter) solid;
+    }
   }
 }

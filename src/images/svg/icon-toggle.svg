@@ -1,0 +1,7 @@
+<svg class="icon-toggle" viewBox="0 0 98 87">
+  <defs>
+    <polygon class="icon-toggle" id="icon-toggle__up" points="49 0 98 35 0 35 "></polygon>
+  </defs>
+  <use xlink:href="#icon-toggle__up" x="0" y="0" />
+  <use xlink:href="#icon-toggle__up" x="-98" y="-85" transform="rotate(180)" />
+</svg>

@@ -14,6 +14,18 @@ function removeClass(el, className) {
   }
 }
 
+function hasClass(el, className) {
+  if (el.classList) {
+    if (el.classList.toString().indexOf(className) > -1) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+  }
+}
+
 // Wrap an HTMLElement around each element in an HTMLElement array.
 HTMLElement.prototype.wrap = function(elms) {
     // Convert `elms` to an array, if necessary.

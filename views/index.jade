@@ -41,6 +41,8 @@ block content
                 - tidesLabels.push(recentTide[thisDirection].nowMinus1[1], recentTide[thisDirection].now[1], recentTide[thisDirection].nowPlus1[1], recentTide[thisDirection].nowPlus2[1], recentTide[thisDirection].nowPlus3[1], recentTide[thisDirection].nowPlus4[1])
                 - tidesGraph.push(recentTide[thisDirection].nowMinus1[2], recentTide[thisDirection].now[2], recentTide[thisDirection].nowPlus1[2], recentTide[thisDirection].nowPlus2[2], recentTide[thisDirection].nowPlus3[2], recentTide[thisDirection].nowPlus4[2])
               svg.tide__graph(data-shore=thisDirection data-tides=tidesGraph data-times=tidesTimes data-time-labels=tidesLabels)
+          .toggle-mobile
+            include ../src/images/svg/icon-toggle.svg
     .sunrise-sunset(data-weather-sunset=recentWeather.sunset data-weather-sunrise=recentWeather.sunrise)
       include ../src/images/svg/mokes.svg
 
