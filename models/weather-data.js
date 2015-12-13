@@ -9,7 +9,7 @@ var CronJob = require('cron').CronJob;
 var secrets        = require('../data/secrets.json');
 var weatherAPIKey = secrets[0].apiKeys.openWeatherMap;
 
-var weatherReportSchema = new Schema({
+var weatherSchema = new Schema({
   timestamp: Date,
   temperatureMin: Number,
   temperatureMax: Number,
@@ -21,7 +21,7 @@ var weatherReportSchema = new Schema({
   sunset: String
 });
 
-var WeatherData = mongoose.model('WeatherData', weatherReportSchema);
+var WeatherData = mongoose.model('WeatherData', weatherSchema);
 
 var job = new CronJob({
   cronTime: '00 * * * * *',

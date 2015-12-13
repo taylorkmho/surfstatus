@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var CronJob = require('cron').CronJob;
 
-var surfReportSchema = new Schema({
+var surfSchema = new Schema({
   timestamp: Date,
   north: {
     full: String,
@@ -34,7 +34,7 @@ var surfReportSchema = new Schema({
   }
 });
 
-var SurfReport = mongoose.model('SurfData', surfReportSchema);
+var SurfReport = mongoose.model('SurfData', surfSchema);
 
 var job = new CronJob({
   cronTime: '00 * * * * *',
