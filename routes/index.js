@@ -42,7 +42,6 @@ router.get('/', function(req, res, next) {
     }
     ],
     function(err, results) {
-      console.log(recentWeather);
       res.render('index', { title: 'surfstatus - your new favorite surf report', recentSurf: recentSurf[0], recentWeather: recentWeather, recentTide: recentTide});
     }
   );
