@@ -43,8 +43,12 @@ block content
               svg.tide__graph(data-shore=thisDirection data-tides=tidesGraph data-times=tidesTimes data-time-labels=tidesLabels)
           .toggle-mobile
             include ../src/images/svg/icon-toggle.svg
-    .sunrise-sunset(data-weather-sunset=recentWeather.sunset data-weather-sunrise=recentWeather.sunrise)
-      include ../src/images/svg/mokes.svg
+  section.island-report
+    .island-report__container
+      .sunrise-sunset(data-weather-sunset=recentWeather.sunset data-weather-sunrise=recentWeather.sunrise)
+        include ../src/images/svg/mokes.svg
+      .wind
+        include ../src/images/svg/wind-compass.svg
 
 
 block footerScripts
