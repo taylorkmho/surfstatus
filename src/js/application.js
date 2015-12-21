@@ -36,6 +36,14 @@ if (directions) {
     }
   }
 
+  //
+  var wind            = document.querySelector('.wind');
+  var needle          = document.querySelector('.wind-compass__needle path');
+  var windDirection   = wind.getAttribute('data-wind-direction');
+  // wind-compass__needle
+  needle.setAttribute('style', 'transform: rotate('+ windDirection +'deg);')
+  console.log(windDirection);
+
   /*
     CREATE CAROUSELS
   */
@@ -86,11 +94,6 @@ if (directions) {
     var graphLabel1     = svgContainer.append("text").attr('x', widthSegment*2-35).attr('y', 60).text(timeLabelData[1]);
     var graphLabel2     = svgContainer.append("text").attr('x', widthSegment*3-35).attr('y', 60).text(timeLabelData[2]);
     var graphLabel3     = svgContainer.append("text").attr('x', widthSegment*4-35).attr('y', 60).text(timeLabelData[3]);
-    // var circle = svgContainer.append("line")
-    //  8                         .attr("x1", 5)
-    //  9                         .attr("y1", 5)
-    // 10                         .attr("x2", 50)
-    // 11                         .attr("y2", 50);
   }
 
 }

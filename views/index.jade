@@ -47,7 +47,7 @@ block content
     .island-report__container
       .sunrise-sunset(data-weather-sunset=recentWeather.sunset data-weather-sunrise=recentWeather.sunrise)
         include ../src/images/svg/mokes.svg
-      .wind
+      .wind(data-wind-direction=recentWeather.windDir)
         include ../src/images/svg/wind-compass.svg
 
 

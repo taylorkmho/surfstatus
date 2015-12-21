@@ -277,7 +277,12 @@
     fill: #fff;
   }
   &__needle {
-    fill: $c-red;
+    animation: rotateWind 5s infinite;
+    transform-origin: 62.6% 56.8%;
+    path {
+      fill: $c-red;
+      transform-origin: 50% 65%;
+    }
   }
 }
 
