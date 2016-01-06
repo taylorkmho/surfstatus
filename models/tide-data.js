@@ -59,17 +59,14 @@ var job = new CronJob({
       var date = new Date(timestamp*1000);
       var hours = date.getHours();
       var minutes = (date.getMinutes()<10?'0':'') + date.getMinutes();
-      if ( hours > 12 ) { hours = hours - 12 };
-      return hours + ':' + minutes;
+      var amPM = "am"
+      if ( hours > 12 ) {
+        hours = hours - 12
+        amPM = "pm";
+      };
+      return hours + ':' + minutes + amPM;
     }
 
-    function toHITime(timestamp) {
-      var date = new Date(timestamp*1000);
-      var hours = date.getHours();
-      var minutes = (date.getMinutes()<10?'0':'') + date.getMinutes();
-      if ( hours > 12 ) { hours = hours - 12 };
-      return hours + ':' + minutes;
-    }
     var timeNow = Math.floor(Date.now() / 1000);
     var time24HrsAgo = timeNow - 86400;
 
@@ -173,7 +170,7 @@ var job = new CronJob({
       function(callback) {
         // south
         request(
-          { url: "https://www.worldtides.info/api?extremes&lat=21.2749739&lon=-157.8491944&key=" + tideAPIKey, method: "GET", timeout: 10000 },
+          { url: "https://www.worldtides.info/api?extremes&lat=21.2749739&lon=-157.8491944" + tideTimeParams + "&key=" + tideAPIKey, method: "GET", timeout: 10000 },
 
           function(err, response, body) {
 
