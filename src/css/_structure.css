@@ -13,20 +13,41 @@ html, body {
 body {
   font-family: $body-font-family;
   background: $c-body-bg;
-  &:before, &:after {
-    content: "";
-    position: fixed;
-    top: 0;
-    height: 100%;
-    z-index: 300;
-    width: calc(2*$column-gutter);
-    background-color: $c-body-border;
+}
+
+.branding {
+}
+
+@media screen and (min-width: 640px) {
+  body {
+    &:before, &:after {
+      content: "";
+      position: fixed;
+      top: 0;
+      height: 100%;
+      width: calc(2*$column-gutter);
+      z-index: 300;
+      background-color: $c-body-border;
+    }
+    &:before {
+      left: 0;
+    }
+    &:after {
+      right: 0;
+    }
   }
-  &:before {
-    left: 0;
-  }
-  &:after {
-    right: 0;
+  .branding {
+    &:before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 300;
+      height: $column-gutter;
+      background-color: $c-body-border;
+      height: calc(2*$column-gutter);
+    }
   }
 }
 
