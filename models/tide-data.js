@@ -71,6 +71,7 @@ var job = new CronJob({
     var time24HrsAgo = timeNow - 86400;
 
     var tideTimeParams = "&start=" + time24HrsAgo + "&length=172800";
+
     var tides = new Array();
 
     async.parallel([

@@ -211,6 +211,12 @@
         font-size: 1.9rem;
         letter-spacing: .01rem;
       }
+      &[y="100"] {
+        fill: #fff;
+        color: #fff;
+        font-size: 1.9rem;
+        letter-spacing: .01rem;
+      }
     }
   }
 }

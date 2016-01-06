@@ -51,7 +51,7 @@ if (directions) {
   var width = 800,
       widthSegment = (width/5),
       height = 500,
-      multiplier = 130;
+      multiplier = 100;
 
   var shoreDirections = ['north','west','east','south'];
   var tideGraphs = document.querySelectorAll('.tide__graph');
@@ -81,15 +81,20 @@ if (directions) {
                                 d = (d.y * multiplier) + (height/2);
                                 return d;
                               }).interpolate("monotone");
+
     var tideAttributes  = svgContainer.append("path").attr('d', tideFunction(lineData));
     var graphMarks      = svgContainer.append("line").attr('x1', widthSegment).attr('y1', 0).attr('x2', widthSegment).attr('y2', 500);
     var graphMarks1     = svgContainer.append("line").attr('x1', widthSegment*2).attr('y1', 0).attr('x2', widthSegment*2).attr('y2', 500);
     var graphMarks2     = svgContainer.append("line").attr('x1', widthSegment*3).attr('y1', 0).attr('x2', widthSegment*3).attr('y2', 500);
     var graphMarks3     = svgContainer.append("line").attr('x1', widthSegment*4).attr('y1', 0).attr('x2', widthSegment*4).attr('y2', 500);
-    var graphTime      = svgContainer.append("text").attr('x', widthSegment-50).attr('y',   500).text(timesData[0]);
-    var graphTime1     = svgContainer.append("text").attr('x', widthSegment*2-50).attr('y', 500).text(timesData[1]);
-    var graphTime2     = svgContainer.append("text").attr('x', widthSegment*3-50).attr('y', 500).text(timesData[2]);
-    var graphTime3     = svgContainer.append("text").attr('x', widthSegment*4-50).attr('y', 500).text(timesData[3]);
+    var graphHeight     = svgContainer.append("text").attr('x', widthSegment-40).attr('y',   100).text(parseFloat(Math.ceil(tidesData[2] * 100) / 100).toFixed(2) + 'ft');
+    var graphHeight1    = svgContainer.append("text").attr('x', widthSegment*2-40).attr('y', 100).text(parseFloat(Math.ceil(tidesData[3] * 100) / 100).toFixed(2) + 'ft');
+    var graphHeight2    = svgContainer.append("text").attr('x', widthSegment*3-40).attr('y', 100).text(parseFloat(Math.ceil(tidesData[4] * 100) / 100).toFixed(2) + 'ft');
+    var graphHeight3    = svgContainer.append("text").attr('x', widthSegment*4-40).attr('y', 100).text(parseFloat(Math.ceil(tidesData[5] * 100) / 100).toFixed(2) + 'ft');
+    var graphTime       = svgContainer.append("text").attr('x', widthSegment-50).attr('y',   500).text(timesData[0]);
+    var graphTime1      = svgContainer.append("text").attr('x', widthSegment*2-50).attr('y', 500).text(timesData[1]);
+    var graphTime2      = svgContainer.append("text").attr('x', widthSegment*3-50).attr('y', 500).text(timesData[2]);
+    var graphTime3      = svgContainer.append("text").attr('x', widthSegment*4-50).attr('y', 500).text(timesData[3]);
     var graphLabel      = svgContainer.append("text").attr('x', widthSegment-35).attr('y',   60).text(timeLabelData[0]);
     var graphLabel1     = svgContainer.append("text").attr('x', widthSegment*2-35).attr('y', 60).text(timeLabelData[1]);
     var graphLabel2     = svgContainer.append("text").attr('x', widthSegment*3-35).attr('y', 60).text(timeLabelData[2]);
