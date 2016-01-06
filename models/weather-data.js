@@ -13,7 +13,7 @@ var weatherSchema = new Schema({
   timestamp: Date,
   temperatureMin: Number,
   temperatureMax: Number,
-  clouds: String,
+  description: String,
   windSpeed: Number,
   windDir: Number,
   windDirComp: String,
@@ -73,17 +73,31 @@ var job = new CronJob({
             }
 
             var jsonResponse = JSON.parse(body);
+            var weatherSimpleDescription = "";
+            if (jsonResponse.weather[0].icon === "02n") {
+              weatherSimpleDescription = "Light Clouds";
+            } else if (jsonResponse.weather[0].icon === "03n"  || jsonResponse.weather[0].icon === "04n" ) {
+              weatherSimpleDescription = "Cloudy";
+            } else if (jsonResponse.weather[0].icon === "09n") {
+              weatherSimpleDescription = "Light Rain";
+            } else if (jsonResponse.weather[0].icon === "10n") {
+              weatherSimpleDescription = "Rain";
+            } else if (jsonResponse.weather[0].icon === "11n") {
+              weatherSimpleDescription = "Thunderstorms";
+            } else {
+              weatherSimpleDescription = "Clear";
+            }
+
             weather = {
               "temperatureMin" : toFarenheit(jsonResponse.main.temp_min),
               "temperatureMax" : toFarenheit(jsonResponse.main.temp_max),
-              "clouds"         : jsonResponse.weather[0].description,
+              "description"    : weatherSimpleDescription,
               "windSpeed"      : toMPH(jsonResponse.wind.speed),
               "windDir"        : jsonResponse.wind.deg,
               "windDirComp"    : toCompass(jsonResponse.wind.deg),
               "sunrise"        : toHITime(jsonResponse.sys.sunrise)+'am',
               "sunset"         : toHITime(jsonResponse.sys.sunset)+'pm'
             };
-            // console.log(weather);
             callback();
 
           }
@@ -92,18 +106,19 @@ var job = new CronJob({
       function(err, results) {
         if (!err) {
 
+          console.log(weather);
+
           var newWeatherData = new WeatherData({
             timestamp: new Date(),
             temperatureMin: weather.temperatureMin,
             temperatureMax: weather.temperatureMax,
-            clouds: weather.clouds,
+            description: weather.description,
             windSpeed: weather.windSpeed,
             windDir: weather.windDir,
             windDirComp: weather.windDirComp,
             sunrise: weather.sunrise,
             sunset: weather.sunset
           });
-
           newWeatherData.save(function(err){
             if (err) return handleError(err);
             console.log('saved new weather data');

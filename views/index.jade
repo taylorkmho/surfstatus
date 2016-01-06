@@ -45,23 +45,26 @@ block content
             include ../src/images/svg/icon-toggle.svg
   section.island-report
     .island-report__container
+      .weather
+        h2 WEATHER
+        //- include ../src/images/svg/wind-compass.svg
+        h4 #{recentWeather.description}
       .sunrise-sunset
         h2 SUNRISE<span>&amp;</span>SUNSET
-        include ../src/images/svg/mokes.svg
-        h4.sunrise-label= recentWeather.sunrise
-        h4.sunset-label= recentWeather.sunset
-      //- .wind(data-wind-direction=recentWeather.windDir)
-      //-   include ../src/images/svg/wind-compass.svg
+        .sunrise-sunset__container
+          include ../src/images/svg/mokes.svg
+          h4.sunrise-label= recentWeather.sunrise
+          h4.sunset-label= recentWeather.sunset
+      .wind(data-wind-direction=recentWeather.windDir)
+        h2 WIND
+        include ../src/images/svg/wind-compass.svg
+        h4 #{recentWeather.windSpeed}MPH from #{recentWeather.windDirComp}
 
 
 block footerScripts
   //- script(src="../js/vendor/wave-canvas.js")
   script(src="../js/vendor/d3.js")
   script.
-    //- console.log(weather.sunset);
-    //- var sunTracker          = document.querySelector( '.mokes' );
-    //- var sunTrackerContainer = document.querySelector( '.sunrise-sunset' );
-    //- var sunriseTime         = sunTracker.querySelector( '[data-time-for="sunrise"]' );
-    //- var sunsetTime          = sunTracker.querySelector( '[data-time-for="sunset"]' );
-    //- sunsetTime.innerHTML = sunTrackerContainer.getAttribute('data-weather-sunset');
-    //- sunriseTime.innerHTML = sunTrackerContainer.getAttribute('data-weather-sunrise');
+    var windCompass          = document.querySelector( '.wind-compass' );
+    var windDirectionDegs    = #{recentWeather.windDir};
+    windCompass.setAttribute('style','transform: rotate(' + windDirectionDegs + 'deg);')
