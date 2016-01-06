@@ -223,7 +223,11 @@
   padding: 0 calc($column-gutter*2);
   lost-utility: clearfix;
   transition: all $easeOutExpo 400ms;
+  &__container {
+    text-align: center;
+  }
 }
+
 @media screen and (min-width: 640px) {
   .island-report {
     padding: 0 calc($column-gutter*4) calc($column-gutter*2);
@@ -234,80 +238,64 @@
 }
 
 .sunrise-sunset {
-  lost-column: 1/3 3;
-  margin-top: $column-gutter;
-  text-align: center;
+  position: relative;
+  margin: calc($column-gutter*2) 0;
+  padding-bottom: calc($column-gutter*2);
+  display: inline-block;
   transition: all $easeOutExpo 400ms;
+  svg {
+    width: 100%;
+    max-width: 20rem;
+    height: auto;
+    padding: 1rem 0;
+  }
+  h2 {
+    margin: 0;
+    line-height: 1;
+    color: #fff;
+    font-size: 2rem;
+    span {
+      position: relative;
+      z-index: 1000;
+      display: block;
+      line-height: 0;
+      color: $c-red;
+      text-shadow: 0 0 .75rem #000;
+    }
+  }
+  h4 {
+    position: absolute;
+    bottom: $column-gutter;
+    margin: 0;
+    color: #fff;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    &.sunrise-label {
+      left: 0;
+    }
+    &.sunset-label {
+      right: 0;
+    }
+  }
 }
 
 .mokes {
-  max-width: 360px;
+  use {
+    fill: $c-red;
+    opacity: 0;
+    &:nth-of-type(1) {
+      animation: sunset 12s $easeOutExpo 6s infinite;
+    }
+    &:nth-of-type(2) {
+      animation: sunrise 12s $easeOutExpo 0s infinite;
+    }
+  }
   &__island {
-    fill: $c-grid-border;
-  }
-  &__sun {
-    fill: $c-red;
-  }
-  &__motionPath {
-    fill: transparent;
-  }
-  &__blocker {
-    fill: $c-body-bg;
-  }
-  &__label {
-    font-size: 1.5rem;
-    fill: $c-red;
-    &--time {
-      fill: #fff;
-      font-size: 2.5rem;
+    &:nth-of-type(1) {
+      fill: $c-grid-border;
     }
-  }
-}
-
-.wind {
-  lost-column: 1/3 3;
-}
-
-.wind-compass {
-  font-size: 2rem;
-  &__base {
-    fill: $c-grid-border;
-  }
-  &__directions {
-    fill: #fff;
-  }
-  &__needle {
-    animation: rotateWind 5s infinite;
-    transform-origin: 62.6% 56.8%;
-    path {
-      fill: $c-red;
-      transform-origin: 50% 65%;
-    }
-  }
-}
-
-.Wallop {
-  cursor: pointer;
-  &-list {
-    height: 70vw;
-    &-item {
-      height: 100%;
-    }
-  }
-}
-
-@media screen and (min-width: 640px) {
-  .Wallop {
-    &-list {
-      height: 34vw;
-    }
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  .Wallop {
-    &-list {
-      height: 17vw;
+    &:nth-of-type(2) {
+      fill: color($c-grid-border tint(3%));
     }
   }
 }

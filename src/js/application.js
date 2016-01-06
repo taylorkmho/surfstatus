@@ -37,12 +37,12 @@ if (directions) {
   }
 
   //
-  var wind            = document.querySelector('.wind');
-  var needle          = document.querySelector('.wind-compass__needle path');
-  var windDirection   = wind.getAttribute('data-wind-direction');
-  // wind-compass__needle
-  needle.setAttribute('style', 'transform: rotate('+ windDirection +'deg);')
-  console.log(windDirection);
+  // var wind            = document.querySelector('.wind');
+  // var needle          = document.querySelector('.wind-compass__needle path');
+  // var windDirection   = wind.getAttribute('data-wind-direction');
+  // // wind-compass__needle
+  // needle.setAttribute('style', 'transform: rotate('+ windDirection +'deg);')
+  // console.log(windDirection);
 
   /*
     CREATE CAROUSELS
