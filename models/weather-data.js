@@ -11,6 +11,7 @@ var weatherAPIKey = secrets[0].apiKeys.openWeatherMap;
 
 var weatherSchema = new Schema({
   timestamp: Date,
+  temperature: Number,
   temperatureMin: Number,
   temperatureMax: Number,
   description: String,
@@ -89,6 +90,7 @@ var job = new CronJob({
             }
 
             weather = {
+              "temperature" : toFarenheit(jsonResponse.main.temp),
               "temperatureMin" : toFarenheit(jsonResponse.main.temp_min),
               "temperatureMax" : toFarenheit(jsonResponse.main.temp_max),
               "description"    : weatherSimpleDescription,
@@ -110,6 +112,7 @@ var job = new CronJob({
 
           var newWeatherData = new WeatherData({
             timestamp: new Date(),
+            temperature: weather.temperature,
             temperatureMin: weather.temperatureMin,
             temperatureMax: weather.temperatureMax,
             description: weather.description,

@@ -46,8 +46,8 @@ block content
   section.island-report
     .island-report__container
       .weather
-        h2 WEATHER
-        //- include ../src/images/svg/wind-compass.svg
+        h2 CURRENT<br>WEATHER
+        span #{recentWeather.temperature}&deg;
         h4 #{recentWeather.description}
       .sunrise-sunset
         h2 SUNRISE<span>&amp;</span>SUNSET
@@ -56,7 +56,7 @@ block content
           h4.sunrise-label= recentWeather.sunrise
           h4.sunset-label= recentWeather.sunset
       .wind(data-wind-direction=recentWeather.windDir)
-        h2 WIND
+        h2 CURRENT<br>WIND
         include ../src/images/svg/wind-compass.svg
         h4 #{recentWeather.windSpeed}MPH from #{recentWeather.windDirComp}
 
