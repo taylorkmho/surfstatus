@@ -6,8 +6,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var CronJob = require('cron').CronJob;
 
-var secrets        = require('../data/secrets.json');
-var weatherAPIKey = secrets[0].apiKeys.openWeatherMap;
+var weatherAPIKey = process.env.KEY_OPENWEATHERMAP;
 
 var weatherSchema = new Schema({
   timestamp: Date,

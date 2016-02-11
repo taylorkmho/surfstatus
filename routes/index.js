@@ -5,8 +5,6 @@ var parseXML       = require('xml2js').parseString;
 
 var router         = express.Router();
 
-var secrets        = require('../data/secrets.json');
-
 var mongoose = require('mongoose');
 var surfDataModel = require('../models/surf-data');
 var weatherDataModel = require('../models/weather-data');

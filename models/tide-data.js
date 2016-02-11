@@ -6,8 +6,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var CronJob = require('cron').CronJob;
 
-var secrets        = require('../data/secrets.json');
-var tideAPIKey    = secrets[0].apiKeys.worldTides;
+var tideAPIKey     = process.env.KEY_WORLDTIDES;
 
 var tideSchema = new Schema({
   timestamp: Date,
