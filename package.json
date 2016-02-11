@@ -1,9 +1,9 @@
 {
-  "name": "surfornah",
+  "name": "surfstatus",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon start.js"
+    "start": "node start.js"
   },
   "dependencies": {
     "async": "^1.5.0",
