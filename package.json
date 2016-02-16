@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node start.js"
+    "start": "node start.js",
+    "gulp-build": "gulp build",
+    "gulp-default": "gulp default"
   },
   "dependencies": {
     "async": "^1.5.0",
