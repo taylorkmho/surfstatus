@@ -5,3 +5,4 @@ tmp
 public/css/*
 public/js/*
 public/images/*
+.env
