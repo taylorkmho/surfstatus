@@ -6,16 +6,21 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/surfReportData');
+mongoose.connect(process.env.MONGOLAB_URI);
+var conn = mongoose.connection;
+conn.on('error', console.error.bind(console, 'connection error:'));
+conn.once('open', function callback () {
+  console.log('MONGOLAB/MONGOOSE - open success');
+  // models
+  var weatherDataModel = require('./models/weather-data');
+  var tideDataModel    = require('./models/tide-data');
+  var surfDataModel    = require('./models/surf-data');
+})
 
 var index = require('./routes/index');
 
 var app = express();
 
-// models
-var surfDataModel = require('./models/surf-data');
-var weatherDataModel = require('./models/weather-data');
-var tideDataModel = require('./models/tide-data');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
