@@ -145,6 +145,6 @@ gulp.task('watch', ['browsersync'], function() {
 
 gulp.task('refresh', ['clean', 'build']);
 
-gulp.task('build', ['js', 'css', 'images']);
+gulp.task('build', ['bower', 'js', 'css', 'images']);
 
 gulp.task('default', ['bower', 'refresh', 'watch']);
