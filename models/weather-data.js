@@ -1,6 +1,5 @@
 var request        = require('request');
 var async          = require('async');
-var parseXML       = require('xml2js').parseString;
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
@@ -106,8 +105,6 @@ var job = new CronJob({
       }],
       function(err, results) {
         if (!err) {
-
-          console.log(weather);
 
           var newWeatherData = new WeatherData({
             timestamp: new Date(),
