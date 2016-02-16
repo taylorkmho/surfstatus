@@ -37,11 +37,10 @@ var surfSchema = new Schema({
 var SurfReport = mongoose.model('SurfData', surfSchema);
 
 var job = new CronJob({
-  cronTime: '00 00 6 * * *',
+  cronTime: '00 00 06 * * *',
   onTick: function() {
 
     var surfHeightRanges = new Array();
-
     async.parallel([
       function(callback) {
         request(
@@ -79,9 +78,7 @@ var job = new CronJob({
               });
             }
             callback();
-
-          }
-        )
+          })
       }],
       function(err, results) {
         if (!err) {
@@ -115,7 +112,7 @@ var job = new CronJob({
           });
 
           newSurfReport.save(function(err){
-            if (err) return handleError(err);
+            if (err) return console.log(err);
             console.log('saved new surf height');
           })
 
