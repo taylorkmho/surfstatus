@@ -197,56 +197,57 @@ var job = new CronJob({
 
           }
         )
+      // }
+      },
+      function(callback) {
+        // west
+        request(
+          { url: "https://www.worldtides.info/api?extremes&lat=21.412162&lon=-158.269043" + tideTimeParams + "&key=" + tideAPIKey, method: "GET", timeout: 10000 },
+
+          function(err, response, body) {
+
+            if (err) {
+              res.render('error', {
+                message: err.message,
+                error: err
+              });
+            }
+
+            var jsonResponse = JSON.parse(body);
+
+            tides.west = {
+              0 : {
+                date: getDate(jsonResponse.extremes[0].dt),
+                time: getTime(jsonResponse.extremes[0].dt),
+                tideHeight: toFeet(jsonResponse.extremes[0].height),
+                tideDesc: jsonResponse.extremes[0].type
+              },
+              1 : {
+                date: getDate(jsonResponse.extremes[1].dt),
+                time: getTime(jsonResponse.extremes[1].dt),
+                tideHeight: toFeet(jsonResponse.extremes[1].height),
+                tideDesc: jsonResponse.extremes[1].type
+              },
+              2 : {
+                date: getDate(jsonResponse.extremes[2].dt),
+                time: getTime(jsonResponse.extremes[2].dt),
+                tideHeight: toFeet(jsonResponse.extremes[2].height),
+                tideDesc: jsonResponse.extremes[2].type
+              },
+              3 : {
+                date: getDate(jsonResponse.extremes[3].dt),
+                time: getTime(jsonResponse.extremes[3].dt),
+                tideHeight: toFeet(jsonResponse.extremes[3].height),
+                tideDesc: jsonResponse.extremes[3].type
+              }
+            };
+
+            // console.log('tides.west - \n', tides.west);
+            callback();
+
+          }
+        )
       }
-      // },
-      // function(callback) {
-      //   // west
-      //   request(
-      //     { url: "https://www.worldtides.info/api?extremes&lat=21.412162&lon=-158.269043" + tideTimeParams + "&key=" + tideAPIKey, method: "GET", timeout: 10000 },
-
-      //     function(err, response, body) {
-
-      //       if (err) {
-      //         res.render('error', {
-      //           message: err.message,
-      //           error: err
-      //         });
-      //       }
-
-      //       var jsonResponse = JSON.parse(body);
-
-      //       tides.west = {
-      //         0 : {
-      //           date: getDate(jsonResponse.extremes[0].dt),
-      //           time: getTime(jsonResponse.extremes[0].dt),
-      //           tideHeight: toFeet(jsonResponse.extremes[0].height),
-      //           tideDesc: jsonResponse.extremes[0].type
-      //         },
-      //         1 : {
-      //           date: getDate(jsonResponse.extremes[1].dt),
-      //           time: getTime(jsonResponse.extremes[1].dt),
-      //           tideHeight: toFeet(jsonResponse.extremes[1].height),
-      //           tideDesc: jsonResponse.extremes[1].type
-      //         },
-      //         2 : {
-      //           date: getDate(jsonResponse.extremes[2].dt),
-      //           time: getTime(jsonResponse.extremes[2].dt),
-      //           tideHeight: toFeet(jsonResponse.extremes[2].height),
-      //           tideDesc: jsonResponse.extremes[2].type
-      //         },
-      //         3 : {
-      //           date: getDate(jsonResponse.extremes[3].dt),
-      //           time: getTime(jsonResponse.extremes[3].dt),
-      //           tideHeight: toFeet(jsonResponse.extremes[3].height),
-      //           tideDesc: jsonResponse.extremes[3].type
-      //         }
-      //       };
-
-      //       // console.log('tides.west - \n', tides.west);
-      //       callback();
-
-      //     }
-      //   )
       // },
       // function(callback) {
       //   // east
@@ -354,9 +355,9 @@ var job = new CronJob({
           var newTideData = new TideData({
             timestamp: new Date(),
             north: tides.north,
-            west: tides.north,
+            west: tides.west,
             east: tides.north,
-            south: tides.north
+            south: tides.west
           });
           newTideData.save(function(err){
             if (err) return console.log(err);
