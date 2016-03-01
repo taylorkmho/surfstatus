@@ -2,7 +2,6 @@ extends ./layouts/_layout.jade
 
 block vars
   - var bodyTemplate = "results"
-  - var directions = [['north','north<br>shore'], ['west','west<br>side'], ['east','east<br>side'], ['south','south<br>shore']]
 
 block addToHead
 
@@ -17,7 +16,7 @@ block content
 
   section.wave-report
     .directions
-      each direction in directions
+      each direction in [['north','north<br>shore'], ['west','west<br>side'], ['east','east<br>side'], ['south','south<br>shore']]
         - var thisDirection = direction[0];
         - var surfObject = recentSurf[thisDirection]
         //- - var tideObject = recentTide[thisDirection]
@@ -33,12 +32,9 @@ block content
                 = surfObject.max
                 span &rsquo;
             .tide
-              - var tidesTimes = []
-              - var tidesLabels = []
-              - var tidesGraph = []
-              - tidesTimes.push(recentTide[thisDirection].nowMinus1[0], recentTide[thisDirection].now[0], recentTide[thisDirection].nowPlus1[0], recentTide[thisDirection].nowPlus2[0], recentTide[thisDirection].nowPlus3[0], recentTide[thisDirection].nowPlus4[0])
-              - tidesLabels.push(recentTide[thisDirection].nowMinus1[1], recentTide[thisDirection].now[1], recentTide[thisDirection].nowPlus1[1], recentTide[thisDirection].nowPlus2[1], recentTide[thisDirection].nowPlus3[1], recentTide[thisDirection].nowPlus4[1])
-              - tidesGraph.push(recentTide[thisDirection].nowMinus1[2], recentTide[thisDirection].now[2], recentTide[thisDirection].nowPlus1[2], recentTide[thisDirection].nowPlus2[2], recentTide[thisDirection].nowPlus3[2], recentTide[thisDirection].nowPlus4[2])
+              - var tidesTimes = [recentTide[thisDirection][0].time, recentTide[thisDirection][1].time, recentTide[thisDirection][2].time, recentTide[thisDirection][3].time]
+              - var tidesLabels = [recentTide[thisDirection][0].tideDesc, recentTide[thisDirection][1].tideDesc, recentTide[thisDirection][2].tideDesc, recentTide[thisDirection][3].tideDesc]
+              - var tidesGraph = [recentTide[thisDirection][0].tideHeight, recentTide[thisDirection][1].tideHeight, recentTide[thisDirection][2].tideHeight, recentTide[thisDirection][3].tideHeight]
               svg.tide__graph(data-shore=thisDirection data-tides=tidesGraph data-times=tidesTimes data-time-labels=tidesLabels)
           .toggle-mobile
             include ../src/images/svg/icon-toggle.svg

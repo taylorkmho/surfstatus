@@ -202,21 +202,23 @@
       transform: translate3d(-4px, 0, 0);
     }
     text {
-      font-size: 2rem;
-      color: $c-body-bg;
-      transform: translate3d(0, -8px, 0);
-      &[y="60"] {
+      font-size: 1rem;
+      letter-spacing: .01rem;
+      fill: $c-body-bg;
+      text-anchor: middle;
+      &[y="40"] {
         fill: $c-red;
-        color: $c-red;
         text-transform: uppercase;
-        font-size: 1.9rem;
-        letter-spacing: .01rem;
+        text-anchor: middle;
+        font-size: 1.25rem;
+        letter-spacing: .05rem;
       }
-      &[y="100"] {
+      &[y="60"] {
         fill: #fff;
-        color: #fff;
-        font-size: 1.9rem;
-        letter-spacing: .01rem;
+      }
+      &[y="280"] {
+        /* fill: #fff; */
+        font-size: 1rem;
       }
     }
   }
