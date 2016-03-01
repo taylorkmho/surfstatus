@@ -37,7 +37,7 @@ var surfSchema = new Schema({
 var SurfReport = mongoose.model('SurfData', surfSchema);
 
 var job = new CronJob({
-  cronTime: '00 00 06 * * *',
+  cronTime: process.env.CRONTIME_SETAS ? process.env.CRONTIME_DEBUG : '00 00 06 * * *',
   onTick: function() {
 
     var surfHeightRanges = new Array();
