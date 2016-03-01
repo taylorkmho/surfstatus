@@ -6,41 +6,130 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var CronJob = require('cron').CronJob;
 
-var tideAPIKey     = process.env.KEY_WORLDTIDES;
+var tideAPIClientID      = process.env.KEY_ID_AERIS;
+var tideAPIClientSecret  = process.env.KEY_SECRET_AERIS;
 
 var tideSchema = new Schema({
-  timestamp: Date,
+  publishedAt: Date,
   north: {
-    nowMinus1: Array,
-    now: Array,
-    nowPlus1: Array,
-    nowPlus2: Array,
-    nowPlus3: Array,
-    nowPlus4: Array
+    0: {
+      timestamp: Date,
+      date: String,
+      time: String,
+      tideHeight: String,
+      tideDesc: String
+    },
+    1: {
+      timestamp: Date,
+      date: String,
+      time: String,
+      tideHeight: String,
+      tideDesc: String
+    },
+    2: {
+      timestamp: Date,
+      date: String,
+      time: String,
+      tideHeight: String,
+      tideDesc: String
+    },
+    3: {
+      timestamp: Date,
+      date: String,
+      time: String,
+      tideHeight: String,
+      tideDesc: String
+    }
   },
   west: {
-    nowMinus1: Array,
-    now: Array,
-    nowPlus1: Array,
-    nowPlus2: Array,
-    nowPlus3: Array,
-    nowPlus4: Array
+    0: {
+      timestamp: Date,
+      date: String,
+      time: String,
+      tideHeight: String,
+      tideDesc: String
+    },
+    1: {
+      timestamp: Date,
+      date: String,
+      time: String,
+      tideHeight: String,
+      tideDesc: String
+    },
+    2: {
+      timestamp: Date,
+      date: String,
+      time: String,
+      tideHeight: String,
+      tideDesc: String
+    },
+    3: {
+      timestamp: Date,
+      date: String,
+      time: String,
+      tideHeight: String,
+      tideDesc: String
+    }
   },
   east: {
-    nowMinus1: Array,
-    now: Array,
-    nowPlus1: Array,
-    nowPlus2: Array,
-    nowPlus3: Array,
-    nowPlus4: Array
+    0: {
+      timestamp: Date,
+      date: String,
+      time: String,
+      tideHeight: String,
+      tideDesc: String
+    },
+    1: {
+      timestamp: Date,
+      date: String,
+      time: String,
+      tideHeight: String,
+      tideDesc: String
+    },
+    2: {
+      timestamp: Date,
+      date: String,
+      time: String,
+      tideHeight: String,
+      tideDesc: String
+    },
+    3: {
+      timestamp: Date,
+      date: String,
+      time: String,
+      tideHeight: String,
+      tideDesc: String
+    }
   },
   south: {
-    nowMinus1: Array,
-    now: Array,
-    nowPlus1: Array,
-    nowPlus2: Array,
-    nowPlus3: Array,
-    nowPlus4: Array
+    0: {
+      timestamp: Date,
+      date: String,
+      time: String,
+      tideHeight: String,
+      tideDesc: String
+    },
+    1: {
+      timestamp: Date,
+      date: String,
+      time: String,
+      tideHeight: String,
+      tideDesc: String
+    },
+    2: {
+      timestamp: Date,
+      date: String,
+      time: String,
+      tideHeight: String,
+      tideDesc: String
+    },
+    3: {
+      timestamp: Date,
+      date: String,
+      time: String,
+      tideHeight: String,
+      tideDesc: String
+    }
   }
 });
 
@@ -50,26 +139,34 @@ var job = new CronJob({
   cronTime: process.env.CRONTIME_SETAS ? process.env.CRONTIME_DEBUG : '00 00 00 * * *',
   onTick: function() {
 
-    function toFeet(meter) {
-      return meter * 3.28084;
-    }
-
-    function toHITime(timestamp) {
+    function getTime(timestamp) {
       var date = new Date(timestamp*1000);
-      var hours = date.getHours();
+      var hours = ((date.getHours() + 11) % 12) + 1;
       var minutes = (date.getMinutes()<10?'0':'') + date.getMinutes();
-      var amPM = "am"
-      if ( hours > 12 ) {
-        hours = hours - 12
-        amPM = "pm";
-      };
-      return hours + ':' + minutes + amPM;
+      var amPm = date.getHours() > 11 ? 'pm' : 'am';
+      return hours + ':' + minutes + amPm;
     }
 
-    var timeNow = Math.floor(Date.now() / 1000);
-    var time24HrsAgo = timeNow - 86400;
+    function getDate(timestamp) {
+      var date = new Date(timestamp*1000);
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+      return month + '/' + day;
+    }
 
-    var tideTimeParams = "&start=" + time24HrsAgo + "&length=172800";
+    function tideTypeVerbose(type) {
+      if (type === "l") {
+        return "low";
+      } else if (type === "h") {
+        return "high";
+      }
+    }
+
+    var now = new Date();
+    var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var timestamp = startOfDay / 1000;
+
+    var tideTimeParams = '&from=yesterday';
 
     var tides = new Array();
 
@@ -77,7 +174,7 @@ var job = new CronJob({
       function(callback) {
         // north
         request(
-          { url: "https://www.worldtides.info/api?extremes&lat=21.690596&lon=-158.092333" + tideTimeParams + "&key=" + tideAPIKey, method: "GET", timeout: 10000 },
+          { url: 'http://api.aerisapi.com/tides/closest?p=21.690596,-158.092333&limit=1' + tideTimeParams + '&client_id=' + tideAPIClientID + '&client_secret=' + tideAPIClientSecret, method: "GET", timeout: 10000 },
 
           function(err, response, body) {
 
@@ -89,17 +186,40 @@ var job = new CronJob({
             }
 
             var jsonResponse = JSON.parse(body);
+            // console.log(jsonResponse.response[0].periods);
 
             tides.north = {
-              "nowMinus1"   : [ toHITime(jsonResponse.extremes[0].dt), jsonResponse.extremes[0].type , toFeet( jsonResponse.extremes[0].height ) ],
-              "now"         : [ toHITime(jsonResponse.extremes[1].dt), jsonResponse.extremes[1].type , toFeet( jsonResponse.extremes[1].height ) ],
-              "nowPlus1"    : [ toHITime(jsonResponse.extremes[2].dt), jsonResponse.extremes[2].type , toFeet( jsonResponse.extremes[2].height ) ],
-              "nowPlus2"    : [ toHITime(jsonResponse.extremes[3].dt), jsonResponse.extremes[3].type , toFeet( jsonResponse.extremes[3].height ) ],
-              "nowPlus3"    : [ toHITime(jsonResponse.extremes[4].dt), jsonResponse.extremes[4].type , toFeet( jsonResponse.extremes[4].height ) ],
-              "nowPlus4"    : [ toHITime(jsonResponse.extremes[5].dt), jsonResponse.extremes[5].type , toFeet( jsonResponse.extremes[5].height ) ]
+              0 : {
+                timestamp: jsonResponse.response[0].periods[0].timestamp,
+                date: getDate(jsonResponse.response[0].periods[0].timestamp),
+                time: getTime(jsonResponse.response[0].periods[0].timestamp),
+                tideHeight: jsonResponse.response[0].periods[0].heightFT,
+                tideDesc: tideTypeVerbose(jsonResponse.response[0].periods[0].type)
+              },
+              1 : {
+                timestamp: jsonResponse.response[0].periods[1].timestamp,
+                date: getDate(jsonResponse.response[0].periods[1].timestamp),
+                time: getTime(jsonResponse.response[0].periods[1].timestamp),
+                tideHeight: jsonResponse.response[0].periods[1].heightFT,
+                tideDesc: tideTypeVerbose(jsonResponse.response[0].periods[1].type)
+              },
+              2 : {
+                timestamp: jsonResponse.response[0].periods[2].timestamp,
+                date: getDate(jsonResponse.response[0].periods[2].timestamp),
+                time: getTime(jsonResponse.response[0].periods[2].timestamp),
+                tideHeight: jsonResponse.response[0].periods[2].heightFT,
+                tideDesc: tideTypeVerbose(jsonResponse.response[0].periods[2].type)
+              },
+              3 : {
+                timestamp: jsonResponse.response[0].periods[3].timestamp,
+                date: getDate(jsonResponse.response[0].periods[3].timestamp),
+                time: getTime(jsonResponse.response[0].periods[3].timestamp),
+                tideHeight: jsonResponse.response[0].periods[3].heightFT,
+                tideDesc: tideTypeVerbose(jsonResponse.response[0].periods[3].type)
+              }
             };
 
-            // console.log('tides.north - \n', tides.north);
+            console.log('tides.north - \n', tides.north);
             callback();
 
           }
@@ -108,7 +228,7 @@ var job = new CronJob({
       function(callback) {
         // west
         request(
-          { url: "https://www.worldtides.info/api?extremes&lat=21.412162&lon=-158.269043" + tideTimeParams + "&key=" + tideAPIKey, method: "GET", timeout: 10000 },
+          { url: 'http://api.aerisapi.com/tides/closest?p=21.412162,-158.269043&limit=1' + tideTimeParams + '&client_id=' + tideAPIClientID + '&client_secret=' + tideAPIClientSecret, method: "GET", timeout: 10000 },
 
           function(err, response, body) {
 
@@ -122,12 +242,34 @@ var job = new CronJob({
             var jsonResponse = JSON.parse(body);
 
             tides.west = {
-              "nowMinus1"   : [ toHITime(jsonResponse.extremes[0].dt), jsonResponse.extremes[0].type , toFeet( jsonResponse.extremes[0].height ) ],
-              "now"         : [ toHITime(jsonResponse.extremes[1].dt), jsonResponse.extremes[1].type , toFeet( jsonResponse.extremes[1].height ) ],
-              "nowPlus1"    : [ toHITime(jsonResponse.extremes[2].dt), jsonResponse.extremes[2].type , toFeet( jsonResponse.extremes[2].height ) ],
-              "nowPlus2"    : [ toHITime(jsonResponse.extremes[3].dt), jsonResponse.extremes[3].type , toFeet( jsonResponse.extremes[3].height ) ],
-              "nowPlus3"    : [ toHITime(jsonResponse.extremes[4].dt), jsonResponse.extremes[4].type , toFeet( jsonResponse.extremes[4].height ) ],
-              "nowPlus4"    : [ toHITime(jsonResponse.extremes[5].dt), jsonResponse.extremes[5].type , toFeet( jsonResponse.extremes[5].height ) ]
+              0 : {
+                timestamp: jsonResponse.response[0].periods[0].timestamp,
+                date: getDate(jsonResponse.response[0].periods[0].timestamp),
+                time: getTime(jsonResponse.response[0].periods[0].timestamp),
+                tideHeight: jsonResponse.response[0].periods[0].heightFT,
+                tideDesc: tideTypeVerbose(jsonResponse.response[0].periods[0].type)
+              },
+              1 : {
+                timestamp: jsonResponse.response[0].periods[1].timestamp,
+                date: getDate(jsonResponse.response[0].periods[1].timestamp),
+                time: getTime(jsonResponse.response[0].periods[1].timestamp),
+                tideHeight: jsonResponse.response[0].periods[1].heightFT,
+                tideDesc: tideTypeVerbose(jsonResponse.response[0].periods[1].type)
+              },
+              2 : {
+                timestamp: jsonResponse.response[0].periods[2].timestamp,
+                date: getDate(jsonResponse.response[0].periods[2].timestamp),
+                time: getTime(jsonResponse.response[0].periods[2].timestamp),
+                tideHeight: jsonResponse.response[0].periods[2].heightFT,
+                tideDesc: tideTypeVerbose(jsonResponse.response[0].periods[2].type)
+              },
+              3 : {
+                timestamp: jsonResponse.response[0].periods[3].timestamp,
+                date: getDate(jsonResponse.response[0].periods[3].timestamp),
+                time: getTime(jsonResponse.response[0].periods[3].timestamp),
+                tideHeight: jsonResponse.response[0].periods[3].heightFT,
+                tideDesc: tideTypeVerbose(jsonResponse.response[0].periods[3].type)
+              }
             };
 
             // console.log('tides.west - \n', tides.west);
@@ -139,8 +281,7 @@ var job = new CronJob({
       function(callback) {
         // east
         request(
-          { url: "https://www.worldtides.info/api?extremes&lat=21.477751&lon=-157.789996" + tideTimeParams + "&key=" + tideAPIKey, method: "GET", timeout: 10000 },
-
+          { url: 'http://api.aerisapi.com/tides/closest?p=21.477751,-157.789996&limit=1' + tideTimeParams + '&client_id=' + tideAPIClientID + '&client_secret=' + tideAPIClientSecret, method: "GET", timeout: 10000 },
           function(err, response, body) {
 
             if (err) {
@@ -153,12 +294,34 @@ var job = new CronJob({
             var jsonResponse = JSON.parse(body);
 
             tides.east = {
-              "nowMinus1"   : [ toHITime(jsonResponse.extremes[0].dt), jsonResponse.extremes[0].type , toFeet( jsonResponse.extremes[0].height ) ],
-              "now"         : [ toHITime(jsonResponse.extremes[1].dt), jsonResponse.extremes[1].type , toFeet( jsonResponse.extremes[1].height ) ],
-              "nowPlus1"    : [ toHITime(jsonResponse.extremes[2].dt), jsonResponse.extremes[2].type , toFeet( jsonResponse.extremes[2].height ) ],
-              "nowPlus2"    : [ toHITime(jsonResponse.extremes[3].dt), jsonResponse.extremes[3].type , toFeet( jsonResponse.extremes[3].height ) ],
-              "nowPlus3"    : [ toHITime(jsonResponse.extremes[4].dt), jsonResponse.extremes[4].type , toFeet( jsonResponse.extremes[4].height ) ],
-              "nowPlus4"    : [ toHITime(jsonResponse.extremes[5].dt), jsonResponse.extremes[5].type , toFeet( jsonResponse.extremes[5].height ) ]
+              0 : {
+                timestamp: jsonResponse.response[0].periods[0].timestamp,
+                date: getDate(jsonResponse.response[0].periods[0].timestamp),
+                time: getTime(jsonResponse.response[0].periods[0].timestamp),
+                tideHeight: jsonResponse.response[0].periods[0].heightFT,
+                tideDesc: tideTypeVerbose(jsonResponse.response[0].periods[0].type)
+              },
+              1 : {
+                timestamp: jsonResponse.response[0].periods[1].timestamp,
+                date: getDate(jsonResponse.response[0].periods[1].timestamp),
+                time: getTime(jsonResponse.response[0].periods[1].timestamp),
+                tideHeight: jsonResponse.response[0].periods[1].heightFT,
+                tideDesc: tideTypeVerbose(jsonResponse.response[0].periods[1].type)
+              },
+              2 : {
+                timestamp: jsonResponse.response[0].periods[2].timestamp,
+                date: getDate(jsonResponse.response[0].periods[2].timestamp),
+                time: getTime(jsonResponse.response[0].periods[2].timestamp),
+                tideHeight: jsonResponse.response[0].periods[2].heightFT,
+                tideDesc: tideTypeVerbose(jsonResponse.response[0].periods[2].type)
+              },
+              3 : {
+                timestamp: jsonResponse.response[0].periods[3].timestamp,
+                date: getDate(jsonResponse.response[0].periods[3].timestamp),
+                time: getTime(jsonResponse.response[0].periods[3].timestamp),
+                tideHeight: jsonResponse.response[0].periods[3].heightFT,
+                tideDesc: tideTypeVerbose(jsonResponse.response[0].periods[3].type)
+              }
             };
 
             // console.log('tides.east - \n', tides.east);
@@ -170,7 +333,7 @@ var job = new CronJob({
       function(callback) {
         // south
         request(
-          { url: "https://www.worldtides.info/api?extremes&lat=21.2749739&lon=-157.8491944" + tideTimeParams + "&key=" + tideAPIKey, method: "GET", timeout: 10000 },
+          { url: 'http://api.aerisapi.com/tides/closest?p=21.2749739,-157.8491944&limit=1' + tideTimeParams + '&client_id=' + tideAPIClientID + '&client_secret=' + tideAPIClientSecret, method: "GET", timeout: 10000 },
 
           function(err, response, body) {
 
@@ -184,13 +347,37 @@ var job = new CronJob({
             var jsonResponse = JSON.parse(body);
 
             tides.south = {
-              "nowMinus1"   : [ toHITime(jsonResponse.extremes[0].dt), jsonResponse.extremes[0].type , toFeet( jsonResponse.extremes[0].height ) ],
-              "now"         : [ toHITime(jsonResponse.extremes[1].dt), jsonResponse.extremes[1].type , toFeet( jsonResponse.extremes[1].height ) ],
-              "nowPlus1"    : [ toHITime(jsonResponse.extremes[2].dt), jsonResponse.extremes[2].type , toFeet( jsonResponse.extremes[2].height ) ],
-              "nowPlus2"    : [ toHITime(jsonResponse.extremes[3].dt), jsonResponse.extremes[3].type , toFeet( jsonResponse.extremes[3].height ) ],
-              "nowPlus3"    : [ toHITime(jsonResponse.extremes[4].dt), jsonResponse.extremes[4].type , toFeet( jsonResponse.extremes[4].height ) ],
-              "nowPlus4"    : [ toHITime(jsonResponse.extremes[5].dt), jsonResponse.extremes[5].type , toFeet( jsonResponse.extremes[5].height ) ]
+              0 : {
+                timestamp: jsonResponse.response[0].periods[0].timestamp,
+                date: getDate(jsonResponse.response[0].periods[0].timestamp),
+                time: getTime(jsonResponse.response[0].periods[0].timestamp),
+                tideHeight: jsonResponse.response[0].periods[0].heightFT,
+                tideDesc: tideTypeVerbose(jsonResponse.response[0].periods[0].type)
+              },
+              1 : {
+                timestamp: jsonResponse.response[0].periods[1].timestamp,
+                date: getDate(jsonResponse.response[0].periods[1].timestamp),
+                time: getTime(jsonResponse.response[0].periods[1].timestamp),
+                tideHeight: jsonResponse.response[0].periods[1].heightFT,
+                tideDesc: tideTypeVerbose(jsonResponse.response[0].periods[1].type)
+              },
+              2 : {
+                timestamp: jsonResponse.response[0].periods[2].timestamp,
+                date: getDate(jsonResponse.response[0].periods[2].timestamp),
+                time: getTime(jsonResponse.response[0].periods[2].timestamp),
+                tideHeight: jsonResponse.response[0].periods[2].heightFT,
+                tideDesc: tideTypeVerbose(jsonResponse.response[0].periods[2].type)
+              },
+              3 : {
+                timestamp: jsonResponse.response[0].periods[3].timestamp,
+                date: getDate(jsonResponse.response[0].periods[3].timestamp),
+                time: getTime(jsonResponse.response[0].periods[3].timestamp),
+                tideHeight: jsonResponse.response[0].periods[3].heightFT,
+                tideDesc: tideTypeVerbose(jsonResponse.response[0].periods[3].type)
+              }
             };
+
+            // console.log('tides.south - \n', tides.south);
             callback();
 
           }
@@ -202,38 +389,10 @@ var job = new CronJob({
         if (!err) {
           var newTideData = new TideData({
             timestamp: new Date(),
-            north: {
-              nowMinus1: tides['north']['nowMinus1'],
-              now: tides['north']['now'],
-              nowPlus1: tides['north']['nowPlus1'],
-              nowPlus2: tides['north']['nowPlus2'],
-              nowPlus3: tides['north']['nowPlus3'],
-              nowPlus4: tides['north']['nowPlus4']
-            },
-            west: {
-              nowMinus1: tides['west']['nowMinus1'],
-              now: tides['west']['now'],
-              nowPlus1: tides['west']['nowPlus1'],
-              nowPlus2: tides['west']['nowPlus2'],
-              nowPlus3: tides['west']['nowPlus3'],
-              nowPlus4: tides['west']['nowPlus4']
-            },
-            east: {
-              nowMinus1: tides['east']['nowMinus1'],
-              now: tides['east']['now'],
-              nowPlus1: tides['east']['nowPlus1'],
-              nowPlus2: tides['east']['nowPlus2'],
-              nowPlus3: tides['east']['nowPlus3'],
-              nowPlus4: tides['east']['nowPlus4']
-            },
-            south: {
-              nowMinus1: tides['south']['nowMinus1'],
-              now: tides['south']['now'],
-              nowPlus1: tides['south']['nowPlus1'],
-              nowPlus2: tides['south']['nowPlus2'],
-              nowPlus3: tides['south']['nowPlus3'],
-              nowPlus4: tides['south']['nowPlus4']
-            }
+            north: tides.north,
+            west: tides.west,
+            east: tides.east,
+            south: tides.south
           });
           newTideData.save(function(err){
             if (err) return console.log(err);
