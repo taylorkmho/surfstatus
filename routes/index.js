@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
   async.parallel([
     function(callback) {
       mongoose.model('SurfData').find().sort('-timestamp').limit(1).exec(function(err, surfData) {
-        recentSurf = surfData;
+        recentSurf = surfData[0];
         callback();
       })
     },
@@ -31,16 +31,13 @@ router.get('/', function(req, res, next) {
     },
     function(callback) {
       mongoose.model('TideData').find().sort('-timestamp').limit(1).exec(function(err, tideData) {
-        recentTide.north = tideData[0].north;
-        recentTide.west = tideData[0].west;
-        recentTide.east = tideData[0].east;
-        recentTide.south = tideData[0].south;
+        recentTide = tideData[0];
         callback();
       })
     }
     ],
     function(err, results) {
-      res.render('index', { title: 'surfstatus - your new favorite surf report', recentSurf: recentSurf[0], recentWeather: recentWeather, recentTide: recentTide});
+      res.render('index', { title: 'surfstatus - your new favorite surf report', recentSurf: recentSurf, recentWeather: recentWeather, recentTide: recentTide});
     }
   );
 
