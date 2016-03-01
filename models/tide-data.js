@@ -34,12 +34,6 @@ var tideSchema = new Schema({
       time: String,
       tideHeight: String,
       tideDesc: String
-    },
-    4: {
-      date: String,
-      time: String,
-      tideHeight: String,
-      tideDesc: String
     }
   },
   west: {
@@ -62,12 +56,6 @@ var tideSchema = new Schema({
       tideDesc: String
     },
     3: {
-      date: String,
-      time: String,
-      tideHeight: String,
-      tideDesc: String
-    },
-    4: {
       date: String,
       time: String,
       tideHeight: String,
@@ -98,12 +86,6 @@ var tideSchema = new Schema({
       time: String,
       tideHeight: String,
       tideDesc: String
-    },
-    4: {
-      date: String,
-      time: String,
-      tideHeight: String,
-      tideDesc: String
     }
   },
   south: {
@@ -126,12 +108,6 @@ var tideSchema = new Schema({
       tideDesc: String
     },
     3: {
-      date: String,
-      time: String,
-      tideHeight: String,
-      tideDesc: String
-    },
-    4: {
       date: String,
       time: String,
       tideHeight: String,
@@ -213,12 +189,6 @@ var job = new CronJob({
                 time: getTime(jsonResponse.extremes[3].dt),
                 tideHeight: toFeet(jsonResponse.extremes[3].height),
                 tideDesc: jsonResponse.extremes[3].type
-              },
-              4 : {
-                date: getDate(jsonResponse.extremes[4].dt),
-                time: getTime(jsonResponse.extremes[4].dt),
-                tideHeight: toFeet(jsonResponse.extremes[4].height),
-                tideDesc: jsonResponse.extremes[4].type
               }
             };
 
@@ -227,182 +197,166 @@ var job = new CronJob({
 
           }
         )
-      },
-      function(callback) {
-        // west
-        request(
-          { url: "https://www.worldtides.info/api?extremes&lat=21.412162&lon=-158.269043" + tideTimeParams + "&key=" + tideAPIKey, method: "GET", timeout: 10000 },
-
-          function(err, response, body) {
-
-            if (err) {
-              res.render('error', {
-                message: err.message,
-                error: err
-              });
-            }
-
-            var jsonResponse = JSON.parse(body);
-
-            tides.west = {
-              0 : {
-                date: getDate(jsonResponse.extremes[0].dt),
-                time: getTime(jsonResponse.extremes[0].dt),
-                tideHeight: toFeet(jsonResponse.extremes[0].height),
-                tideDesc: jsonResponse.extremes[0].type
-              },
-              1 : {
-                date: getDate(jsonResponse.extremes[1].dt),
-                time: getTime(jsonResponse.extremes[1].dt),
-                tideHeight: toFeet(jsonResponse.extremes[1].height),
-                tideDesc: jsonResponse.extremes[1].type
-              },
-              2 : {
-                date: getDate(jsonResponse.extremes[2].dt),
-                time: getTime(jsonResponse.extremes[2].dt),
-                tideHeight: toFeet(jsonResponse.extremes[2].height),
-                tideDesc: jsonResponse.extremes[2].type
-              },
-              3 : {
-                date: getDate(jsonResponse.extremes[3].dt),
-                time: getTime(jsonResponse.extremes[3].dt),
-                tideHeight: toFeet(jsonResponse.extremes[3].height),
-                tideDesc: jsonResponse.extremes[3].type
-              },
-              4 : {
-                date: getDate(jsonResponse.extremes[4].dt),
-                time: getTime(jsonResponse.extremes[4].dt),
-                tideHeight: toFeet(jsonResponse.extremes[4].height),
-                tideDesc: jsonResponse.extremes[4].type
-              }
-            };
-
-            // console.log('tides.west - \n', tides.west);
-            callback();
-
-          }
-        )
-      },
-      function(callback) {
-        // east
-        request(
-          { url: "https://www.worldtides.info/api?extremes&lat=21.477751&lon=-157.789996" + tideTimeParams + "&key=" + tideAPIKey, method: "GET", timeout: 10000 },
-
-          function(err, response, body) {
-
-            if (err) {
-              res.render('error', {
-                message: err.message,
-                error: err
-              });
-            }
-
-            var jsonResponse = JSON.parse(body);
-
-            tides.east = {
-              0 : {
-                date: getDate(jsonResponse.extremes[0].dt),
-                time: getTime(jsonResponse.extremes[0].dt),
-                tideHeight: toFeet(jsonResponse.extremes[0].height),
-                tideDesc: jsonResponse.extremes[0].type
-              },
-              1 : {
-                date: getDate(jsonResponse.extremes[1].dt),
-                time: getTime(jsonResponse.extremes[1].dt),
-                tideHeight: toFeet(jsonResponse.extremes[1].height),
-                tideDesc: jsonResponse.extremes[1].type
-              },
-              2 : {
-                date: getDate(jsonResponse.extremes[2].dt),
-                time: getTime(jsonResponse.extremes[2].dt),
-                tideHeight: toFeet(jsonResponse.extremes[2].height),
-                tideDesc: jsonResponse.extremes[2].type
-              },
-              3 : {
-                date: getDate(jsonResponse.extremes[3].dt),
-                time: getTime(jsonResponse.extremes[3].dt),
-                tideHeight: toFeet(jsonResponse.extremes[3].height),
-                tideDesc: jsonResponse.extremes[3].type
-              },
-              4 : {
-                date: getDate(jsonResponse.extremes[4].dt),
-                time: getTime(jsonResponse.extremes[4].dt),
-                tideHeight: toFeet(jsonResponse.extremes[4].height),
-                tideDesc: jsonResponse.extremes[4].type
-              }
-            };
-
-            // console.log('tides.east - \n', tides.east);
-            callback();
-
-          }
-        )
-      },
-      function(callback) {
-        // south
-        request(
-          { url: "https://www.worldtides.info/api?extremes&lat=21.2749739&lon=-157.8491944" + tideTimeParams + "&key=" + tideAPIKey, method: "GET", timeout: 10000 },
-
-          function(err, response, body) {
-
-            if (err) {
-              res.render('error', {
-                message: err.message,
-                error: err
-              });
-            }
-
-            var jsonResponse = JSON.parse(body);
-
-            tides.south = {
-              0 : {
-                date: getDate(jsonResponse.extremes[0].dt),
-                time: getTime(jsonResponse.extremes[0].dt),
-                tideHeight: toFeet(jsonResponse.extremes[0].height),
-                tideDesc: jsonResponse.extremes[0].type
-              },
-              1 : {
-                date: getDate(jsonResponse.extremes[1].dt),
-                time: getTime(jsonResponse.extremes[1].dt),
-                tideHeight: toFeet(jsonResponse.extremes[1].height),
-                tideDesc: jsonResponse.extremes[1].type
-              },
-              2 : {
-                date: getDate(jsonResponse.extremes[2].dt),
-                time: getTime(jsonResponse.extremes[2].dt),
-                tideHeight: toFeet(jsonResponse.extremes[2].height),
-                tideDesc: jsonResponse.extremes[2].type
-              },
-              3 : {
-                date: getDate(jsonResponse.extremes[3].dt),
-                time: getTime(jsonResponse.extremes[3].dt),
-                tideHeight: toFeet(jsonResponse.extremes[3].height),
-                tideDesc: jsonResponse.extremes[3].type
-              },
-              4 : {
-                date: getDate(jsonResponse.extremes[4].dt),
-                time: getTime(jsonResponse.extremes[4].dt),
-                tideHeight: toFeet(jsonResponse.extremes[4].height),
-                tideDesc: jsonResponse.extremes[4].type
-              }
-            };
-
-            // console.log('tides.south - \n', tides.south);
-            callback();
-
-          }
-        )
       }
+      // },
+      // function(callback) {
+      //   // west
+      //   request(
+      //     { url: "https://www.worldtides.info/api?extremes&lat=21.412162&lon=-158.269043" + tideTimeParams + "&key=" + tideAPIKey, method: "GET", timeout: 10000 },
+
+      //     function(err, response, body) {
+
+      //       if (err) {
+      //         res.render('error', {
+      //           message: err.message,
+      //           error: err
+      //         });
+      //       }
+
+      //       var jsonResponse = JSON.parse(body);
+
+      //       tides.west = {
+      //         0 : {
+      //           date: getDate(jsonResponse.extremes[0].dt),
+      //           time: getTime(jsonResponse.extremes[0].dt),
+      //           tideHeight: toFeet(jsonResponse.extremes[0].height),
+      //           tideDesc: jsonResponse.extremes[0].type
+      //         },
+      //         1 : {
+      //           date: getDate(jsonResponse.extremes[1].dt),
+      //           time: getTime(jsonResponse.extremes[1].dt),
+      //           tideHeight: toFeet(jsonResponse.extremes[1].height),
+      //           tideDesc: jsonResponse.extremes[1].type
+      //         },
+      //         2 : {
+      //           date: getDate(jsonResponse.extremes[2].dt),
+      //           time: getTime(jsonResponse.extremes[2].dt),
+      //           tideHeight: toFeet(jsonResponse.extremes[2].height),
+      //           tideDesc: jsonResponse.extremes[2].type
+      //         },
+      //         3 : {
+      //           date: getDate(jsonResponse.extremes[3].dt),
+      //           time: getTime(jsonResponse.extremes[3].dt),
+      //           tideHeight: toFeet(jsonResponse.extremes[3].height),
+      //           tideDesc: jsonResponse.extremes[3].type
+      //         }
+      //       };
+
+      //       // console.log('tides.west - \n', tides.west);
+      //       callback();
+
+      //     }
+      //   )
+      // },
+      // function(callback) {
+      //   // east
+      //   request(
+      //     { url: "https://www.worldtides.info/api?extremes&lat=21.477751&lon=-157.789996" + tideTimeParams + "&key=" + tideAPIKey, method: "GET", timeout: 10000 },
+
+      //     function(err, response, body) {
+
+      //       if (err) {
+      //         res.render('error', {
+      //           message: err.message,
+      //           error: err
+      //         });
+      //       }
+
+      //       var jsonResponse = JSON.parse(body);
+
+      //       tides.east = {
+      //         0 : {
+      //           date: getDate(jsonResponse.extremes[0].dt),
+      //           time: getTime(jsonResponse.extremes[0].dt),
+      //           tideHeight: toFeet(jsonResponse.extremes[0].height),
+      //           tideDesc: jsonResponse.extremes[0].type
+      //         },
+      //         1 : {
+      //           date: getDate(jsonResponse.extremes[1].dt),
+      //           time: getTime(jsonResponse.extremes[1].dt),
+      //           tideHeight: toFeet(jsonResponse.extremes[1].height),
+      //           tideDesc: jsonResponse.extremes[1].type
+      //         },
+      //         2 : {
+      //           date: getDate(jsonResponse.extremes[2].dt),
+      //           time: getTime(jsonResponse.extremes[2].dt),
+      //           tideHeight: toFeet(jsonResponse.extremes[2].height),
+      //           tideDesc: jsonResponse.extremes[2].type
+      //         },
+      //         3 : {
+      //           date: getDate(jsonResponse.extremes[3].dt),
+      //           time: getTime(jsonResponse.extremes[3].dt),
+      //           tideHeight: toFeet(jsonResponse.extremes[3].height),
+      //           tideDesc: jsonResponse.extremes[3].type
+      //         }
+      //       };
+
+      //       // console.log('tides.east - \n', tides.east);
+      //       callback();
+
+      //     }
+      //   )
+      // },
+      // function(callback) {
+      //   // south
+      //   request(
+      //     { url: "https://www.worldtides.info/api?extremes&lat=21.2749739&lon=-157.8491944" + tideTimeParams + "&key=" + tideAPIKey, method: "GET", timeout: 10000 },
+
+      //     function(err, response, body) {
+
+      //       if (err) {
+      //         res.render('error', {
+      //           message: err.message,
+      //           error: err
+      //         });
+      //       }
+
+      //       var jsonResponse = JSON.parse(body);
+
+      //       tides.south = {
+      //         0 : {
+      //           date: getDate(jsonResponse.extremes[0].dt),
+      //           time: getTime(jsonResponse.extremes[0].dt),
+      //           tideHeight: toFeet(jsonResponse.extremes[0].height),
+      //           tideDesc: jsonResponse.extremes[0].type
+      //         },
+      //         1 : {
+      //           date: getDate(jsonResponse.extremes[1].dt),
+      //           time: getTime(jsonResponse.extremes[1].dt),
+      //           tideHeight: toFeet(jsonResponse.extremes[1].height),
+      //           tideDesc: jsonResponse.extremes[1].type
+      //         },
+      //         2 : {
+      //           date: getDate(jsonResponse.extremes[2].dt),
+      //           time: getTime(jsonResponse.extremes[2].dt),
+      //           tideHeight: toFeet(jsonResponse.extremes[2].height),
+      //           tideDesc: jsonResponse.extremes[2].type
+      //         },
+      //         3 : {
+      //           date: getDate(jsonResponse.extremes[3].dt),
+      //           time: getTime(jsonResponse.extremes[3].dt),
+      //           tideHeight: toFeet(jsonResponse.extremes[3].height),
+      //           tideDesc: jsonResponse.extremes[3].type
+      //         }
+      //       };
+
+      //       // console.log('tides.south - \n', tides.south);
+      //       callback();
+
+      //     }
+      //   )
+      // }
 
       ],
       function(err, results) {
         if (!err) {
+          // TODO - fix tide so each location gets unique
           var newTideData = new TideData({
             timestamp: new Date(),
             north: tides.north,
-            west: tides.west,
-            east: tides.east,
-            south: tides.south
+            west: tides.north,
+            east: tides.north,
+            south: tides.north
           });
           newTideData.save(function(err){
             if (err) return console.log(err);
